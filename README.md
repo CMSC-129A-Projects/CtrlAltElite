@@ -6,6 +6,10 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 
 When contributing, make a new branch then push with your new branch.
 
+## NOTE
+
+There is no need to do this if you are one of the collaborators.
+
 ## Example
 
 1. `git checkout -b naix` (creates a branch naix)
