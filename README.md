@@ -21,3 +21,8 @@ To check current branch, simply run `git status`.
 
 To switch to another branch, run `git checkout <branch>`.
 An example: `git checkout peach` or `git checkout main`
+
+## References
+
+- [https://www.freecodecamp.org/news/git-switch-branch/](https://www.freecodecamp.org/news/git-switch-branch/)
+- [https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/)
