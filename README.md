@@ -6,27 +6,27 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 
 When contributing, make a new branch then push with your new branch.
 
-## NOTE
+## 1. NOTE
 
 There is no need to do this if you are one of the collaborators.
 
-## Example
+## 2. Example
 
 1. `git checkout -b naix` (creates a branch naix)
 2. `git add .`
 3. `git commit -m "some changes here"`
 4. `git push origin naix`
 
-## Checking current branch
+## 3. Checking current branch
 
 To check current branch, simply run `git status`.
 
-## Switch branch
+## 4. Switch branch
 
 To switch to another branch, run `git checkout <branch>`.
 An example: `git checkout peach` or `git checkout main`
 
-## References
+## 5. References
 
 - [https://www.freecodecamp.org/news/git-switch-branch/](https://www.freecodecamp.org/news/git-switch-branch/)
 - [https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/)
