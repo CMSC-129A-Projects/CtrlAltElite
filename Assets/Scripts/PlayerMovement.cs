@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnWall;
 
     [Space]
+    [Header("Jump")]
+    public float lastOnGroundTime;
+
+    [Space]
     [Header("Wall Mechanics")]
     public bool isWallSliding;
     public bool isWallJumping;
@@ -45,26 +49,63 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         isFacingRight = true;
+        data.speed = data.defaultMoveSpeed;
+        data.jumpPower = data.defaultJumpPower;
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region TIMERS
+        lastOnGroundTime -= Time.deltaTime;
+        #endregion
+
 
         #region INPUT HANDLERS
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         #endregion
 
+        #region TIMER CHECKS
+        #region COYOTE TIMER
+        if (isGrounded)
+        {
+            lastOnGroundTime = 0f;
+            data.coyoteTimeCounter = data.coyoteTime;
+        }
+        else
+        {
+            data.coyoteTimeCounter -= Time.deltaTime;
+        }
+        #endregion
+
+        #region JUMP BUFFER
+        if (Input.GetButtonDown("Jump"))
+        {
+            data.jumpBufferTimeCounter = data.jumpBufferTime;
+        }
+        else
+        {
+            data.jumpBufferTimeCounter -= Time.deltaTime;
+        }
+        #endregion
+        #endregion
 
         #region JUMP 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        //code history for jump
+        //if (Input.GetButtonDown("Jump") && isGrounded)
+        //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
+        if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f) // implement jump buffer
         {
             rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
+
+            data.jumpBufferTimeCounter = 0f; // reset to 0 as soon as we jump.
         }
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
+
+            data.coyoteTimeCounter = 0f; // reset to 0 once jump button is realesed.
         }
         #endregion
 
@@ -240,7 +281,8 @@ public class PlayerMovement : MonoBehaviour
         #region DOUBLE JUMP
         if (canDoubleJump)
         {
-            if (Input.GetButtonDown("Jump"))
+            //if (Input.GetButtonDown("Jump"))
+            if (data.jumpBufferTimeCounter > 0f) // replace with jump buffer
             {
                 rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
                 if (isGrounded)
@@ -250,12 +292,12 @@ public class PlayerMovement : MonoBehaviour
             } 
 
             // cant DJ anymore when picking a DJ powerup while midair AND landing on ground not using the DJ
-            if (!doubleJumpPressed && isGrounded)
+            if (!doubleJumpPressed && isGrounded && !canDoubleJump)
             {
                 canDoubleJump = false;
             }
             // cant DJ anymore when picking a DJ powerup while midair AND wallsliding not using the DJ
-            if (!doubleJumpPressed && isWallSliding)
+            if (!doubleJumpPressed && isWallSliding && !canDoubleJump)
             {
                 canDoubleJump = false;
             }

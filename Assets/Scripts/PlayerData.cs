@@ -37,6 +37,12 @@ public class PlayerData : ScriptableObject
     public float defaultJumpPower;
     public float jumpBoostIncrease;
 
+    [Space]
+    [Header("Assists")]
+    [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
+    [HideInInspector] public float coyoteTimeCounter;
+    [Range(0.01f, 0.5f)] public float jumpBufferTime; //Grace period after pressing jump where a jump will be automatically performed once the requirements (eg. being grounded) are met.
+    [HideInInspector] public float jumpBufferTimeCounter;
 
     private void OnValidate()
     {
