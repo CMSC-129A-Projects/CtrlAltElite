@@ -10,15 +10,19 @@ public class PlayerData : ScriptableObject
     public float gravityScale;
 
     [Header("Run")]
+    public float defaultMoveSpeed;
     public float speed;
+    
 
     [Space]
     [Header("Jump")]
+    public float defaultJumpPower;
     public float jumpPower;
     public float jumpCutPower;
 
     [Space]
     [Header("Wall Mechanics")]
+    // wall slide
     public float wallSlidingSpeed;
     // Wall Jump
     public float wallJumpingDirection;
@@ -26,18 +30,19 @@ public class PlayerData : ScriptableObject
     public float wallJumpingCounter;
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
+    // wall climb
+    [Range(0.01f, 5f)] public float wallClimbingSpeedUp;
+    [Range(0.01f, 5f)] public float wallClimbingSpeedDown;
 
     [Space]
     [Header("Power Ups")]
     // Move Speed
     public float moveSpeedTimer;
     public float moveSpeedTimerCap;
-    public float defaultMoveSpeed;
     public float moveSpeedIncrease;
     // Jump Boost
     public float jumpBoostTimer;
     public float jumpBoostTimerCap;
-    public float defaultJumpPower;
     public float jumpBoostIncrease;
 
     [Space]
@@ -49,10 +54,8 @@ public class PlayerData : ScriptableObject
 
     private void OnValidate()
     {
-        defaultMoveSpeed = speed;
         moveSpeedIncrease = defaultMoveSpeed * 1.5f;
 
-        defaultJumpPower = jumpPower;
         jumpBoostIncrease = defaultJumpPower * 1.3f;
     }
 
