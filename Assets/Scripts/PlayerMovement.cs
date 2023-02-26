@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall Mechanics")]
     public bool isWallSliding;
     public bool isWallJumping;
+    public bool isWallGrabbing;
 
     [Space]
     [Header("Power Ups")]
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
         data.speed = data.defaultMoveSpeed;
         data.jumpPower = data.defaultJumpPower;
+
+        SetGravityScale(data.gravityScale);
     }
 
     // Update is called once per frame
@@ -70,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput.y = Input.GetAxisRaw("Vertical");
         #endregion
 
-        #region TIMER CHECKS
+        #region TIMER AND BOOL CHECKS
         #region COYOTE TIMER
         if (isGrounded)
         {
@@ -126,9 +129,11 @@ public class PlayerMovement : MonoBehaviour
         WallSlide();
         // Check if can wall jump
         WallJump();
+        // Check if can wall grab
+        WallGrab();
 
 
-        if (!isWallJumping)
+        if (!isWallJumping && !isWallGrabbing)
         {
             // Checks if sprite needs to be flipped depending on direction faced
             Flip();
@@ -144,20 +149,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isWallJumping) // move player horizontally if not wall jumping
+        if (!isWallJumping && !isWallGrabbing) // move player horizontally if not wall jumping
         {
             // move player horizontally
-            rb.velocity = new Vector2(moveInput.x * data.speed, rb.velocity.y);
+            Run();
         }
    
     }
 
-
+    private void Run()
+    {
+        rb.velocity = new Vector2(moveInput.x * data.speed, rb.velocity.y);
+    }
 
     #region WALL MECHANICS
+    private void WallGrab()
+    {
+        if (isOnWall && !isGrounded && Input.GetKey(KeyCode.K))
+        {
+            isWallGrabbing = true;
+            SetGravityScale(0);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+        else
+        {
+            isWallGrabbing = false;
+            SetGravityScale(data.gravityScale);
+        }
+    }
     private void WallSlide()
     {
-        if (isOnWall && !isGrounded && moveInput.x != 0f)
+        if (isOnWall && !isGrounded && moveInput.x != 0f && !isWallGrabbing)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -data.wallSlidingSpeed, float.MaxValue));
@@ -257,6 +279,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
+    }
+
+    public void SetGravityScale(float scale)
+    {
+        rb.gravityScale = scale;
     }
     #endregion
 

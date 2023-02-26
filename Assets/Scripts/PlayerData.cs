@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player Data", menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
+    [Header("Gravity")]
+    public float gravityScale;
+
     [Header("Run")]
     public float speed;
 
