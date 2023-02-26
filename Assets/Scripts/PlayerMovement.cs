@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Space]
     [Header("Jump")]
-    public float lastOnGroundTime;
+    public float lastOnAirTime;
+    public float onGroundTime;
+    public bool inAir;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -57,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         #region TIMERS
-        lastOnGroundTime -= Time.deltaTime;
+        // lastOnAirTime -= Time.deltaTime;
+        // onGroundTime += Time.deltaTime;
+
         #endregion
 
 
@@ -70,17 +74,21 @@ public class PlayerMovement : MonoBehaviour
         #region COYOTE TIMER
         if (isGrounded)
         {
-            lastOnGroundTime = 0f;
+            inAir = false;
+            lastOnAirTime -= Time.deltaTime;
             data.coyoteTimeCounter = data.coyoteTime;
         }
         else
         {
+            inAir = true;
+            onGroundTime = 0f;
+            lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
         }
         #endregion
 
         #region JUMP BUFFER
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J))
         {
             data.jumpBufferTimeCounter = data.jumpBufferTime;
         }
@@ -101,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
             data.jumpBufferTimeCounter = 0f; // reset to 0 as soon as we jump.
         }
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
 
@@ -175,7 +183,8 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && data.wallJumpingCounter > 0f)
+        //if (Input.GetButtonDown("Jump") && data.wallJumpingCounter > 0f)
+        if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
             isWallJumping = true;
             rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
@@ -289,19 +298,26 @@ public class PlayerMovement : MonoBehaviour
                     doubleJumpPressed = false;
                 else if (!isGrounded && !isWallJumping)
                     doubleJumpPressed = true;
-            } 
+            }
 
+            // can DJ if picked DJ powerup from the ground
+            if (!doubleJumpPressed && isGrounded && !inAir)
+            {
+                canDoubleJump = true;
+            }
             // cant DJ anymore when picking a DJ powerup while midair AND landing on ground not using the DJ
-            if (!doubleJumpPressed && isGrounded && !canDoubleJump)
+            if (!doubleJumpPressed && isGrounded && inAir)
             {
                 canDoubleJump = false;
             }
             // cant DJ anymore when picking a DJ powerup while midair AND wallsliding not using the DJ
-            if (!doubleJumpPressed && isWallSliding && !canDoubleJump)
+            if (!doubleJumpPressed && isWallSliding)
             {
                 canDoubleJump = false;
             }
+            
         }
+        
         if (doubleJumpPressed && !isGrounded)
         {
             canDoubleJump = false;
@@ -310,6 +326,7 @@ public class PlayerMovement : MonoBehaviour
                 doubleJumpPressed = false;
             }
         }
+
         if (isGrounded && !canDoubleJump)
         {
             doubleJumpPressed = false;
