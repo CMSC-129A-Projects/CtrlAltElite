@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    PlayerMovement playerMovement;
-    [SerializeField] public GameObject player;
+    [SerializeField] public PlayerMovement playerMovement;
 
     private int respawnItemTimer = 4;
     // https://www.youtube.com/watch?v=Y7pp2gzCzUI HOW TO ACCESS DATA FROM ANOTHER SCRIPT 
-
-    private void Awake()
-    {
-        playerMovement = player.GetComponent<PlayerMovement>();
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,7 +19,6 @@ public class ItemCollector : MonoBehaviour
         if(collision.gameObject.CompareTag("DoubleJump"))
         {
             playerMovement.canDoubleJump = true;
-            //Debug.Log(true);
             RespawnItem(collision);          
         }
         if (collision.gameObject.CompareTag("JumpBoost"))
