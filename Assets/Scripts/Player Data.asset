@@ -12,24 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a1d5791f0d5745a72da6bf10be2da, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  speed: 11
+  gravityScale: 7
+  defaultMoveSpeed: 8
+  speed: 8
+  defaultJumpPower: 16
   jumpPower: 16
   jumpCutPower: 0.5
   wallSlidingSpeed: 2
-  wallJumpingDirection: -1
+  wallJumpingDirection: 1
   wallJumpingTime: 0.2
-  wallJumpingCounter: -16.091366
+  wallJumpingCounter: -2.1964047
   wallJumpingDuration: 0.2
   wallJumpingPower: {x: 7, y: 13}
+  wallClimbingSpeedUp: 3
+  wallClimbingSpeedDown: 5
   moveSpeedTimer: 0
   moveSpeedTimerCap: 2
-  defaultMoveSpeed: 11
-  moveSpeedIncrease: 16.5
+  moveSpeedIncrease: 12
   jumpBoostTimer: 0
   jumpBoostTimerCap: 2
-  defaultJumpPower: 16
   jumpBoostIncrease: 20.8
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -3.9957473
+  jumpBufferTimeCounter: -2.696425
