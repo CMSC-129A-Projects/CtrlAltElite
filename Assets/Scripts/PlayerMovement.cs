@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Collision")]
     public bool isGrounded;
     public bool isOnWall;
+    public bool onRightWall;
+    public bool onLeftWall;
 
     [Space]
     [Header("Jump")]
@@ -34,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isWallSliding;
     public bool isWallJumping;
     public bool isWallGrabbing;
+
 
     [Space]
     [Header("Power Ups")]
@@ -120,8 +124,6 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-
-
         // Checks collision detected by collision checkers
         CollisionCheck();
         
@@ -169,12 +171,11 @@ public class PlayerMovement : MonoBehaviour
     #region WALL GRAB
     private void WallGrab()
     {
-        if (isOnWall && !isGrounded && Input.GetKey(KeyCode.K))
+        if (!isWallJumping && isOnWall && (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.LeftShift)))
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
                 isWallGrabbing = false;
-                PerformWallJump();
             } 
             else
             {
@@ -231,7 +232,6 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = false;
             data.wallJumpingDirection = -transform.localScale.x;
             data.wallJumpingCounter = data.wallJumpingTime;
-
             CancelInvoke(nameof(StopWallJumping));
         }
         else
@@ -239,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter -= Time.deltaTime;
         }
 
-        //if (Input.GetButtonDown("Jump") && data.wallJumpingCounter > 0f)
+        //if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J) && data.wallJumpingCounter > 0f)
         if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
             PerformWallJump();
@@ -249,13 +249,31 @@ public class PlayerMovement : MonoBehaviour
     private void PerformWallJump()
     {
         isWallJumping = true;
-        rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
+        isWallGrabbing = false;
         data.wallJumpingCounter = 0f;
-
-        if (transform.localScale.x != data.wallJumpingDirection)
+        if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
         {
-            PerformFlip();
+            if (moveInput.y != 0)
+            {
+                rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 0.5f);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+            }
+            
         }
+        else
+        {
+            rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
+            if (transform.localScale.x != data.wallJumpingDirection)
+            {
+                PerformFlip();
+            }
+        }
+        
+
+        
 
         Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
     }
@@ -299,6 +317,24 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isOnWall = false;
+        }
+
+        if (isOnWall)
+        {
+            if (isFacingRight)
+            {
+                onRightWall = true;
+                onLeftWall = false;
+            }
+            else
+            {
+                onRightWall = false;
+                onLeftWall = true;
+            }
+        }
+        else
+        {
+            onRightWall = false; onLeftWall = false;
         }
     }
 
