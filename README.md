@@ -30,6 +30,3 @@ An example: `git checkout peach` or `git checkout main`
 
 - [https://www.freecodecamp.org/news/git-switch-branch/](https://www.freecodecamp.org/news/git-switch-branch/)
 - [https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/)
-
-test
-another test update
