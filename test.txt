@@ -2,4 +2,4 @@ test -naix
 
 
 
-after wineff push
+after wineff push - naix
