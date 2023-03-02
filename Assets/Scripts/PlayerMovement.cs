@@ -255,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (moveInput.y != 0)
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 0.5f);
+                rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
             }
             else
             {
