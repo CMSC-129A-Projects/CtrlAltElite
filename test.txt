@@ -1,0 +1,2 @@
+test -naix
+test - wineff
