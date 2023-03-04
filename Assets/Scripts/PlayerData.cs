@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player Data", menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
-    // this is a comment test
     [Header("Stamina")]
-    public float wallGrabStamina;
-    public float wallJumpStamina;
-    public float wallClimbStamina;
+    public float wallGrabStaminaDrain;
+    public float wallJumpStaminaDrain;
+    public float wallClimbStaminaDrain;
+    public float staminaRegen;
     [Range(0f, 100f)] public float stamina;
 
     [Header("Gravity")]

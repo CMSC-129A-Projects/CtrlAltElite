@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isWallSliding;
     public bool isWallJumping;
     public bool isWallGrabbing;
+    public bool isWallClimbing;
 
 
     [Space]
@@ -134,6 +135,20 @@ public class PlayerMovement : MonoBehaviour
         // Check if can wall grab
         WallGrab();
 
+        if (isGrounded && (data.stamina >= 0 && data.stamina < 100))
+        {
+            data.stamina += data.staminaRegen;
+
+        }
+        else if (data.stamina >= 100)
+        {
+            data.stamina = 100;
+        }
+        else if (data.stamina < 0)
+        {
+            data.stamina = 0;
+        }
+
 
         if (!isWallJumping && !isWallGrabbing)
         {
@@ -192,14 +207,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformWallGrab()
     {
-        isWallGrabbing = true;
-        // don't make the player move when only grabbing
-        SetGravityScale(0);
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        if(data.stamina != 0)
+        {
+            // drain stamina
+            data.stamina -= data.wallGrabStaminaDrain; 
 
-        // wall climbing
-        float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
-        rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+
+            isWallGrabbing = true;
+            // don't make the player move when only grabbing
+            SetGravityScale(0);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+
+            // wall climbing
+            float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
+            rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+        }
+        else
+        {
+            isWallGrabbing = false;
+            SetGravityScale(data.gravityScale);
+        }
     }
     #endregion
 
@@ -248,34 +275,46 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformWallJump()
     {
-        isWallJumping = true;
-        isWallGrabbing = false;
-        data.wallJumpingCounter = 0f;
-        if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
+        if (data.stamina != 0)
         {
-            if (moveInput.y != 0)
+            data.stamina -= data.wallJumpStaminaDrain;
+
+            isWallJumping = true;
+            isWallGrabbing = false;
+            data.wallJumpingCounter = 0f;
+            if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
+                if (moveInput.y != 0)
+                {
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                }
+                
             }
             else
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
+                if (transform.localScale.x != data.wallJumpingDirection)
+                {
+                    PerformFlip();
+                }
             }
-            
+
+            Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
+
         }
         else
         {
-            rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
-            if (transform.localScale.x != data.wallJumpingDirection)
-            {
-                PerformFlip();
-            }
+            isWallJumping = false;
+            data.wallJumpingDirection = -transform.localScale.x;
+            data.wallJumpingCounter = data.wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+
         }
-        
 
-        
-
-        Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
     }
 
     private void StopWallJumping()
