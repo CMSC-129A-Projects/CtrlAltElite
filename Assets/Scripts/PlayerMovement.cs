@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public bool onRightWall;
     public bool onLeftWall;
     public bool canCornerCorrect;
+    public bool canLedgeCorrect;
 
     [Space]
     [Header("Jump")]
@@ -143,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
         WallJump();
         // Check if can wall grab
         WallGrab();
+        // Check if can ledge correct
+        //LedgeCorrect();
 
 
         if (!isWallJumping && !isWallGrabbing)
@@ -317,6 +320,8 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter -= Time.deltaTime;
         }
 
+
+
         //if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J) && data.wallJumpingCounter > 0f)
         if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
@@ -329,7 +334,8 @@ public class PlayerMovement : MonoBehaviour
         if (data.stamina != data.staminaMin)
         {
             data.stamina -= data.wallJumpStaminaDrain;
-
+            isOnWall = false;
+            isWallSliding = false;
             isWallJumping = true;
             isWallGrabbing = false;
             data.wallJumpingCounter = 0f;
@@ -374,6 +380,16 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    #region LEDGE CORRECT
+    private void LedgeCorrect()
+    {
+        if (canLedgeCorrect)
+        {
+            //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
+        }
+    }
+    #endregion
+
     #endregion
 
 
@@ -383,13 +399,15 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCollisionCheck();
         WallCollisionCheck();
-        CornerCorrectCheck();
+        LedgeCollisionCheck();
+        //CornerCorrectCheck();
     }
 
     private void GroundCollisionCheck()
     {
         //Ground Check
-        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        //if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        if (coll.onGround)
         {
             isGrounded = true;
         }
@@ -401,7 +419,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallCollisionCheck()
     {
-        if (Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer))
+        if (Physics2D.OverlapCircle(wallCheck.position, 0.25f, groundLayer))
+        //if (coll.onWall) //this is bugged
         {
             isOnWall = true;
         }
@@ -426,6 +445,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             onRightWall = false; onLeftWall = false;
+        }
+    }
+
+    private void LedgeCollisionCheck()
+    {
+        if (!coll.canLedge && coll.onWall)
+        {
+            canLedgeCorrect = true;
+        }
+        else
+        {
+            canLedgeCorrect = false;
         }
     }
 
@@ -591,6 +622,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(wallCheck.position, 0.25f);
         /*Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
         Gizmos.color = Color.blue;*/
         /*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
