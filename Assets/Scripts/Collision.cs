@@ -7,15 +7,17 @@ public class Collision : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
-    
+
+    [Header("Checks")]
+    [SerializeField] public Transform groundCheck;
+    [SerializeField] public Transform wallCheck;
+    [SerializeField] public Transform ledgeCheck;
 
     [Space]
     public PlayerMovement player;
 
     public bool onGround;
     public bool onWall;
-    public bool onRightWall;
-    public bool onLeftWall;
     public bool canCornerCorrect;
     public bool canLedge;
     public int wallSide;
@@ -23,10 +25,8 @@ public class Collision : MonoBehaviour
     [Space]
 
     [Header("Collision")]
-
     public float collisionRadius = 0.25f;
-    public Vector2 bottomOffset, rightOffset, leftOffset, ledgeOffsetRight, ledgeOffsetLeft;
-    private Color debugCollisionColor = Color.red;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +36,8 @@ public class Collision : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {  
-        onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
+    {
+        /*onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
 
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer)
             || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
@@ -50,9 +50,12 @@ public class Collision : MonoBehaviour
         canLedge = Physics2D.OverlapCircle((Vector2)transform.position + ledgeOffsetRight, collisionRadius, groundLayer) ||
             Physics2D.OverlapCircle((Vector2)transform.position + ledgeOffsetLeft, collisionRadius, groundLayer);
 
+        wallSide = onRightWall ? -1 : 1;*/
 
+        onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
+        onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, groundLayer);
+        canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
-        wallSide = onRightWall ? -1 : 1;
 
         canCornerCorrect = Physics2D.Raycast(transform.position + player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
             && !Physics2D.Raycast(transform.position + player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
@@ -63,19 +66,16 @@ public class Collision : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, collisionRadius);
 
-        var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset };
-
-        Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(wallCheck.position, collisionRadius);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere((Vector2)transform.position + ledgeOffsetRight, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + ledgeOffsetLeft, collisionRadius);
+        Gizmos.DrawWireSphere(ledgeCheck.position, collisionRadius);
 
         Gizmos.color = Color.blue;
-        /*// Corner Check
+        // Corner Check
         Gizmos.DrawLine(transform.position + player.data.edgeRayCastOffset, transform.position + player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position - player.data.edgeRayCastOffset, transform.position - player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset, transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength);
@@ -85,7 +85,7 @@ public class Collision : MonoBehaviour
         Gizmos.DrawLine(transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
                         transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.left * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
-                        transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);*/
+                        transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);
 
     }
 }

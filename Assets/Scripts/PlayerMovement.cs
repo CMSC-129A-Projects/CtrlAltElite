@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public PlayerData data;
     [SerializeField] public Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
+    [SerializeField] public Transform wallCheck;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private LayerMask groundLayer;
 
@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public float lastOnAirTime;
     public float onGroundTime;
     public bool inAir;
+    public bool isFalling;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -116,6 +117,15 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region JUMP 
+        Debug.Log(rb.velocity.y);
+        if (rb.velocity.y > 0.1f || isGrounded)
+        {
+            isFalling = false;
+        } 
+        else if (rb.velocity.y < -0.1f && inAir)
+        {
+            isFalling = true;
+        }
         //code history for jump
         //if (Input.GetButtonDown("Jump") && isGrounded)
         //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
@@ -400,7 +410,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCollisionCheck();
         WallCollisionCheck();
         LedgeCollisionCheck();
-        //CornerCorrectCheck();
+        CornerCorrectCheck(); // this is bugged
     }
 
     private void GroundCollisionCheck()
@@ -419,8 +429,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallCollisionCheck()
     {
-        if (Physics2D.OverlapCircle(wallCheck.position, 0.25f, groundLayer))
-        //if (coll.onWall) //this is bugged
+        //if (Physics2D.OverlapCircle(wallCheck.position, 0.25f, groundLayer))
+        if (coll.onWall) //this is bugged
         {
             isOnWall = true;
         }
@@ -471,7 +481,7 @@ public class PlayerMovement : MonoBehaviour
             canCornerCorrect = false;
         }
 
-        if (canCornerCorrect && !isGrounded)
+        if (canCornerCorrect && !isGrounded && !isOnWall && !isFalling)
         {
             CornerCorrect(rb.velocity.y);
         }
@@ -622,7 +632,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(wallCheck.position, 0.25f);
+        //Gizmos.DrawWireSphere(wallCheck.position, 0.25f);
         /*Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
         Gizmos.color = Color.blue;*/
         /*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
