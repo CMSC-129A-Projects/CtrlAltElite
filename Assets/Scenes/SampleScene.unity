@@ -449,7 +449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024377713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.005, y: -4.204, z: 0}
+  m_LocalPosition: {x: 3.831, y: -4.401, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -500,13 +500,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 1024377717}
-  coll: {fileID: 1024377720}
   moveInput: {x: 0, y: 0}
   isFacingRight: 0
   isGrounded: 0
   isOnWall: 0
   onRightWall: 0
   onLeftWall: 0
+  canCornerCorrect: 0
   lastOnAirTime: 0
   onGroundTime: 0
   inAir: 0
@@ -525,14 +525,14 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024377713}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016492128, y: -0.061657965}
-  m_Size: {x: 0.5790353, y: 0.6252934}
+  m_Offset: {x: 0.00072073936, y: -0.05012244}
+  m_Size: {x: 0.47739792, y: 0.6483644}
   m_Direction: 0
 --- !u!61 &1024377720
 BoxCollider2D:
@@ -547,7 +547,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.033504605}
+  m_Offset: {x: 0, y: -0.15792227}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -558,7 +558,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4828987, y: 0.7682731}
+  m_Size: {x: 0.4828987, y: 0.5194378}
   m_EdgeRadius: 0
 --- !u!114 &1024377721
 MonoBehaviour:
@@ -588,10 +588,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  player: {fileID: 1024377718}
   onGround: 0
   onWall: 0
   onRightWall: 0
   onLeftWall: 0
+  canCornerCorrect: 0
   wallSide: 0
   collisionRadius: 0.05
   bottomOffset: {x: 0, y: -0.418}

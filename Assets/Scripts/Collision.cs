@@ -7,13 +7,16 @@ public class Collision : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
+    
 
     [Space]
+    public PlayerMovement player;
 
     public bool onGround;
     public bool onWall;
     public bool onRightWall;
     public bool onLeftWall;
+    public bool canCornerCorrect;
     public int wallSide;
 
     [Space]
@@ -27,7 +30,7 @@ public class Collision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -41,6 +44,11 @@ public class Collision : MonoBehaviour
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
 
         wallSide = onRightWall ? -1 : 1;
+
+        canCornerCorrect = Physics2D.Raycast(transform.position + player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
+            && !Physics2D.Raycast(transform.position + player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
+            || Physics2D.Raycast(transform.position - player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
+            && !Physics2D.Raycast(transform.position - player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer);
     }
 
     void OnDrawGizmos()
@@ -52,5 +60,19 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position  + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+
+        Gizmos.color = Color.blue;
+        // Corner Check
+        Gizmos.DrawLine(transform.position + player.data.edgeRayCastOffset, transform.position + player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
+        Gizmos.DrawLine(transform.position - player.data.edgeRayCastOffset, transform.position - player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
+        Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset, transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength);
+        Gizmos.DrawLine(transform.position - player.data.innerRayCastOffset, transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength);
+
+        // Corner Distance Check
+        Gizmos.DrawLine(transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
+                        transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.left * player.data.topRayCastLength);
+        Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
+                        transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);
+
     }
 }

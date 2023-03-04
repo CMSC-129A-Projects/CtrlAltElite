@@ -19,6 +19,12 @@ public class PlayerData : ScriptableObject
     [Header("Gravity")]
     public float gravityScale;
 
+    [Space]
+    [Header("RayCast")]
+    public float topRayCastLength;
+    public Vector3 edgeRayCastOffset;
+    public Vector3 innerRayCastOffset;
+
     [Header("Run")]
     public float defaultMoveSpeed;
     public float speed;
