@@ -225,11 +225,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if(data.stamina != data.staminaMin)
         {
+            isWallGrabbing = true;
+            // stick to wall
+            // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
+            StickToWall();
+
             // drain stamina
             data.stamina -= data.wallGrabStaminaDrain; 
 
-
-            isWallGrabbing = true;
+            
             // don't make the player move when only grabbing
             SetGravityScale(0);
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -242,6 +246,29 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallGrabbing = false;
             SetGravityScale(data.gravityScale);
+        }
+    }
+
+    private void StickToWall()
+    {
+        //Push player torwards wall
+        if (onRightWall && transform.localScale.x >= 0f)
+        {
+            rb.velocity = new Vector2(1f, rb.velocity.y);
+        }
+        else if (onLeftWall && transform.localScale.x <= 0f)
+        {
+            rb.velocity = new Vector2(-1f, rb.velocity.y);
+        }
+
+        //Face correct direction
+        if (onRightWall && !isFacingRight)
+        {
+            PerformFlip();
+        }
+        else if (onRightWall && isFacingRight)
+        {
+            PerformFlip();
         }
     }
     #endregion
