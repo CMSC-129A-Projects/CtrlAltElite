@@ -11,7 +11,9 @@ public class PlayerData : ScriptableObject
     public float wallJumpStaminaDrain;
     public float wallClimbStaminaDrain;
     public float staminaRegen;
-    [Range(0f, 100f)] public float stamina;
+    public float staminaMax;
+    public float staminaMin;
+    public float stamina;
 
     [Header("Gravity")]
     public float gravityScale;

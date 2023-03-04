@@ -85,6 +85,12 @@ public class PlayerMovement : MonoBehaviour
             inAir = false;
             lastOnAirTime -= Time.deltaTime;
             data.coyoteTimeCounter = data.coyoteTime;
+
+            // regen stamina
+            if(data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+            {
+                data.stamina += data.staminaRegen;
+            }
         }
         else
         {
@@ -92,6 +98,14 @@ public class PlayerMovement : MonoBehaviour
             onGroundTime = 0f;
             lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
+        }
+        if (data.stamina >= data.staminaMax)
+        {
+            data.stamina = data.staminaMax;
+        }
+        else if (data.stamina <= data.staminaMin)
+        {
+            data.stamina = data.staminaMin;
         }
         #endregion
 
@@ -135,20 +149,6 @@ public class PlayerMovement : MonoBehaviour
         // Check if can wall grab
         WallGrab();
 
-        if (isGrounded && (data.stamina >= 0 && data.stamina < 100))
-        {
-            data.stamina += data.staminaRegen;
-
-        }
-        else if (data.stamina >= 100)
-        {
-            data.stamina = 100;
-        }
-        else if (data.stamina < 0)
-        {
-            data.stamina = 0;
-        }
-
 
         if (!isWallJumping && !isWallGrabbing)
         {
@@ -181,7 +181,17 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
+
     #region WALL MECHANICS
+
+    #region PERFORM
+    private void PerformWallMechanic()
+    {
+
+    }
+
+    #endregion
 
     #region WALL GRAB
     private void WallGrab()
@@ -207,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformWallGrab()
     {
-        if(data.stamina != 0)
+        if(data.stamina != data.staminaMin)
         {
             // drain stamina
             data.stamina -= data.wallGrabStaminaDrain; 
@@ -275,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformWallJump()
     {
-        if (data.stamina != 0)
+        if (data.stamina != data.staminaMin)
         {
             data.stamina -= data.wallJumpStaminaDrain;
 
