@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Variables
     public Rigidbody2D rb;
+    private Collision coll;
 
     public Vector2 moveInput;
     public bool isFacingRight;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnWall;
     public bool onRightWall;
     public bool onLeftWall;
+    public bool canCornerCorrect;
 
     [Space]
     [Header("Jump")]
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collision>();
     }
     // Start is called before the first frame update
     void Start()
@@ -380,6 +383,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCollisionCheck();
         WallCollisionCheck();
+        CornerCorrectCheck();
     }
 
     private void GroundCollisionCheck()
@@ -422,6 +426,48 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             onRightWall = false; onLeftWall = false;
+        }
+    }
+
+    private void CornerCorrectCheck()
+    {
+        if (coll.canCornerCorrect)
+        {
+            canCornerCorrect = true;
+        }
+        else
+        {
+            canCornerCorrect = false;
+        }
+
+        if (canCornerCorrect && !isGrounded)
+        {
+            CornerCorrect(rb.velocity.y);
+        }
+    }
+
+    private void CornerCorrect(float yVelocity)
+    {
+        // Push player to the right
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.left, data.topRayCastLength, groundLayer);
+        if (hit.collider != null)
+        {
+            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * data.topRayCastLength,
+                transform.position - data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
+            transform.position = new Vector3(transform.position.x + newPos, transform.position.y, transform.position.z);
+            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+            return;
+        }
+
+        // Push player to the left
+        hit = Physics2D.Raycast(transform.position + data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.right, data.topRayCastLength, groundLayer);
+        if (hit.collider != null)
+        {
+            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * data.topRayCastLength,
+                transform.position + data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
+            transform.position = new Vector3(transform.position.x - newPos, transform.position.y, transform.position.z);
+            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+            return;
         }
     }
 
