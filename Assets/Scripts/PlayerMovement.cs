@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region TIMER AND BOOL CHECKS
+
         #region COYOTE TIMER
         if (isGrounded)
         {
@@ -107,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
             data.jumpBufferTimeCounter -= Time.deltaTime;
         }
         #endregion
+
         #endregion
 
         #region JUMP 
@@ -180,6 +182,8 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
+
+
     }
 
     private void Run()
@@ -227,11 +231,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (data.stamina != data.staminaMin)
         {
+            isWallGrabbing = true;
             // drain stamina
             data.stamina -= data.wallGrabStaminaDrain;
 
+            // stick to wall
+            // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
+            StickToWall();
 
-            isWallGrabbing = true;
+
             // don't make the player move when only grabbing
             SetGravityScale(0);
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -244,6 +252,28 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallGrabbing = false;
             SetGravityScale(data.gravityScale);
+        }
+    }
+    private void StickToWall()
+    {
+        //Push player torwards wall
+        if (onRightWall && transform.localScale.x >= 0f)
+        {
+            rb.velocity = new Vector2(15f, rb.velocity.y);
+        }
+        else if (onLeftWall && transform.localScale.x <= 0f)
+        {
+            rb.velocity = new Vector2(-15f, rb.velocity.y);
+        }
+
+        //Face correct direction
+        if (onRightWall && !isFacingRight)
+        {
+            PerformFlip();
+        }
+        else if (onLeftWall && isFacingRight)
+        {
+            PerformFlip();
         }
     }
     #endregion
@@ -304,7 +334,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (moveInput.y != 0)
                 {
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
                 }
                 else
                 {
@@ -515,8 +545,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
-        Gizmos.color = Color.blue;
+        /*Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        Gizmos.color = Color.blue;*/
         /*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
         Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);*/
     }
