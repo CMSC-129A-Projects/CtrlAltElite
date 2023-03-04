@@ -12,31 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a1d5791f0d5745a72da6bf10be2da, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
+  stamina: 100
   wallGrabStaminaDrain: 0.1
   wallJumpStaminaDrain: 0
   wallClimbStaminaDrain: 0
-  stamina: -15.899074
+  staminaRegen: 3
+  staminaMax: 100
+  staminaMin: 0
   gravityScale: 7
-  defaultMoveSpeed: 8
-  speed: 8
+  defaultMoveSpeed: 7
+  speed: 7
   defaultJumpPower: 16
   jumpPower: 16
   jumpCutPower: 0.5
   wallSlidingSpeed: 2
-  wallJumpingDirection: 1
+  wallJumpingDirection: -1
   wallJumpingTime: 0.2
-  wallJumpingCounter: -2547.2593
+  wallJumpingCounter: -1.4171407
   wallJumpingDuration: 0.2
   wallJumpingPower: {x: 7, y: 13}
   wallClimbingSpeedUp: 3
   wallClimbingSpeedDown: 5
   moveSpeedTimer: 0
   moveSpeedTimerCap: 2
-  moveSpeedIncrease: 12
+  moveSpeedIncrease: 10.5
   jumpBoostTimer: 0
   jumpBoostTimerCap: 2
   jumpBoostIncrease: 20.8
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -2652.6035
+  jumpBufferTimeCounter: -1.6590996

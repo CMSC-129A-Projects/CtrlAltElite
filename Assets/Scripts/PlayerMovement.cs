@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
         data.speed = data.defaultMoveSpeed;
         data.jumpPower = data.defaultJumpPower;
+        data.stamina = data.staminaMax;
 
         SetGravityScale(data.gravityScale);
     }
@@ -84,13 +85,7 @@ public class PlayerMovement : MonoBehaviour
         {
             inAir = false;
             lastOnAirTime -= Time.deltaTime;
-            data.coyoteTimeCounter = data.coyoteTime;
-
-            // regen stamina
-            if(data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
-            {
-                data.stamina += data.staminaRegen;
-            }
+            data.coyoteTimeCounter = data.coyoteTime; 
         }
         else
         {
@@ -99,14 +94,7 @@ public class PlayerMovement : MonoBehaviour
             lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
         }
-        if (data.stamina >= data.staminaMax)
-        {
-            data.stamina = data.staminaMax;
-        }
-        else if (data.stamina <= data.staminaMin)
-        {
-            data.stamina = data.staminaMin;
-        }
+        
         #endregion
 
         #region JUMP BUFFER
@@ -138,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
             data.coyoteTimeCounter = 0f; // reset to 0 once jump button is realesed.
         }
         #endregion
+
+        
 
         // Checks collision detected by collision checkers
         CollisionCheck();
@@ -171,7 +161,25 @@ public class PlayerMovement : MonoBehaviour
             // move player horizontally
             Run();
         }
-   
+
+        #region STAMINA
+        // regen stamina if grounded
+        if (isGrounded && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        {
+            data.stamina += data.staminaRegen;
+        }
+        // cap stamina at min and max
+        if (data.stamina >= data.staminaMax)
+        {
+            data.stamina = data.staminaMax;
+        }
+        if (data.stamina <= data.staminaMin)
+        {
+            data.stamina = data.staminaMin;
+        }
+
+        #endregion
+
     }
 
     private void Run()

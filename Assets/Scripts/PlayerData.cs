@@ -7,13 +7,14 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [Header("Stamina")]
+    public float stamina;
     public float wallGrabStaminaDrain;
     public float wallJumpStaminaDrain;
     public float wallClimbStaminaDrain;
     public float staminaRegen;
     public float staminaMax;
     public float staminaMin;
-    public float stamina;
+    
 
     [Header("Gravity")]
     public float gravityScale;
