@@ -228,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
                 isWallGrabbing = false;
+                PerformWallJump();
             }
             else
             {
@@ -350,15 +351,15 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter = 0f;
             if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
-                /*if (moveInput.y != 0) // might change later
+                //rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                if (moveInput.y != 0) // might change later
                 {
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 2f);
                 }
                 else
                 {
                     rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
-                }*/
+                }
 
             }
             else
