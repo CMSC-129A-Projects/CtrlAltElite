@@ -8,13 +8,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public PlayerData data;
     [SerializeField] public Transform groundCheck;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
+    [SerializeField] private Vector2 groundCheckSize;
+    [SerializeField] private Vector2 wallCheckSize;
     [SerializeField] private LayerMask groundLayer;
 
     
 
     #region Variables
     public Rigidbody2D rb;
+    public Collision coll;
 
     public Vector2 moveInput;
     public bool isFacingRight;
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collision>();
     }
     // Start is called before the first frame update
     void Start()
@@ -192,14 +195,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     #region WALL MECHANICS
-
-    #region PERFORM
-    private void PerformWallMechanic()
-    {
-
-    }
-
-    #endregion
+    // -- TODO 
+    // stick to wall function
 
     #region WALL GRAB
     private void WallGrab()
@@ -302,14 +299,17 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter = 0f;
             if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
-                if (moveInput.y != 0)
+                rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+
+                // might change this later
+                /*if (moveInput.y != 0)
                 {
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 1.5f);
                 }
                 else
                 {
                     rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
-                }
+                }*/
                 
             }
             else
@@ -355,7 +355,9 @@ public class PlayerMovement : MonoBehaviour
     private void GroundCollisionCheck()
     {
         //Ground Check
-        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        //if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        //if (Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer))
+        if (coll.onGround)
         {
             isGrounded = true;
         }
@@ -367,7 +369,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallCollisionCheck()
     {
-        if (Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer))
+        //if (Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer))
+        if (coll.onWall)
         {
             isOnWall = true;
         }
@@ -512,13 +515,14 @@ public class PlayerMovement : MonoBehaviour
 
 
     #region EDITOR METHODS
-    private void OnDrawGizmosSelected()
+    /*private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
         Gizmos.color = Color.blue;
-        /*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
-        Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);*/
-    }
+        Gizmos.DrawWireSphere(wallCheck.position, 0.2f);
+        *//*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
+        Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);*//*
+    }*/
     #endregion
 }
