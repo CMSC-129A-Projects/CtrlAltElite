@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
+    
     private void FixedUpdate()
     {
         if (!isWallJumping && !isWallGrabbing) // move player horizontally if not wall jumping
@@ -396,45 +396,32 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canLedgeCorrect)
         {
-            isWallGrabbing = false;
-            isWallSliding = false;
-            isOnWall = false;
+            
             if (moveInput.x == 0)
             {
-                //rb.velocity = new Vector2(rb.velocity.x + (0.5f * transform.localScale.x), data.wallJumpingPower.y / 2);
-                //StartCoroutine(LedgeJumpVertical());
-
-                /*rb.velocity = new Vector2(rb.velocity.x + (data.wallJumpingPower.x * -data.wallJumpingDirection), data.wallJumpingPower.y / 1.5f);
-                // push player
-                rb.AddForce(Vector2.right * transform.localScale.x, ForceMode2D.Impulse);*/
-
-                //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
-
-                // do nothing atm
-
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
+                StartCoroutine(AddRight());
             }
             else if (moveInput.x != 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2);
+                //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
+                isWallGrabbing = false;
+                isWallSliding = false;
+                isOnWall = false;
+                canLedgeCorrect = false;
             }
 
             //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
         }
     }
 
-    IEnumerator LedgeJumpVertical()
+    IEnumerator AddRight()
     {
-        yield return null;
-        rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2);
-        StartCoroutine(LedgeJumpHorizontal());
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
     }
 
-    IEnumerator LedgeJumpHorizontal()
-    {
-        yield return new WaitForSeconds(0.03f);
-        transform.position = new Vector2(transform.position.x + (0.03f * transform.localScale.x), transform.position.y);
-        //rb.velocity = new Vector2(data.wallJumpingPower.x * -data.wallJumpingDirection, rb.velocity.y);
-    }
     #endregion
 
     #endregion
@@ -447,7 +434,7 @@ public class PlayerMovement : MonoBehaviour
         GroundCollisionCheck();
         WallCollisionCheck();
         LedgeCollisionCheck();
-        CornerCorrectCheck(); // this is bugged
+        CornerCorrectCheck(); // TODO - have to fix this
     }
 
     private void GroundCollisionCheck()
