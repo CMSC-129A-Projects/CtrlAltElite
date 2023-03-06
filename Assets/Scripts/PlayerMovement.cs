@@ -349,12 +349,16 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter -= Time.deltaTime;
         }
 
-
-
         //if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) && data.wallJumpingCounter > 0f)
         if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
             PerformWallJump();
+        }
+
+        // allow the player to move in the air up until the peak of the wall jump height
+        if (isWallJumping && inAir && !isFalling && moveInput.x != 0)
+        {
+            rb.velocity = new Vector2(moveInput.x * data.wallJumpingPower.x / 2f, rb.velocity.y);
         }
     }
 
@@ -363,15 +367,8 @@ public class PlayerMovement : MonoBehaviour
         if (data.stamina != data.staminaMin)
         {
             isWallJumping = true;
-            // drain stamina once, not overtime
-            bool wallJumpPressed = true;
-            if (wallJumpPressed && isOnWall)
-            {
-                wallJumpPressed = false;
-                data.stamina -= data.wallJumpStaminaDrain;
-            }
-            
-            
+            data.stamina -= data.wallJumpStaminaDrain;
+
             isOnWall = false;
             isWallSliding = false;
             isWallGrabbing = false;
