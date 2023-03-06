@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         #region TIMERS
         // lastOnAirTime -= Time.deltaTime;
         // onGroundTime += Time.deltaTime;
-
         #endregion
 
 
@@ -153,11 +152,13 @@ public class PlayerMovement : MonoBehaviour
         WallJump();
         // Check if can wall grab
         WallGrab();
+        // Check if can wall climb
+        WallClimb();
         // Check if can ledge correct
         LedgeCorrect();
 
 
-        if (!isWallJumping && !isWallGrabbing)
+        if (!isWallJumping && !isWallGrabbing && !isWallClimbing)
         {
             // Checks if sprite needs to be flipped depending on direction faced
             Flip();
@@ -170,10 +171,10 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    
+
     private void FixedUpdate()
     {
-        if (!isWallJumping && !isWallGrabbing) // move player horizontally if not wall jumping
+        if (!isWallJumping && !isWallGrabbing && !isWallClimbing) // move player horizontally if not wall jumping
         {
             // move player horizontally
             Run();
@@ -212,14 +213,6 @@ public class PlayerMovement : MonoBehaviour
 
     #region WALL MECHANICS
 
-    #region PERFORM
-    private void PerformWallMechanic()
-    {
-
-    }
-
-    #endregion
-
     #region WALL GRAB
     private void WallGrab()
     {
@@ -227,30 +220,25 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
-                isWallGrabbing = false;
+                //isWallGrabbing = false;
                 PerformWallJump();
-            }
-            // else if (Input.GetButtonDown("Up") || Input.GetKeyDown("Down")) // grab + move up/down 
-            // else if (Input.GetButtonDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Down) || Input.GetKeyDown(KeyCode.Up)) // grab + move up/down 
-            else if (moveInput.y != 0) // grab + move up/down 
-            {
-                isWallGrabbing = false;
-                PerformWallClimb();
             }
             else
             {
-            // not sure if this should be placed here or make a new function for WallClimb()
-            isWallClimbing = false;
                 PerformWallGrab();
             }
 
         }
         else
         {
-            isWallGrabbing = false;
-            SetGravityScale(data.gravityScale);
-            
+            StopWallGrab();
         }
+    }
+
+    private void StopWallGrab()
+    {
+        isWallGrabbing = false;
+        SetGravityScale(data.gravityScale);
     }
 
     private void PerformWallGrab()
@@ -258,66 +246,66 @@ public class PlayerMovement : MonoBehaviour
         if (data.stamina != data.staminaMin)
         {
             isWallGrabbing = true;
-            // drain stamina
-            data.stamina -= data.wallGrabStaminaDrain;
+            // drain stamina overtime
+            data.stamina -= data.wallGrabStaminaDrain * Time.deltaTime;
 
             // stick to wall
             // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
             StickToWall();
 
-
             // don't make the player move when only grabbing
             SetGravityScale(0);
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x, 0);        
         }
         else
         {
-            isWallGrabbing = false;
-            SetGravityScale(data.gravityScale);
+            StopWallGrab();
         }
     }
 
+    
+
+    #endregion
+
+    #region WALL CLIMB
+    private void WallClimb()
+    {
+        if (!isWallJumping && isOnWall && moveInput.y != 0)
+        {
+            /*isWallGrabbing = false;
+            isWallClimbing = true;*/
+            PerformWallClimb();
+        }
+        else
+        {
+            StopWallClimb();
+        }
+    }
 
     private void PerformWallClimb()
     {
         if (data.stamina != data.staminaMin)
         {
-            isWallClimbing          = true;
-            StickToWall();
-
-            data.stamina            -= data.wallClimbStaminaDrain;
-            float speedModifier     = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
-            rb.velocity             = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+            isWallGrabbing = false;
+            isWallClimbing = true;
+            // drain stamina overtime
+            data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+            // don't make the player move when only grabbing
+            SetGravityScale(0);
+            // wall climbing
+            float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
+            rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
         }
         else
         {
-            isWallClimbing = false;
-            SetGravityScale(data.gravityScale);
+            StopWallClimb();
         }
+            
     }
 
-
-    private void StickToWall()
+    private void StopWallClimb()
     {
-        //Push player torwards wall
-        if (onRightWall && transform.localScale.x >= 0f)
-        {
-            rb.velocity = new Vector2(15f, rb.velocity.y);
-        }
-        else if (onLeftWall && transform.localScale.x <= 0f)
-        {
-            rb.velocity = new Vector2(-15f, rb.velocity.y);
-        }
-
-        //Face correct direction
-        if (onRightWall && !isFacingRight)
-        {
-            PerformFlip();
-        }
-        else if (onLeftWall && isFacingRight)
-        {
-            PerformFlip();
-        }
+        isWallClimbing = false;
     }
     #endregion
 
@@ -326,18 +314,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isOnWall && !isGrounded && moveInput.x != 0f && !isWallGrabbing)
         {
-            isWallSliding = true;
+            
             PerformWallSlide();
         }
         else
         {
-            isWallSliding = false;
+            StopWallSlide();
         }
     }
 
     private void PerformWallSlide()
     {
+        isWallSliding = true;
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -data.wallSlidingSpeed, float.MaxValue));
+    }
+
+    private void StopWallSlide()
+    {
+        isWallSliding = false;
     }
 
     #endregion
@@ -345,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
     #region WALL JUMP
     private void WallJump()
     {
-        if (isWallSliding || isWallGrabbing)
+        if (isWallSliding || isWallGrabbing || isWallClimbing)
         {
             isWallJumping = false;
             data.wallJumpingDirection = -transform.localScale.x;
@@ -370,19 +364,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (data.stamina != data.staminaMin)
         {
-            data.stamina    -= data.wallJumpStaminaDrain;
-            isOnWall        = false;
-            isWallSliding   = false;
-            isWallJumping   = true;
-            isWallGrabbing  = false;
-            isWallClimbing  = false;
+            isWallJumping = true;
+            // drain stamina once, not overtime
+            data.stamina -= data.wallJumpStaminaDrain;
+            isOnWall = false;
+            isWallSliding = false;
+            isWallGrabbing = false;
             data.wallJumpingCounter = 0f;
             if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
                 //rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
                 if (moveInput.y != 0) // might change later
                 {
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 2f);
+                    //rb.velocity = new Vector2(rb.velocity.x * transform.localScale.x, data.wallJumpingPower.y + 2f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 1f);
                 }
                 else
                 {
@@ -424,7 +419,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canLedgeCorrect)
         {
-            
+
             if (moveInput.x == 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
@@ -512,7 +507,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LedgeCollisionCheck()
     {
-        if (!coll.canLedge && coll.onWall && (isWallGrabbing || isWallSliding))
+        if (!coll.canLedge && coll.onWall && (isWallGrabbing || isWallSliding || isWallClimbing))
         {
             canLedgeCorrect = true;
         }
@@ -587,6 +582,29 @@ public class PlayerMovement : MonoBehaviour
     public void SetGravityScale(float scale)
     {
         rb.gravityScale = scale;
+    }
+
+    private void StickToWall()
+    {
+        //Push player torwards wall
+        if (onRightWall && transform.localScale.x >= 0f)
+        {
+            rb.velocity = new Vector2(15f, rb.velocity.y);
+        }
+        else if (onLeftWall && transform.localScale.x <= 0f)
+        {
+            rb.velocity = new Vector2(-15f, rb.velocity.y);
+        }
+
+        //Face correct direction
+        if (onRightWall && !isFacingRight)
+        {
+            PerformFlip();
+        }
+        else if (onLeftWall && isFacingRight)
+        {
+            PerformFlip();
+        }
     }
     #endregion
 
