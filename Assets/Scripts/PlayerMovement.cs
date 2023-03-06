@@ -230,8 +230,17 @@ public class PlayerMovement : MonoBehaviour
                 isWallGrabbing = false;
                 PerformWallJump();
             }
+            // else if (Input.GetButtonDown("Up") || Input.GetKeyDown("Down")) // grab + move up/down 
+            // else if (Input.GetButtonDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Down) || Input.GetKeyDown(KeyCode.Up)) // grab + move up/down 
+            else if (moveInput.y != 0) // grab + move up/down 
+            {
+                isWallGrabbing = false;
+                PerformWallClimb();
+            }
             else
             {
+            // not sure if this should be placed here or make a new function for WallClimb()
+            isWallClimbing = false;
                 PerformWallGrab();
             }
 
@@ -240,6 +249,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallGrabbing = false;
             SetGravityScale(data.gravityScale);
+            
         }
     }
 
@@ -259,10 +269,6 @@ public class PlayerMovement : MonoBehaviour
             // don't make the player move when only grabbing
             SetGravityScale(0);
             rb.velocity = new Vector2(rb.velocity.x, 0);
-
-            // wall climbing
-            float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
-            rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
         }
         else
         {
@@ -270,6 +276,27 @@ public class PlayerMovement : MonoBehaviour
             SetGravityScale(data.gravityScale);
         }
     }
+
+
+    private void PerformWallClimb()
+    {
+        if (data.stamina != data.staminaMin)
+        {
+            isWallClimbing          = true;
+            StickToWall();
+
+            data.stamina            -= data.wallClimbStaminaDrain;
+            float speedModifier     = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
+            rb.velocity             = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+        }
+        else
+        {
+            isWallClimbing = false;
+            SetGravityScale(data.gravityScale);
+        }
+    }
+
+
     private void StickToWall()
     {
         //Push player torwards wall
@@ -343,11 +370,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (data.stamina != data.staminaMin)
         {
-            data.stamina -= data.wallJumpStaminaDrain;
-            isOnWall = false;
-            isWallSliding = false;
-            isWallJumping = true;
-            isWallGrabbing = false;
+            data.stamina    -= data.wallJumpStaminaDrain;
+            isOnWall        = false;
+            isWallSliding   = false;
+            isWallJumping   = true;
+            isWallGrabbing  = false;
+            isWallClimbing  = false;
             data.wallJumpingCounter = 0f;
             if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
