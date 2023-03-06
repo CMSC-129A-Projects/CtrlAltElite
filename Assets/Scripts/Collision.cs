@@ -9,9 +9,11 @@ public class Collision : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Checks")]
-    [SerializeField] public Transform groundCheck;
-    [SerializeField] public Transform wallCheck;
-    [SerializeField] public Transform ledgeCheck;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform wallCheck2;
+    [SerializeField] private Transform wallCheck3;
+    [SerializeField] private Transform ledgeCheck;
 
     [Space]
     public PlayerMovement player;
@@ -53,7 +55,9 @@ public class Collision : MonoBehaviour
         wallSide = onRightWall ? -1 : 1;*/
 
         onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
-        onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, groundLayer);
+        onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, groundLayer)
+            || Physics2D.OverlapCircle(wallCheck2.position, collisionRadius, groundLayer)
+            || Physics2D.OverlapCircle(wallCheck3.position, collisionRadius, groundLayer);
         canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
 
@@ -70,6 +74,8 @@ public class Collision : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(wallCheck.position, collisionRadius);
+        Gizmos.DrawWireSphere(wallCheck2.position, collisionRadius);
+        Gizmos.DrawWireSphere(wallCheck3.position, collisionRadius);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(ledgeCheck.position, collisionRadius);

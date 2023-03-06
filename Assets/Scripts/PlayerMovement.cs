@@ -220,14 +220,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
-                //isWallGrabbing = false;
                 PerformWallJump();
             }
             else
             {
                 PerformWallGrab();
             }
-
         }
         else
         {
@@ -248,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
             isWallGrabbing = true;
             // drain stamina overtime
             data.stamina -= data.wallGrabStaminaDrain * Time.deltaTime;
-
+            
             // stick to wall
             // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
             StickToWall();
@@ -353,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        //if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J) && data.wallJumpingCounter > 0f)
+        //if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) && data.wallJumpingCounter > 0f)
         if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
             PerformWallJump();
@@ -366,7 +364,14 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallJumping = true;
             // drain stamina once, not overtime
-            data.stamina -= data.wallJumpStaminaDrain;
+            bool wallJumpPressed = true;
+            if (wallJumpPressed && isOnWall)
+            {
+                wallJumpPressed = false;
+                data.stamina -= data.wallJumpStaminaDrain;
+            }
+            
+            
             isOnWall = false;
             isWallSliding = false;
             isWallGrabbing = false;
