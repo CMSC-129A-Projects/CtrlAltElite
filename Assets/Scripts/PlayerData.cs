@@ -6,15 +6,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player Data", menuName = "Player Data")]
 public class PlayerData : ScriptableObject
 {
-    // this is a comment test
     [Header("Stamina")]
-    public float wallGrabStamina;
-    public float wallJumpStamina;
-    public float wallClimbStamina;
-    [Range(0f, 100f)] public float stamina;
+    public float stamina;
+    public float wallGrabStaminaDrain;
+    public float wallJumpStaminaDrain;
+    public float wallClimbStaminaDrain;
+    public float staminaRegen;
+    public float staminaMax;
+    public float staminaMin;
+    
 
     [Header("Gravity")]
     public float gravityScale;
+
+    [Space]
+    [Header("RayCast")]
+    public float topRayCastLength;
+    public Vector3 edgeRayCastOffset;
+    public Vector3 innerRayCastOffset;
 
     [Header("Run")]
     public float defaultMoveSpeed;

@@ -7,14 +7,15 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public PlayerData data;
     [SerializeField] public Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
+    [SerializeField] public Transform wallCheck;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private LayerMask groundLayer;
 
-    
+
 
     #region Variables
     public Rigidbody2D rb;
+    private Collision coll;
 
     public Vector2 moveInput;
     public bool isFacingRight;
@@ -25,18 +26,22 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnWall;
     public bool onRightWall;
     public bool onLeftWall;
+    public bool canCornerCorrect;
+    public bool canLedgeCorrect;
 
     [Space]
     [Header("Jump")]
     public float lastOnAirTime;
     public float onGroundTime;
     public bool inAir;
+    public bool isFalling;
 
     [Space]
     [Header("Wall Mechanics")]
     public bool isWallSliding;
     public bool isWallJumping;
     public bool isWallGrabbing;
+    public bool isWallClimbing;
 
 
     [Space]
@@ -51,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collision>();
     }
     // Start is called before the first frame update
     void Start()
@@ -58,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
         data.speed = data.defaultMoveSpeed;
         data.jumpPower = data.defaultJumpPower;
+        data.stamina = data.staminaMax;
 
         SetGravityScale(data.gravityScale);
     }
@@ -68,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         #region TIMERS
         // lastOnAirTime -= Time.deltaTime;
         // onGroundTime += Time.deltaTime;
-
         #endregion
 
 
@@ -78,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region TIMER AND BOOL CHECKS
+
         #region COYOTE TIMER
         if (isGrounded)
         {
@@ -92,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
             lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
         }
+
         #endregion
 
         #region JUMP BUFFER
@@ -104,9 +112,18 @@ public class PlayerMovement : MonoBehaviour
             data.jumpBufferTimeCounter -= Time.deltaTime;
         }
         #endregion
+
         #endregion
 
         #region JUMP 
+        if (rb.velocity.y > 0.1f || isGrounded)
+        {
+            isFalling = false;
+        }
+        else if (rb.velocity.y < -0.1f && inAir)
+        {
+            isFalling = true;
+        }
         //code history for jump
         //if (Input.GetButtonDown("Jump") && isGrounded)
         //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
@@ -124,18 +141,24 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
+
+
         // Checks collision detected by collision checkers
         CollisionCheck();
-        
+
         // Check if wall sliding
         WallSlide();
         // Check if can wall jump
         WallJump();
         // Check if can wall grab
         WallGrab();
+        // Check if can wall climb
+        WallClimb();
+        // Check if can ledge correct
+        LedgeCorrect();
 
 
-        if (!isWallJumping && !isWallGrabbing)
+        if (!isWallJumping && !isWallGrabbing && !isWallClimbing)
         {
             // Checks if sprite needs to be flipped depending on direction faced
             Flip();
@@ -145,24 +168,46 @@ public class PlayerMovement : MonoBehaviour
         // Check powerups
 
         UpdatePowerUps();
-        
+
     }
 
 
     private void FixedUpdate()
     {
-        if (!isWallJumping && !isWallGrabbing) // move player horizontally if not wall jumping
+        if (!isWallJumping && !isWallGrabbing && !isWallClimbing) // move player horizontally if not wall jumping
         {
             // move player horizontally
             Run();
         }
-   
+
+        #region STAMINA
+        // regen stamina if grounded
+        if (isGrounded && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        {
+            data.stamina += data.staminaRegen;
+        }
+        // cap stamina at min and max
+        if (data.stamina >= data.staminaMax)
+        {
+            data.stamina = data.staminaMax;
+        }
+        if (data.stamina <= data.staminaMin)
+        {
+            data.stamina = data.staminaMin;
+        }
+
+        #endregion
+
+
+
     }
 
     private void Run()
     {
         rb.velocity = new Vector2(moveInput.x * data.speed, rb.velocity.y);
     }
+
+
 
 
 
@@ -175,31 +220,90 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
-                isWallGrabbing = false;
-            } 
+                PerformWallJump();
+            }
             else
             {
                 PerformWallGrab();
             }
-            
         }
         else
         {
-            isWallGrabbing = false;
-            SetGravityScale(data.gravityScale);
+            StopWallGrab();
         }
+    }
+
+    private void StopWallGrab()
+    {
+        isWallGrabbing = false;
+        SetGravityScale(data.gravityScale);
     }
 
     private void PerformWallGrab()
     {
-        isWallGrabbing = true;
-        // don't make the player move when only grabbing
-        SetGravityScale(0);
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        if (data.stamina != data.staminaMin)
+        {
+            isWallGrabbing = true;
+            // drain stamina overtime
+            data.stamina -= data.wallGrabStaminaDrain * Time.deltaTime;
+            
+            // stick to wall
+            // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
+            StickToWall();
 
-        // wall climbing
-        float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
-        rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+            // don't make the player move when only grabbing
+            SetGravityScale(0);
+            rb.velocity = new Vector2(rb.velocity.x, 0);        
+        }
+        else
+        {
+            StopWallGrab();
+        }
+    }
+
+    
+
+    #endregion
+
+    #region WALL CLIMB
+    private void WallClimb()
+    {
+        if (!isWallJumping && isOnWall && moveInput.y != 0)
+        {
+            /*isWallGrabbing = false;
+            isWallClimbing = true;*/
+            PerformWallClimb();
+        }
+        else
+        {
+            StopWallClimb();
+        }
+    }
+
+    private void PerformWallClimb()
+    {
+        if (data.stamina != data.staminaMin)
+        {
+            isWallGrabbing = false;
+            isWallClimbing = true;
+            // drain stamina overtime
+            data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+            // don't make the player move when only grabbing
+            SetGravityScale(0);
+            // wall climbing
+            float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
+            rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
+        }
+        else
+        {
+            StopWallClimb();
+        }
+            
+    }
+
+    private void StopWallClimb()
+    {
+        isWallClimbing = false;
     }
     #endregion
 
@@ -208,18 +312,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isOnWall && !isGrounded && moveInput.x != 0f && !isWallGrabbing)
         {
-            isWallSliding = true;
+            
             PerformWallSlide();
         }
         else
         {
-            isWallSliding = false;
+            StopWallSlide();
         }
     }
 
     private void PerformWallSlide()
     {
+        isWallSliding = true;
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -data.wallSlidingSpeed, float.MaxValue));
+    }
+
+    private void StopWallSlide()
+    {
+        isWallSliding = false;
     }
 
     #endregion
@@ -227,7 +337,7 @@ public class PlayerMovement : MonoBehaviour
     #region WALL JUMP
     private void WallJump()
     {
-        if (isWallSliding || isWallGrabbing)
+        if (isWallSliding || isWallGrabbing || isWallClimbing)
         {
             isWallJumping = false;
             data.wallJumpingDirection = -transform.localScale.x;
@@ -239,49 +349,104 @@ public class PlayerMovement : MonoBehaviour
             data.wallJumpingCounter -= Time.deltaTime;
         }
 
-        //if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J) && data.wallJumpingCounter > 0f)
+        //if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) && data.wallJumpingCounter > 0f)
         if (data.jumpBufferTimeCounter > 0f && data.wallJumpingCounter > 0f)
         {
             PerformWallJump();
+        }
+
+        // allow the player to move in the air up until the peak of the wall jump height
+        if (isWallJumping && inAir && !isFalling && moveInput.x != 0)
+        {
+            rb.velocity = new Vector2(moveInput.x * data.wallJumpingPower.x / 2f, rb.velocity.y);
         }
     }
 
     private void PerformWallJump()
     {
-        isWallJumping = true;
-        isWallGrabbing = false;
-        data.wallJumpingCounter = 0f;
-        if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
+        if (data.stamina != data.staminaMin)
         {
-            if (moveInput.y != 0)
+            isWallJumping = true;
+            data.stamina -= data.wallJumpStaminaDrain;
+
+            isOnWall = false;
+            isWallSliding = false;
+            isWallGrabbing = false;
+            data.wallJumpingCounter = 0f;
+            if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y * 0.5f);
+                //rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                if (moveInput.y != 0) // might change later
+                {
+                    //rb.velocity = new Vector2(rb.velocity.x * transform.localScale.x, data.wallJumpingPower.y + 2f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 1f);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                }
+
             }
             else
             {
-                rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
+                if (transform.localScale.x != data.wallJumpingDirection)
+                {
+                    PerformFlip();
+                }
             }
-            
+
+            Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
+
         }
         else
         {
-            rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
-            if (transform.localScale.x != data.wallJumpingDirection)
-            {
-                PerformFlip();
-            }
+            isWallJumping = false;
+            data.wallJumpingDirection = -transform.localScale.x;
+            data.wallJumpingCounter = data.wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+
         }
-        
 
-        
-
-        Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
     }
 
     private void StopWallJumping()
     {
         isWallJumping = false;
     }
+    #endregion
+
+    #region LEDGE CORRECT
+    private void LedgeCorrect()
+    {
+        if (canLedgeCorrect)
+        {
+
+            if (moveInput.x == 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
+                StartCoroutine(AddRight());
+            }
+            else if (moveInput.x != 0)
+            {
+                //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
+                isWallGrabbing = false;
+                isWallSliding = false;
+                isOnWall = false;
+                canLedgeCorrect = false;
+            }
+
+            //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
+        }
+    }
+
+    IEnumerator AddRight()
+    {
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
+    }
+
     #endregion
 
     #endregion
@@ -293,12 +458,15 @@ public class PlayerMovement : MonoBehaviour
     {
         GroundCollisionCheck();
         WallCollisionCheck();
+        LedgeCollisionCheck();
+        CornerCorrectCheck(); // TODO - have to fix this
     }
 
     private void GroundCollisionCheck()
     {
         //Ground Check
-        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        //if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
+        if (coll.onGround)
         {
             isGrounded = true;
         }
@@ -310,7 +478,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void WallCollisionCheck()
     {
-        if (Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer))
+        //if (Physics2D.OverlapCircle(wallCheck.position, 0.25f, groundLayer))
+        if (coll.onWall) //this is bugged
         {
             isOnWall = true;
         }
@@ -338,6 +507,60 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void LedgeCollisionCheck()
+    {
+        if (!coll.canLedge && coll.onWall && (isWallGrabbing || isWallSliding || isWallClimbing))
+        {
+            canLedgeCorrect = true;
+        }
+        else
+        {
+            canLedgeCorrect = false;
+        }
+    }
+
+    private void CornerCorrectCheck()
+    {
+        if (coll.canCornerCorrect)
+        {
+            canCornerCorrect = true;
+        }
+        else
+        {
+            canCornerCorrect = false;
+        }
+
+        if (canCornerCorrect && !isGrounded && !isOnWall && !isFalling)
+        {
+            CornerCorrect(rb.velocity.y);
+        }
+    }
+
+    private void CornerCorrect(float yVelocity)
+    {
+        // Push player to the right
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.left, data.topRayCastLength, groundLayer);
+        if (hit.collider != null)
+        {
+            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * data.topRayCastLength,
+                transform.position - data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
+            transform.position = new Vector3(transform.position.x + newPos, transform.position.y, transform.position.z);
+            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+            return;
+        }
+
+        // Push player to the left
+        hit = Physics2D.Raycast(transform.position + data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.right, data.topRayCastLength, groundLayer);
+        if (hit.collider != null)
+        {
+            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * data.topRayCastLength,
+                transform.position + data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
+            transform.position = new Vector3(transform.position.x - newPos, transform.position.y, transform.position.z);
+            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
+            return;
+        }
+    }
+
     #endregion
 
 
@@ -362,6 +585,29 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.gravityScale = scale;
     }
+
+    private void StickToWall()
+    {
+        //Push player torwards wall
+        if (onRightWall && transform.localScale.x >= 0f)
+        {
+            rb.velocity = new Vector2(15f, rb.velocity.y);
+        }
+        else if (onLeftWall && transform.localScale.x <= 0f)
+        {
+            rb.velocity = new Vector2(-15f, rb.velocity.y);
+        }
+
+        //Face correct direction
+        if (onRightWall && !isFacingRight)
+        {
+            PerformFlip();
+        }
+        else if (onLeftWall && isFacingRight)
+        {
+            PerformFlip();
+        }
+    }
     #endregion
 
 
@@ -372,14 +618,14 @@ public class PlayerMovement : MonoBehaviour
         if (isMoveSpeed)
         {
             // Initial move speed increase
-            if (!moveSpeedInit) 
+            if (!moveSpeedInit)
             {
                 data.speed = data.moveSpeedIncrease;
                 moveSpeedInit = true;
             }
-            
+
             data.moveSpeedTimer += Time.deltaTime;
-            
+
             data.speed -= 0.002f; // decrement move speed over time
             if (data.moveSpeedTimer >= data.moveSpeedTimerCap)
             {
@@ -419,9 +665,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 canDoubleJump = false;
             }
-            
+
         }
-        
+
         if (doubleJumpPressed && !isGrounded)
         {
             canDoubleJump = false;
@@ -458,8 +704,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
-        Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(wallCheck.position, 0.25f);
+        /*Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        Gizmos.color = Color.blue;*/
         /*Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
         Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);*/
     }
