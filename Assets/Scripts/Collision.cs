@@ -94,4 +94,10 @@ public class Collision : MonoBehaviour
                         transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log(collision.collider.gameObject.layer);
+        Debug.Log(LayerMask.LayerToName(collision.collider.gameObject.layer));
+    }
 }

@@ -25,15 +25,15 @@ MonoBehaviour:
   innerRayCastOffset: {x: 0.06, y: 0, z: 0}
   defaultMoveSpeed: 7
   speed: 7
-  defaultJumpPower: 14
-  jumpPower: 14
+  defaultJumpPower: 17
+  jumpPower: 17
   jumpCutPower: 0.5
   wallSlidingSpeed: 2
-  wallJumpingDirection: 1
-  wallJumpingTime: 0.2
-  wallJumpingCounter: -8.268963
+  wallJumpingDirection: -1
+  wallJumpingTime: 0.05
+  wallJumpingCounter: -3.64514
   wallJumpingDuration: 0.2
-  wallJumpingPower: {x: 7, y: 13}
+  wallJumpingPower: {x: 15, y: 14}
   wallClimbingSpeedUp: 3
   wallClimbingSpeedDown: 5
   moveSpeedTimer: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
   moveSpeedIncrease: 10.5
   jumpBoostTimer: 0
   jumpBoostTimerCap: 2
-  jumpBoostIncrease: 18.199999
+  jumpBoostIncrease: 22.099998
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -6.959669
+  jumpBufferTimeCounter: -1.1258365

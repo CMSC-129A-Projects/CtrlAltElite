@@ -19,6 +19,7 @@ public class ItemCollector : MonoBehaviour
         if(collision.gameObject.CompareTag("DoubleJump"))
         {
             playerMovement.canDoubleJump = true;
+            playerMovement.doubleJumpPressed = false;
             RespawnItem(collision);          
         }
         if (collision.gameObject.CompareTag("JumpBoost"))

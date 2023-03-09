@@ -176,7 +176,7 @@ MonoBehaviour:
   groundCheckSize: {x: 0.42, y: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 960
   rb: {fileID: 1041868833086827197}
   moveInput: {x: 0, y: 0}
   isFacingRight: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 960
   groundCheck: {fileID: 1041868834577613909}
   wallCheck: {fileID: 1041868833823966298}
   wallCheck2: {fileID: 1041868833292053393}
