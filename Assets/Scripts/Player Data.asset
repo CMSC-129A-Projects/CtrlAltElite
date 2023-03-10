@@ -29,9 +29,9 @@ MonoBehaviour:
   jumpPower: 17
   jumpCutPower: 0.5
   wallSlidingSpeed: 2
-  wallJumpingDirection: -1
+  wallJumpingDirection: 1
   wallJumpingTime: 0.05
-  wallJumpingCounter: -3.64514
+  wallJumpingCounter: -0.9052722
   wallJumpingDuration: 0.2
   wallJumpingPower: {x: 15, y: 14}
   wallClimbingSpeedUp: 3
@@ -40,9 +40,9 @@ MonoBehaviour:
   moveSpeedTimerCap: 2
   moveSpeedIncrease: 10.5
   jumpBoostTimer: 0
-  jumpBoostTimerCap: 2
+  jumpBoostTimerCap: 1
   jumpBoostIncrease: 22.099998
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -1.1258365
+  jumpBufferTimeCounter: -0.9561267
