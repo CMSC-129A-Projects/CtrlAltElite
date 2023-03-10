@@ -60,6 +60,10 @@ public class PlayerData : ScriptableObject
     public float jumpBoostTimer;
     public float jumpBoostTimerCap;
     public float jumpBoostIncrease;
+    // Dash
+    public float dashPower;
+    public float dashTime;
+    public float dashCooldown;
 
     [Space]
     [Header("Assists")]

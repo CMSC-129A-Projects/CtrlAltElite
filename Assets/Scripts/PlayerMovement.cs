@@ -51,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumpBoost;
     public bool canDoubleJump;
     public bool doubleJumpPressed;
+    public bool canDash;
+    public bool dashPressed;
+    public bool isDashing;
     #endregion
 
     private void Awake()
@@ -76,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
         // lastOnAirTime -= Time.deltaTime;
         // onGroundTime += Time.deltaTime;
         #endregion
+
+        if (isDashing) // don't allow the player to move while dashing
+        {
+            return;
+        }
 
 
         #region INPUT HANDLERS
@@ -174,6 +182,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDashing) // don't allow the player to move while dashing
+        {
+            return;
+        }
+
         if (!isWallJumping && !isWallGrabbing && !isWallClimbing) // move player horizontally if not wall jumping
         {
             // move player horizontally
@@ -216,7 +229,8 @@ public class PlayerMovement : MonoBehaviour
     #region WALL GRAB
     private void WallGrab()
     {
-        if (!isWallJumping && isOnWall && (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.LeftShift)))
+        //if (!isWallJumping && isOnWall && (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.LeftShift)))
+        if (!isWallJumping && isOnWall || Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
@@ -564,53 +578,6 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
 
-    #region GENERAL METHODS
-    private void Flip()
-    {
-        if (isFacingRight && moveInput.x < 0f || !isFacingRight && moveInput.x > 0f)
-        {
-            PerformFlip();
-        }
-    }
-
-    private void PerformFlip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }
-
-    public void SetGravityScale(float scale)
-    {
-        rb.gravityScale = scale;
-    }
-
-    private void StickToWall()
-    {
-        //Push player torwards wall
-        if (onRightWall && transform.localScale.x >= 0f)
-        {
-            rb.velocity = new Vector2(15f, rb.velocity.y);
-        }
-        else if (onLeftWall && transform.localScale.x <= 0f)
-        {
-            rb.velocity = new Vector2(-15f, rb.velocity.y);
-        }
-
-        //Face correct direction
-        if (onRightWall && !isFacingRight)
-        {
-            PerformFlip();
-        }
-        else if (onLeftWall && isFacingRight)
-        {
-            PerformFlip();
-        }
-    }
-    #endregion
-
-
     #region POWER UPS
     private void UpdatePowerUps()
     {
@@ -696,8 +663,135 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         #endregion
+
+        #region DASH
+        if (canDash) // moves the player 3.6 units in the x axis (if dash power is 24f)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                //dashPressed = true;
+                //StartCoroutine(Dash());   
+                StartCoroutine(_Dash());
+                if (isGrounded)
+                    dashPressed = false;
+                else if (!isGrounded && !isDashing)
+                    dashPressed = true;
+            }
+            
+
+            // can dash if picked dash powerup from the ground
+            if (!dashPressed && isGrounded && !inAir)
+            {
+                canDash = true;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
+            if (!dashPressed && isGrounded && inAir)
+            {
+                canDash = false;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
+            if (!dashPressed && isWallSliding)
+            {
+                canDash = false;
+            }
+        }
+
+        if (dashPressed && !isGrounded)
+        {
+            canDash = false;
+            if (isGrounded)
+            {
+                dashPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDash)
+        {
+            dashPressed = false;
+        }
+
+        #endregion
+    }
+
+    private IEnumerator _Dash()
+    {
+        canDash = false;
+        SetGravityScale(0f); // set gravity to 0 while dashing
+        PerformDash(); // perform dash
+        yield return new WaitForSeconds(data.dashTime); // time while dashing
+        SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
+        StopDash(); // stop isDashing bool
+    }
+    private IEnumerator Dash()
+    {
+        SetGravityScale(0f); // set gravity to 0 while dashing
+        PerformDash(); // perform dash
+        yield return new WaitForSeconds(data.dashTime); // time while dashing
+        SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
+        StopDash(); // stop isDashing bool
+        yield return new WaitForSeconds(data.dashCooldown); // dash cooldown
+        
+    }
+
+    private void PerformDash()
+    {
+        isDashing = true;
+        rb.velocity = new Vector2(transform.localScale.x * data.dashPower, 0f);
+    }
+
+    private void StopDash()
+    {
+        isDashing = false;
     }
     #endregion
+
+
+    #region GENERAL METHODS
+    private void Flip()
+    {
+        if (isFacingRight && moveInput.x < 0f || !isFacingRight && moveInput.x > 0f)
+        {
+            PerformFlip();
+        }
+    }
+
+    private void PerformFlip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+    }
+
+    public void SetGravityScale(float scale)
+    {
+        rb.gravityScale = scale;
+    }
+
+    private void StickToWall()
+    {
+        //Push player torwards wall
+        if (onRightWall && transform.localScale.x >= 0f)
+        {
+            rb.velocity = new Vector2(15f, rb.velocity.y);
+        }
+        else if (onLeftWall && transform.localScale.x <= 0f)
+        {
+            rb.velocity = new Vector2(-15f, rb.velocity.y);
+        }
+
+        //Face correct direction
+        if (onRightWall && !isFacingRight)
+        {
+            PerformFlip();
+        }
+        else if (onLeftWall && isFacingRight)
+        {
+            PerformFlip();
+        }
+    }
+    #endregion
+
 
 
     #region EDITOR METHODS

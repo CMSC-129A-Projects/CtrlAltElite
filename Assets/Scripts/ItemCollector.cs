@@ -27,6 +27,11 @@ public class ItemCollector : MonoBehaviour
             playerMovement.isJumpBoost = true;
             RespawnItem(collision);
         }
+        if (collision.gameObject.CompareTag("Dash"))
+        {
+            playerMovement.canDash = true;
+            RespawnItem(collision);
+        }
     }
 
 
