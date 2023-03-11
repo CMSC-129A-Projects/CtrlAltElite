@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Transform wallCheck;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
 
 
 
@@ -230,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
     private void WallGrab()
     {
         //if (!isWallJumping && isOnWall && (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.LeftShift)))
-        if (!isWallJumping && isOnWall || Input.GetKey(KeyCode.LeftShift))
+        if (!isWallJumping && isOnWall && Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
@@ -282,7 +283,7 @@ public class PlayerMovement : MonoBehaviour
     #region WALL CLIMB
     private void WallClimb()
     {
-        if (!isWallJumping && isOnWall && moveInput.y != 0)
+        if (!isWallJumping && isOnWall && moveInput.y != 0 && isWallGrabbing)
         {
             /*isWallGrabbing = false;
             isWallClimbing = true;*/
@@ -458,7 +459,8 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator AddRight()
     {
         yield return new WaitForSeconds(0.1f);
-        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
+        //rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
+        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 2f * transform.localScale.x);
     }
 
     #endregion
@@ -553,7 +555,8 @@ public class PlayerMovement : MonoBehaviour
     private void CornerCorrect(float yVelocity)
     {
         // Push player to the right
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.left, data.topRayCastLength, groundLayer);
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position - data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.left, data.topRayCastLength, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - data.innerRayCastOffset + Vector3.up * data.topRayCastLength, Vector3.left, data.topRayCastLength, wallLayer);
         if (hit.collider != null)
         {
             float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * data.topRayCastLength,

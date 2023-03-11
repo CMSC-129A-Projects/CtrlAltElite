@@ -7,6 +7,7 @@ public class Collision : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     [Header("Checks")]
     [SerializeField] private Transform groundCheck;
@@ -55,9 +56,9 @@ public class Collision : MonoBehaviour
         wallSide = onRightWall ? -1 : 1;*/
 
         onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
-        onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, groundLayer)
-            || Physics2D.OverlapCircle(wallCheck2.position, collisionRadius, groundLayer)
-            || Physics2D.OverlapCircle(wallCheck3.position, collisionRadius, groundLayer);
+        onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, wallLayer)
+            || Physics2D.OverlapCircle(wallCheck2.position, collisionRadius, wallLayer)
+            || Physics2D.OverlapCircle(wallCheck3.position, collisionRadius, wallLayer);
         canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
 
@@ -98,6 +99,6 @@ public class Collision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log(collision.collider.gameObject.layer);
-        Debug.Log(LayerMask.LayerToName(collision.collider.gameObject.layer));
+        //Debug.Log(LayerMask.LayerToName(collision.collider.gameObject.layer));
     }
 }
