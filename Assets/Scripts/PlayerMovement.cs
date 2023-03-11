@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         #region TIMER AND BOOL CHECKS
 
         #region COYOTE TIMER
-        if (isGrounded)
+        if (isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing)
         {
             inAir = false;
             lastOnAirTime -= Time.deltaTime;
@@ -103,10 +103,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (!isOnWall && !isWallSliding && isWallClimbing && isWallGrabbing)
-            {
-                inAir = true;
-            }
+            inAir = true;
             onGroundTime = 0f;
             lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
@@ -376,7 +373,8 @@ public class PlayerMovement : MonoBehaviour
         // allow the player to move in the air up until the peak of the wall jump height
         if (isWallJumping && inAir && !isFalling && moveInput.x != 0)
         {
-            rb.velocity = new Vector2(moveInput.x * data.wallJumpingPower.x / 2f, rb.velocity.y);
+            //rb.velocity = new Vector2(moveInput.x * data.wallJumpingPower.x / 2f, rb.velocity.y);
+            Run();
         }
     }
 
@@ -397,7 +395,7 @@ public class PlayerMovement : MonoBehaviour
                 if (moveInput.y != 0) // might change later
                 {
                     //rb.velocity = new Vector2(rb.velocity.x * transform.localScale.x, data.wallJumpingPower.y + 2f);
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 2f);
                 }
                 else
                 {

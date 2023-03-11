@@ -155,7 +155,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 7
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 14cb3e240ec8aad47b33df78cfb031c8, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 960
+    m_Bits: 64
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b1092e4f4a0e2428402960afd266d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlatform: {fileID: 0}
   playerMovement: {fileID: 4483825495357224460}
 --- !u!1 &1041868833292053392
 GameObject:
