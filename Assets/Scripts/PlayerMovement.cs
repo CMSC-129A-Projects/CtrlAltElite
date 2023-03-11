@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [Header("Collision")]
     public bool isGrounded;
+    public bool isOnPlatform;
     public bool isOnWall;
     public bool onRightWall;
     public bool onLeftWall;
@@ -474,6 +475,7 @@ public class PlayerMovement : MonoBehaviour
     private void CollisionCheck()
     {
         GroundCollisionCheck();
+        PlatformCollisionCheck();
         WallCollisionCheck();
         LedgeCollisionCheck();
         CornerCorrectCheck(); // TODO - have to fix this
@@ -490,6 +492,19 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isGrounded = false;
+        }
+    }
+
+    private void PlatformCollisionCheck()
+    {
+        if (coll.onPlatform)
+        {
+            isOnPlatform = true;
+            isGrounded = true;
+        }
+        else
+        {
+            isOnPlatform = false;
         }
     }
 

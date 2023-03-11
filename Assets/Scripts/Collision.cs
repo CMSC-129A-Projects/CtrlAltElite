@@ -21,6 +21,7 @@ public class Collision : MonoBehaviour
     public PlayerMovement player;
 
     public bool onGround;
+    public bool onPlatform;
     public bool onWall;
     public bool canCornerCorrect;
     public bool canLedge;
@@ -56,8 +57,8 @@ public class Collision : MonoBehaviour
 
         wallSide = onRightWall ? -1 : 1;*/
 
-        onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer) 
-            || Physics2D.OverlapCircle(groundCheck.position, collisionRadius, platformLayer);
+        onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
+        onPlatform = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, platformLayer);
 
         onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, wallLayer)
             || Physics2D.OverlapCircle(wallCheck2.position, collisionRadius, wallLayer)
