@@ -8,6 +8,7 @@ public class Collision : MonoBehaviour
     [Header("Layers")]
     public LayerMask groundLayer;
     public LayerMask wallLayer;
+    public LayerMask platformLayer;
 
     [Header("Checks")]
     [SerializeField] private Transform groundCheck;
@@ -55,10 +56,13 @@ public class Collision : MonoBehaviour
 
         wallSide = onRightWall ? -1 : 1;*/
 
-        onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
+        onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer) 
+            || Physics2D.OverlapCircle(groundCheck.position, collisionRadius, platformLayer);
+
         onWall = Physics2D.OverlapCircle(wallCheck.position, collisionRadius, wallLayer)
             || Physics2D.OverlapCircle(wallCheck2.position, collisionRadius, wallLayer)
             || Physics2D.OverlapCircle(wallCheck3.position, collisionRadius, wallLayer);
+
         canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
 

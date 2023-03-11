@@ -103,7 +103,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            inAir = true;
+            if (!isOnWall && !isWallSliding && isWallClimbing && isWallGrabbing)
+            {
+                inAir = true;
+            }
             onGroundTime = 0f;
             lastOnAirTime = 0f;
             data.coyoteTimeCounter -= Time.deltaTime;
@@ -394,7 +397,7 @@ public class PlayerMovement : MonoBehaviour
                 if (moveInput.y != 0) // might change later
                 {
                     //rb.velocity = new Vector2(rb.velocity.x * transform.localScale.x, data.wallJumpingPower.y + 2f);
-                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 1f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
                 }
                 else
                 {
@@ -444,8 +447,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (moveInput.x != 0)
             {
-                //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
-                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
+                //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
                 isWallGrabbing = false;
                 isWallSliding = false;
                 isOnWall = false;
@@ -459,8 +462,8 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator AddRight()
     {
         yield return new WaitForSeconds(0.1f);
-        //rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
-        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 2f * transform.localScale.x);
+        rb.AddForce(Vector2.right * data.wallJumpingPower.x * 5f * transform.localScale.x);
+        //rb.AddForce(Vector2.right * data.wallJumpingPower.x * 2f * transform.localScale.x);
     }
 
     #endregion
@@ -525,7 +528,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LedgeCollisionCheck()
     {
-        if (!coll.canLedge && coll.onWall && (isWallGrabbing || isWallSliding || isWallClimbing))
+        if (!coll.canLedge && coll.onWall && (isWallGrabbing || isWallSliding || isWallClimbing) && !inAir)
         {
             canLedgeCorrect = true;
         }
