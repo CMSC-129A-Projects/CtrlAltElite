@@ -74,3 +74,4 @@ crashlytics-build.properties
 *.dwlt
 *.log
 *.log
+*.dwlt
