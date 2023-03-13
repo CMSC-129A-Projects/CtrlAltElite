@@ -9,6 +9,8 @@ TagManager:
   - JumpBoost
   - DoubleJump
   - Dash
+  - Hidden
+  - HiddenOutCheck
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - OneWay
   - TwoWay
   - Breakable
-  - 
+  - Hidden
   - 
   - 
   - 

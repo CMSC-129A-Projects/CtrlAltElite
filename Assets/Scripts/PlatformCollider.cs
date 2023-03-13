@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlatformCollider : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlatformCollider : MonoBehaviour
 
     private int respawnPlatformTimer = 4;
     private float breakPlatformTimer = 4;
+    public bool inHidden = false;
 
 
     private void Start()
@@ -69,6 +71,38 @@ public class PlatformCollider : MonoBehaviour
         {
             currentPlatform = null;
         }
+    }
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
+        {
+            TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
+            tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
+            inHidden = true;
+        }
+
+        if (collision.gameObject.CompareTag("HiddenOutCheck")) // if player touches hidden tiles, hidden tiles get hidden
+        {
+            inHidden = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hidden") && !inHidden) // if player leaves hidden tiles, hidden tiles get shown
+        {
+            StartCoroutine(EnableTile(collision));
+        }
+    }
+
+    private IEnumerator EnableTile(Collider2D collision)
+    {
+        yield return new WaitForSeconds(0.5f);
+        TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
+        tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
     }
 
 
