@@ -8,17 +8,19 @@ public class PlatformCollider : MonoBehaviour
     public GameObject currentPlatform;
     [SerializeField] public PlayerMovement playerMovement;
     private CapsuleCollider2D playerCollider;
+    [SerializeField] private TilemapRenderer tilemapRenderer;
 
     private int respawnPlatformTimer = 4;
     private float breakPlatformTimer = 4;
     public bool inHidden = false;
-    private float inHiddenTimer = 1f;
-    private float lastInHidden = 0f;
+    public float inHiddenTimer;
+    public float lastInHidden = 0f;
 
 
     private void Start()
     {
         playerCollider = playerMovement.GetComponent<CapsuleCollider2D>();
+        inHiddenTimer = 0.1f;
     }
     // Update is called once per frame
     void Update()
@@ -107,7 +109,7 @@ public class PlatformCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
         {
-            TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
+            //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
             tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
             inHidden = true;
         }
@@ -131,8 +133,8 @@ public class PlatformCollider : MonoBehaviour
 
     private IEnumerator EnableTile(Collider2D collision)
     {
-        yield return new WaitForSeconds(inHiddenTimer);
-        TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
+        yield return new WaitForSeconds(inHiddenTimer + .1f);
+        //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
         if (!inHidden && (lastInHidden > inHiddenTimer))
         {
             tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
