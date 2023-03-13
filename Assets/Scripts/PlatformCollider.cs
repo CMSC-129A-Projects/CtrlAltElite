@@ -12,6 +12,8 @@ public class PlatformCollider : MonoBehaviour
     private int respawnPlatformTimer = 4;
     private float breakPlatformTimer = 4;
     public bool inHidden = false;
+    private float inHiddenTimer = 1f;
+    private float lastInHidden = 0f;
 
 
     private void Start()
@@ -32,6 +34,19 @@ public class PlatformCollider : MonoBehaviour
                 }
                     
             }
+        }
+
+        #region HIDDEN TILES
+        lastInHidden += Time.deltaTime;
+        CheckInHidden();
+        #endregion
+    }
+
+    void CheckInHidden()
+    {
+        if (inHidden) 
+        {
+            lastInHidden = 0f;
         }
     }
 
@@ -74,8 +89,21 @@ public class PlatformCollider : MonoBehaviour
     }
 
 
-
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
+        {
+            inHidden = true;
+        }
+
+        if (collision.gameObject.CompareTag("HiddenOutCheck") && inHidden) // if player touches hidden tiles, hidden tiles get hidden
+        {
+            inHidden = false;
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
         {
@@ -83,26 +111,33 @@ public class PlatformCollider : MonoBehaviour
             tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
             inHidden = true;
         }
-
-        if (collision.gameObject.CompareTag("HiddenOutCheck")) // if player touches hidden tiles, hidden tiles get hidden
-        {
-            inHidden = false;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hidden") && !inHidden) // if player leaves hidden tiles, hidden tiles get shown
+        if (collision.gameObject.CompareTag("Hidden")) // if player leaves hidden tiles, hidden tiles get shown
         {
-            StartCoroutine(EnableTile(collision));
+            if (inHidden)
+            {
+                inHidden = false;
+            }
+            if (!inHidden)
+            {
+                StartCoroutine(EnableTile(collision));
+            }
+                
         }
     }
 
     private IEnumerator EnableTile(Collider2D collision)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(inHiddenTimer);
         TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
-        tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
+        if (!inHidden && (lastInHidden > inHiddenTimer))
+        {
+            tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
+        }
+        
     }
 
 
