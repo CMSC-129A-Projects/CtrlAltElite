@@ -9,9 +9,10 @@ public class PlatformCollider : MonoBehaviour
     [SerializeField] public PlayerMovement playerMovement;
     private CapsuleCollider2D playerCollider;
     [SerializeField] private TilemapRenderer tilemapRenderer;
+    [SerializeField] private TilemapRenderer breakableTilemapRenderer;
 
-    private int respawnPlatformTimer = 4;
-    private float breakPlatformTimer = 4;
+    private float respawnPlatformTimer = 3;
+    private float breakPlatformTimer = 1;
     public bool inHidden = false;
     public float inHiddenTimer;
     public float lastInHidden = 0f;
@@ -158,6 +159,7 @@ public class PlatformCollider : MonoBehaviour
     {
         yield return new WaitForSeconds(breakPlatformTimer);
         currentPlatform.SetActive(false); //deactivates platform
+        breakableTilemapRenderer.enabled = false;
         StartCoroutine(RespawnPlatform(currentPlatform));
     }
 
@@ -166,5 +168,6 @@ public class PlatformCollider : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnPlatformTimer);
         currentPlatform.SetActive(true);
+        breakableTilemapRenderer.enabled = true;
     }
 }
