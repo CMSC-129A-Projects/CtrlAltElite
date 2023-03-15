@@ -10,7 +10,7 @@ public class WaypointFollower : MonoBehaviour
 
     public float speed;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
         {
