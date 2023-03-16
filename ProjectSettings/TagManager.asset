@@ -12,6 +12,7 @@ TagManager:
   - Hidden
   - HiddenOutCheck
   - MovingPlatform
+  - Spikes
   layers:
   - Default
   - TransparentFX
