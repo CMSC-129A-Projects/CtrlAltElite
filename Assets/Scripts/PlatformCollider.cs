@@ -8,7 +8,7 @@ public class PlatformCollider : MonoBehaviour
     public GameObject currentPlatform;
     [SerializeField] public PlayerMovement playerMovement;
     private CapsuleCollider2D playerCollider;
-    [SerializeField] private TilemapRenderer tilemapRenderer;
+    //[SerializeField] private TilemapRenderer tilemapRenderer;
     [SerializeField] private TilemapRenderer breakableTilemapRenderer;
 
     private float respawnPlatformTimer = 3;
@@ -94,25 +94,12 @@ public class PlatformCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
+        if (collision.gameObject.CompareTag("Hidden"))
         {
             inHidden = true;
-        }
-
-        if (collision.gameObject.CompareTag("HiddenOutCheck") && inHidden) // if player touches hidden tiles, hidden tiles get hidden
-        {
-            inHidden = false;
-        }
-
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Hidden")) // if player touches hidden tiles, hidden tiles get hidden
-        {
-            //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
-            tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
-            inHidden = true;
+            //this.GetComponent<TilemapRenderer>().enabled = false;
+            collision.gameObject.GetComponent<TilemapRenderer>().enabled = false;
+            //tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
         }
     }
 
@@ -123,12 +110,8 @@ public class PlatformCollider : MonoBehaviour
             if (inHidden)
             {
                 inHidden = false;
-            }
-            if (!inHidden)
-            {
                 StartCoroutine(EnableTile(collision));
-            }
-                
+            }   
         }
     }
 
@@ -138,7 +121,8 @@ public class PlatformCollider : MonoBehaviour
         //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
         if (!inHidden && (lastInHidden > inHiddenTimer))
         {
-            tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
+            //tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
+            collision.gameObject.GetComponent<TilemapRenderer>().enabled = true;
         }
         
     }

@@ -13,6 +13,7 @@ TagManager:
   - HiddenOutCheck
   - MovingPlatform
   - Spikes
+  - Water
   layers:
   - Default
   - TransparentFX
