@@ -22,4 +22,12 @@ public class WaypointFollower : MonoBehaviour
         }
         transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
     }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawLine(transform.position, waypoints[currentWaypointIndex].transform.position);
+    }
 }
