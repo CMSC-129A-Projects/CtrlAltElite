@@ -569,6 +569,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 821812219}
+  waterGravity: 0
+  waterSpeed: 0
+  waterJump: 0
 --- !u!4 &117644837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3622303767497182735, guid: f59afb11222d90a488e803191b5c05dd, type: 3}
@@ -33046,6 +33049,10 @@ PrefabInstance:
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 1041868833086827186, guid: 0b171c66ecb22914e8592cfe0a45e8cb, type: 3}
+      propertyPath: waterLayer.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041868833086827186, guid: 0b171c66ecb22914e8592cfe0a45e8cb, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -33104,7 +33111,7 @@ PrefabInstance:
     - target: {fileID: 1041868833086827197, guid: 0b171c66ecb22914e8592cfe0a45e8cb, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6200000, guid: 14cb3e240ec8aad47b33df78cfb031c8, type: 2}
     - target: {fileID: 1041868833086827198, guid: 0b171c66ecb22914e8592cfe0a45e8cb, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 64
