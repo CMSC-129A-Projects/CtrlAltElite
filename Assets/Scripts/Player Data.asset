@@ -16,6 +16,7 @@ MonoBehaviour:
   wallGrabStaminaDrain: 10
   wallJumpStaminaDrain: 0.2
   wallClimbStaminaDrain: 15
+  waterStaminaDrain: 4
   staminaRegen: 5
   staminaMax: 100
   staminaMin: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   wallSlidingSpeed: 2
   wallJumpingDirection: -1
   wallJumpingTime: 0.05
-  wallJumpingCounter: -22.392845
+  wallJumpingCounter: -1.0205685
   wallJumpingDuration: 0.2
   wallJumpingPower: {x: 14, y: 12}
   wallClimbingSpeedUp: 3
@@ -48,4 +49,4 @@ MonoBehaviour:
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -20.643578
+  jumpBufferTimeCounter: -0.5528149
