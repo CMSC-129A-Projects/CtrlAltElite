@@ -82,7 +82,6 @@ public class PlatformCollider : MonoBehaviour
         if (LayerMask.LayerToName(collision.collider.gameObject.layer) == "TwoWay")
         {
             currentPlatform = null;
-            Debug.Log("TwoWay Exit");
         }
 
         if (LayerMask.LayerToName(collision.collider.gameObject.layer) == "Breakable")
