@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool onLeftWall;
     public bool canCornerCorrect;
     public bool canLedgeCorrect;
+    public bool inWater;
 
     [Space]
     [Header("Jump")]
@@ -42,8 +43,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall Mechanics")]
     public bool isWallSliding;
     public bool isWallJumping;
-    public bool isWallGrabbing;
     public bool isWallClimbing;
+    public bool isWallGrabbing;
+    
+    
 
 
     [Space]
@@ -80,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         #region TIMERS
         // lastOnAirTime -= Time.deltaTime;
         // onGroundTime += Time.deltaTime;
+        
         #endregion
 
         if (isDashing) // don't allow the player to move while dashing
@@ -96,7 +100,13 @@ public class PlayerMovement : MonoBehaviour
         #region TIMER AND BOOL CHECKS
 
         #region COYOTE TIMER
-        if (isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing)
+        if ((isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing) && !inWater) // can jump anytime when not in water
+        {
+            inAir = false;
+            lastOnAirTime -= Time.deltaTime;
+            data.coyoteTimeCounter = data.coyoteTime;
+        }
+        else if (isGrounded && inWater) // can only jump when grounded in water
         {
             inAir = false;
             lastOnAirTime -= Time.deltaTime;
@@ -156,14 +166,18 @@ public class PlayerMovement : MonoBehaviour
         // Checks collision detected by collision checkers
         CollisionCheck();
 
-        // Check if wall sliding
-        WallSlide();
-        // Check if can wall jump
-        WallJump();
-        // Check if can wall grab
-        WallGrab();
-        // Check if can wall climb
-        WallClimb();
+        if (!inWater)
+        {
+            // Check if wall sliding
+            WallSlide();
+            // Check if can wall jump
+            WallJump();
+            // Check if can wall grab
+            WallGrab();
+            // Check if can wall climb
+            WallClimb();
+        }
+        
         // Check if can ledge correct
         LedgeCorrect();
 
@@ -196,8 +210,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         #region STAMINA
-        // regen stamina if grounded
-        if (isGrounded && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        // regen stamina if grounded ONLY
+        if (isGrounded  && !inWater && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
         {
             data.stamina += data.staminaRegen;
         }
@@ -236,6 +250,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
             {
+                StopWallGrab();
                 PerformWallJump();
             }
             else
@@ -243,7 +258,7 @@ public class PlayerMovement : MonoBehaviour
                 PerformWallGrab();
             }
         }
-        else
+        else if (isWallGrabbing && Input.GetKeyUp(KeyCode.LeftShift))
         {
             StopWallGrab();
         }
@@ -262,14 +277,15 @@ public class PlayerMovement : MonoBehaviour
             isWallGrabbing = true;
             // drain stamina overtime
             data.stamina -= data.wallGrabStaminaDrain * Time.deltaTime;
-            
+
             // stick to wall
             // call StickToWall() in case a bug occurs where player is wallgrabbing but slightly away from the wall
             StickToWall();
 
             // don't make the player move when only grabbing
             SetGravityScale(0);
-            rb.velocity = new Vector2(rb.velocity.x, 0);        
+
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
         else
         {
@@ -277,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
 
     #endregion
 
@@ -314,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StopWallClimb();
         }
-            
+
     }
 
     private void StopWallClimb()
@@ -328,7 +344,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isOnWall && !isGrounded && moveInput.x != 0f && !isWallGrabbing)
         {
-            
+
             PerformWallSlide();
         }
         else
@@ -438,7 +454,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canLedgeCorrect)
         {
-
+            SetGravityScale(data.gravityScale);
+            isWallGrabbing = false;
+            isWallSliding = false;
+            isOnWall = false;
+            canLedgeCorrect = false;
             if (moveInput.x == 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
@@ -448,10 +468,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
                 //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
-                isWallGrabbing = false;
+                /*isWallGrabbing = false;
                 isWallSliding = false;
                 isOnWall = false;
-                canLedgeCorrect = false;
+                canLedgeCorrect = false;*/
             }
 
             //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
@@ -479,6 +499,19 @@ public class PlayerMovement : MonoBehaviour
         WallCollisionCheck();
         LedgeCollisionCheck();
         CornerCorrectCheck(); // TODO - have to fix this
+        WaterCollisionCheck();
+    }
+
+    private void WaterCollisionCheck()
+    {
+        if (coll.inWater)
+        {
+            inWater = true;
+        }
+        else
+        {
+            inWater = false;
+        }
     }
 
     private void GroundCollisionCheck()
@@ -696,7 +729,7 @@ public class PlayerMovement : MonoBehaviour
                 else if (!isGrounded && !isDashing)
                     dashPressed = true;
             }
-            
+
 
             // can dash if picked dash powerup from the ground
             if (!dashPressed && isGrounded && !inAir)
@@ -749,7 +782,7 @@ public class PlayerMovement : MonoBehaviour
         SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
         StopDash(); // stop isDashing bool
         yield return new WaitForSeconds(data.dashCooldown); // dash cooldown
-        
+
     }
 
     private void PerformDash()

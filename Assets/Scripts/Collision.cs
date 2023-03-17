@@ -9,6 +9,7 @@ public class Collision : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask wallLayer;
     public LayerMask platformLayer;
+    public LayerMask waterLayer;
 
     [Header("Checks")]
     [SerializeField] private Transform groundCheck;
@@ -23,9 +24,10 @@ public class Collision : MonoBehaviour
     public bool onGround;
     public bool onPlatform;
     public bool onWall;
+    public bool inWater;
     public bool canCornerCorrect;
     public bool canLedge;
-    public int wallSide;
+    
 
     [Space]
 
@@ -42,20 +44,6 @@ public class Collision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
-
-        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer)
-            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
-
-        //onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
-
-        onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
-        onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
-
-        canLedge = Physics2D.OverlapCircle((Vector2)transform.position + ledgeOffsetRight, collisionRadius, groundLayer) ||
-            Physics2D.OverlapCircle((Vector2)transform.position + ledgeOffsetLeft, collisionRadius, groundLayer);
-
-        wallSide = onRightWall ? -1 : 1;*/
 
         onGround = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, groundLayer);
         onPlatform = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, platformLayer);
@@ -66,11 +54,12 @@ public class Collision : MonoBehaviour
 
         canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
-
         canCornerCorrect = Physics2D.Raycast(transform.position + player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
             && !Physics2D.Raycast(transform.position + player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
             || Physics2D.Raycast(transform.position - player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
             && !Physics2D.Raycast(transform.position - player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer);
+
+        inWater = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, waterLayer);
     }
 
     void OnDrawGizmos()

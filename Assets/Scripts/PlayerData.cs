@@ -11,6 +11,7 @@ public class PlayerData : ScriptableObject
     public float wallGrabStaminaDrain;
     public float wallJumpStaminaDrain;
     public float wallClimbStaminaDrain;
+    public float waterStaminaDrain;
     public float staminaRegen;
     public float staminaMax;
     public float staminaMin;
