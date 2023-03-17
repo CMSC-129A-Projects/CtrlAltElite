@@ -120,6 +120,15 @@ public class PlayerMovement : MonoBehaviour
             data.coyoteTimeCounter -= Time.deltaTime;
         }
 
+        if (rb.velocity.y > 0.1f || isGrounded)
+        {
+            isFalling = false;
+        }
+        else if (rb.velocity.y < -0.1f && inAir)
+        {
+            isFalling = true;
+        }
+
         #endregion
 
         #region JUMP BUFFER
@@ -131,40 +140,11 @@ public class PlayerMovement : MonoBehaviour
         {
             data.jumpBufferTimeCounter -= Time.deltaTime;
         }
+
+
         #endregion
 
         #endregion
-
-        #region JUMP 
-        if (rb.velocity.y > 0.1f || isGrounded)
-        {
-            isFalling = false;
-        }
-        else if (rb.velocity.y < -0.1f && inAir)
-        {
-            isFalling = true;
-        }
-        //code history for jump
-        //if (Input.GetButtonDown("Jump") && isGrounded)
-        //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
-        if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f) // implement jump buffer
-        {
-            rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
-
-            data.jumpBufferTimeCounter = 0f; // reset to 0 as soon as we jump.
-        }
-        if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
-
-            data.coyoteTimeCounter = 0f; // reset to 0 once jump button is realesed.
-        }
-        #endregion
-
-
-
-        // Checks collision detected by collision checkers
-        CollisionCheck();
 
         if (!inWater)
         {
@@ -177,7 +157,19 @@ public class PlayerMovement : MonoBehaviour
             // Check if can wall climb
             WallClimb();
         }
-        
+
+        if (isWallGrabbing || isWallClimbing)
+        {
+            SetGravityScale(0);
+        }
+        else if (!inWater)
+        {
+            SetGravityScale(data.gravityScale);
+        }
+
+        // Checks collision detected by collision checkers
+        CollisionCheck();
+
         // Check if can ledge correct
         LedgeCorrect();
 
@@ -202,6 +194,28 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        #region JUMP 
+
+        //code history for jump
+        //if (Input.GetButtonDown("Jump") && isGrounded)
+        //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
+        if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f) // implement jump buffer
+        {
+            rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
+
+            data.jumpBufferTimeCounter = 0f; // reset to 0 as soon as we jump.
+        }
+        if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
+
+            data.coyoteTimeCounter = 0f; // reset to 0 once jump button is realesed.
+        }
+        #endregion
+
+
+        
 
         if (!isWallJumping && !isWallGrabbing && !isWallClimbing) // move player horizontally if not wall jumping
         {
@@ -258,7 +272,16 @@ public class PlayerMovement : MonoBehaviour
                 PerformWallGrab();
             }
         }
-        else if (isWallGrabbing && Input.GetKeyUp(KeyCode.LeftShift))
+        /*else if (isWallGrabbing && Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            StopWallGrab();
+        }
+        
+        if (!inWater && !isWallGrabbing)
+        {
+            StopWallGrab();
+        }*/
+        else
         {
             StopWallGrab();
         }
@@ -267,7 +290,7 @@ public class PlayerMovement : MonoBehaviour
     private void StopWallGrab()
     {
         isWallGrabbing = false;
-        SetGravityScale(data.gravityScale);
+        // SetGravityScale(data.gravityScale);
     }
 
     private void PerformWallGrab()
@@ -283,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
             StickToWall();
 
             // don't make the player move when only grabbing
-            SetGravityScale(0);
+            // SetGravityScale(0);
 
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
@@ -321,7 +344,9 @@ public class PlayerMovement : MonoBehaviour
             // drain stamina overtime
             data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
             // don't make the player move when only grabbing
-            SetGravityScale(0);
+            
+            // SetGravityScale(0);
+
             // wall climbing
             float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
             rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
@@ -454,7 +479,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canLedgeCorrect)
         {
-            SetGravityScale(data.gravityScale);
+            //SetGravityScale(data.gravityScale);
             isWallGrabbing = false;
             isWallSliding = false;
             isOnWall = false;
@@ -774,7 +799,7 @@ public class PlayerMovement : MonoBehaviour
         SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
         StopDash(); // stop isDashing bool
     }
-    private IEnumerator Dash()
+    /*private IEnumerator Dash()
     {
         SetGravityScale(0f); // set gravity to 0 while dashing
         PerformDash(); // perform dash
@@ -783,7 +808,7 @@ public class PlayerMovement : MonoBehaviour
         StopDash(); // stop isDashing bool
         yield return new WaitForSeconds(data.dashCooldown); // dash cooldown
 
-    }
+    }*/
 
     private void PerformDash()
     {
