@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b40edbea16e3d0a4d8ea2363e15c4dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4483825495357224460, guid: 0b171c66ecb22914e8592cfe0a45e8cb, type: 3}
+  player: {fileID: 0}
 --- !u!251 &719654441624497604
 PlatformEffector2D:
   m_ObjectHideFlags: 0
