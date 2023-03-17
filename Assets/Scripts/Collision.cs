@@ -59,7 +59,7 @@ public class Collision : MonoBehaviour
             || Physics2D.Raycast(transform.position - player.data.edgeRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer)
             && !Physics2D.Raycast(transform.position - player.data.innerRayCastOffset, Vector2.up, player.data.topRayCastLength, groundLayer);
 
-        inWater = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, waterLayer);
+        inWater = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, waterLayer);
     }
 
     void OnDrawGizmos()
