@@ -15,6 +15,7 @@ TagManager:
   - Spikes
   - Water
   - BreakableTile
+  - BreakablePlatform
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - TwoWay
   - Breakable
   - Hidden
-  - 
+  - BreakablePlatform
   - 
   - 
   - 
