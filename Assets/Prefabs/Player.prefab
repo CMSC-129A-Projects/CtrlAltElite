@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1041868833086827194}
   - component: {fileID: 1041868833086827184}
   - component: {fileID: 1041868833086827199}
+  - component: {fileID: 3752690564427582398}
   - component: {fileID: 1041868833086827197}
   - component: {fileID: 4483825495357224460}
   - component: {fileID: 1041868833086827186}
@@ -130,7 +131,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041868833086827193}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -138,6 +139,22 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.000030875206, y: -0.019676149}
   m_Size: {x: 0.4829166, y: 0.79780376}
+  m_Direction: 0
+--- !u!70 &3752690564427582398
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041868833086827193}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0027389526, y: -0.019021988}
+  m_Size: {x: 0.48510742, y: 0.7976303}
   m_Direction: 0
 --- !u!50 &1041868833086827197
 Rigidbody2D:
@@ -192,14 +209,15 @@ MonoBehaviour:
   onLeftWall: 0
   canCornerCorrect: 0
   canLedgeCorrect: 0
+  inWater: 0
   lastOnAirTime: 0
   onGroundTime: 0
   inAir: 0
   isFalling: 0
   isWallSliding: 0
   isWallJumping: 0
-  isWallGrabbing: 0
   isWallClimbing: 0
+  isWallGrabbing: 0
   isMoveSpeed: 0
   isJumpBoost: 0
   canDoubleJump: 0
@@ -228,6 +246,9 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 896
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundCheck: {fileID: 1041868834577613909}
   wallCheck: {fileID: 1041868833823966298}
   wallCheck2: {fileID: 1041868833292053393}
@@ -237,9 +258,9 @@ MonoBehaviour:
   onGround: 0
   onPlatform: 0
   onWall: 0
+  inWater: 0
   canCornerCorrect: 0
   canLedge: 0
-  wallSide: 0
   collisionRadius: 0.05
 --- !u!114 &1041868833086827185
 MonoBehaviour:
@@ -268,7 +289,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPlatform: {fileID: 0}
   playerMovement: {fileID: 4483825495357224460}
-  tilemapRenderer: {fileID: 0}
   breakableTilemapRenderer: {fileID: 0}
   inHidden: 0
   inHiddenTimer: 0

@@ -14,6 +14,7 @@ TagManager:
   - MovingPlatform
   - Spikes
   - Water
+  - BreakableTile
   layers:
   - Default
   - TransparentFX
