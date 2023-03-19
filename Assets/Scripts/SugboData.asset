@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745a1d5791f0d5745a72da6bf10be2da, type: 3}
+  m_Name: SugboData
+  m_EditorClassIdentifier: 
+  stamina: 92.20012
+  wallGrabStaminaDrain: 10
+  wallJumpStaminaDrain: 0.2
+  wallClimbStaminaDrain: 15
+  waterStaminaDrain: 4
+  staminaRegen: 5
+  staminaMax: 100
+  staminaMin: 0
+  gravityScale: 7
+  fallGravityScale: 12
+  waterGravityScale: 1
+  topRayCastLength: 0.34
+  edgeRayCastOffset: {x: 0.27, y: 0, z: 0}
+  innerRayCastOffset: {x: 0.06, y: 0, z: 0}
+  defaultMoveSpeed: 7
+  speed: 7
+  runMaxSpeed: 0
+  defaultJumpPower: 17
+  jumpPower: 17
+  jumpCutPower: 0.5
+  jumpHangTimeThreshold: 1
+  jumpHangGravityMult: 0.5
+  wallSlidingSpeed: 2
+  wallJumpingDirection: 1
+  wallJumpingTime: 0.05
+  wallJumpingCounter: -2.0527835
+  wallJumpingDuration: 0.2
+  wallJumpingPower: {x: 24, y: 18}
+  wallClimbingSpeedUp: 3
+  wallClimbingSpeedDown: 5
+  moveSpeedTimer: 0
+  moveSpeedTimerCap: 2
+  moveSpeedIncrease: 10.5
+  jumpBoostTimer: 0
+  jumpBoostTimerCap: 1
+  jumpBoostIncrease: 22.099998
+  dashPower: 18
+  dashTime: 0.2
+  dashCooldown: 1
+  coyoteTime: 0.1
+  coyoteTimeCounter: 0.1
+  jumpBufferTime: 0.1
+  jumpBufferTimeCounter: -1.2929151

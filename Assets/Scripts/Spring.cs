@@ -10,6 +10,7 @@ public class Spring : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Debug.Log(true);
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounce, ForceMode2D.Impulse);
         }
     }

@@ -19,6 +19,8 @@ public class PlayerData : ScriptableObject
 
     [Header("Gravity")]
     public float gravityScale;
+    public float fallGravityScale;
+    public float waterGravityScale;
 
     [Space]
     [Header("RayCast")]
@@ -29,6 +31,7 @@ public class PlayerData : ScriptableObject
     [Header("Run")]
     public float defaultMoveSpeed;
     public float speed;
+    public float runMaxSpeed;
     
 
     [Space]
@@ -36,6 +39,8 @@ public class PlayerData : ScriptableObject
     public float defaultJumpPower;
     public float jumpPower;
     public float jumpCutPower;
+    public float jumpHangTimeThreshold;
+    [Range(0f, 1)] public float jumpHangGravityMult;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -78,6 +83,8 @@ public class PlayerData : ScriptableObject
         moveSpeedIncrease = defaultMoveSpeed * 1.5f;
 
         jumpBoostIncrease = defaultJumpPower * 1.3f;
+
+        
     }
 
 }
