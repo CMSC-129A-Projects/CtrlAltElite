@@ -96,8 +96,13 @@ public class PlayerMovement : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 
-        if (moveInput.x != 0)
-            CheckDirectionToFace(moveInput.x > 0);
+        if (!isOnWall) 
+        {
+            if (moveInput.x != 0)
+                CheckDirectionToFace(moveInput.x > 0);
+        }  
+        
+
         #endregion
 
         #region TIMER AND BOOL CHECKS
@@ -177,11 +182,11 @@ public class PlayerMovement : MonoBehaviour
         LedgeCorrect();
 
 
-        /*if (!isWallJumping && !isWallGrabbing && !isWallClimbing)
+        if (!isWallJumping && !isWallGrabbing && !isWallClimbing)
         {
             // Checks if sprite needs to be flipped depending on direction faced
             Flip();
-        }*/
+        }
 
 
         // Check powerups
@@ -827,7 +832,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     #region GENERAL METHODS
-
     private void CheckDirectionToFace(bool isMovingRight)
     {
         if (isMovingRight != isFacingRight)
@@ -835,22 +839,20 @@ public class PlayerMovement : MonoBehaviour
             PerformFlip();
         }
     }
-    /*private void Flip()
+    private void Flip()
     {
         if (isFacingRight && moveInput.x < 0f || !isFacingRight && moveInput.x > 0f)
         {
             PerformFlip();
         }
-    }*/
+    }
 
     private void PerformFlip()
     {
-        
+        isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
-
-        isFacingRight = !isFacingRight;
     }
 
     public void SetGravityScale(float scale)
