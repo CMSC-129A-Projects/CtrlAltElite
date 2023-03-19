@@ -436,8 +436,8 @@ public class PlayerMovement : MonoBehaviour
             data.stamina -= data.wallJumpStaminaDrain;
 
             isOnWall = false;
-            isWallSliding = false;
-            isWallGrabbing = false;
+            /*isWallSliding = false;
+            isWallGrabbing = false;*/
             data.wallJumpingCounter = 0f;
             if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
             {

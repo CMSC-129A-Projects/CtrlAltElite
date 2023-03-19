@@ -197,6 +197,8 @@ public class TestMovement : MonoBehaviour
         }
         #endregion
 
+        LedgeCorrect();
+
         #region WALL CHECKS
         WallJump();
         if (CanWallJump())
@@ -647,6 +649,48 @@ public class TestMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveInput.x * data.speed, rb.velocity.y);
     }
+    #endregion
+
+    #region LEDGE CORRECT
+    private void LedgeCorrect()
+    {
+        if (canLedgeCorrect)
+        {
+            //Debug.Log("ledge corrected");
+            //SetGravityScale(data.gravityScale);
+            isWallGrabbing = false;
+            isWallSliding = false;
+            isOnWall = false;
+            canLedgeCorrect = false;
+            if (moveInput.x == 0)
+            {
+                //rb.velocity = new Vector2(rb.velocity.x, 14f); // DO NOT CHANGE THIS
+                rb.AddForce(Vector2.up * 14f, ForceMode2D.Impulse);
+                StartCoroutine(AddRight());
+            }
+            else if (moveInput.x != 0)
+            {
+                //rb.velocity = new Vector2(rb.velocity.x, 14f);
+                rb.AddForce(Vector2.up * 14f, ForceMode2D.Impulse);
+
+                //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
+                /*isWallGrabbing = false;
+                isWallSliding = false;
+                isOnWall = false;
+                canLedgeCorrect = false;*/
+            }
+
+            //transform.position = new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y + 0.4f);
+        }
+    }
+
+    IEnumerator AddRight()
+    {
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.right * 10f * transform.localScale.x);
+        //rb.AddForce(Vector2.right * data.wallJumpingPower.x * 2f * transform.localScale.x);
+    }
+
     #endregion
 
 
