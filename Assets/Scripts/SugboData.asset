@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a1d5791f0d5745a72da6bf10be2da, type: 3}
   m_Name: SugboData
   m_EditorClassIdentifier: 
-  stamina: 100
+  stamina: 92.20012
   wallGrabStaminaDrain: 10
   wallJumpStaminaDrain: 0.2
   wallClimbStaminaDrain: 15
@@ -37,9 +37,9 @@ MonoBehaviour:
   wallSlidingSpeed: 2
   wallJumpingDirection: 1
   wallJumpingTime: 0.05
-  wallJumpingCounter: 0
+  wallJumpingCounter: -2.0527835
   wallJumpingDuration: 0.2
-  wallJumpingPower: {x: 25, y: 14}
+  wallJumpingPower: {x: 24, y: 18}
   wallClimbingSpeedUp: 3
   wallClimbingSpeedDown: 5
   moveSpeedTimer: 0

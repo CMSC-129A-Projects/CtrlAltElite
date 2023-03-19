@@ -147,7 +147,7 @@ public class TestMovement : MonoBehaviour
 
         #region JUMP CHECKS
 
-        if (isJumping && rb.velocity.y < 0)
+        if (isJumping && rb.velocity.y < 0 && (!isWallGrabbing && !isWallClimbing))
         {
             isJumping = false;
 
@@ -155,12 +155,12 @@ public class TestMovement : MonoBehaviour
                 isFalling = true;
         }
 
-        if (isWallJumping && Time.time - wallJumpStartTime > data.wallJumpingTime)
+        /*if (isWallJumping && Time.time - wallJumpStartTime > data.wallJumpingTime)
         {
             isWallJumping = false;
-        }
+        }*/
 
-        if (lastOnGroundTime > 0 && !isJumping && !isWallJumping)
+        if (lastOnGroundTime > 0 && !isJumping && !isWallJumping && (!isWallGrabbing && !isWallClimbing))
         {
             isJumpCut = false;
 
@@ -198,6 +198,63 @@ public class TestMovement : MonoBehaviour
         #endregion
 
         #region WALL CHECKS
+        WallJump();
+        if (CanWallJump())
+        {
+            isWallSliding = false;
+            isWallGrabbing = false;
+            isWallJumping = true;
+            isWallClimbing = false;
+        }
+        else if (CanWallClimb())
+        {
+            isWallSliding = false;
+            isWallGrabbing = false;
+            isWallJumping = false;
+            isWallClimbing = true;
+            PerformWallClimb();
+        }
+        else if (CanWallGrab()) 
+        {
+            isWallSliding = false;
+            isWallGrabbing = true;
+            isWallJumping = false;
+            isWallClimbing = false;
+            PerformWallGrab();
+        }
+        else if (CanWallSlide())
+        {
+            isWallSliding = true;
+            isWallGrabbing = false;
+            isWallJumping = false;
+            isWallClimbing = false;
+            PerformWallSlide();
+        }
+        else
+        {
+            isWallSliding = false;
+            isWallGrabbing = false;
+            isWallJumping = false;
+            isWallClimbing = false;
+        }
+        
+        
+
+        /*WallJump(); 
+        if (CanWallJump())
+        {
+            
+            isWallSliding = false;
+            isWallGrabbing = false;
+            isWallJumping = true;
+            isWallClimbing = false;
+            //PerformWallJump();
+        }
+        else
+        {
+            //WallJump();
+            isWallJumping = false;
+        }
         if (CanWallClimb())
         {
             isWallSliding = false;
@@ -233,7 +290,7 @@ public class TestMovement : MonoBehaviour
         else
         {
             isWallSliding = false;
-        }
+        }*/
 
                 
         
@@ -295,11 +352,11 @@ public class TestMovement : MonoBehaviour
     #region WALL GRAB
     private void PerformWallGrab()
     {
+        if (isWallGrabbing && lastPressedJumpTime > 0)
+        {
+            PerformWallJump();
+        }
         StickToWall();
-
-        // don't make the player move when only grabbing
-        // SetGravityScale(0);
-
         rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
@@ -330,6 +387,10 @@ public class TestMovement : MonoBehaviour
     #region WALL CLIMB
     private void PerformWallClimb()
     {
+        if (isWallClimbing && lastPressedJumpTime > 0)
+        {
+            PerformWallJump();
+        }
         // wall climbing
         float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
         rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
@@ -338,31 +399,84 @@ public class TestMovement : MonoBehaviour
 
 
     #region WALL JUMP
+
     private void WallJump()
     {
-        //Ensures we can't call Wall Jump multiple times from one press
-        lastPressedJumpTime = 0;
-        lastOnGroundTime = 0;
+        if (isWallSliding || isWallGrabbing || isWallClimbing)
+        {
+            isWallJumping = false;
+            data.wallJumpingDirection = -transform.localScale.x;
+            data.wallJumpingCounter = data.wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            data.wallJumpingCounter -= Time.deltaTime;
+        }
 
+        //if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) && data.wallJumpingCounter > 0f)
+        if (lastPressedJumpTime > 0 && data.wallJumpingCounter > 0f)
+        {
+            PerformWallJump();
+        }
 
-        #region Perform Wall Jump
-        PerformWallJump();
-        #endregion
+        // allow the player to move in the air up until the peak of the wall jump height
+        /*if (isWallJumping && inAir && !isFalling && moveInput.x != 0)
+        {
+            //rb.velocity = new Vector2(moveInput.x * data.wallJumpingPower.x / 2f, rb.velocity.y);
+            Run();
+        }*/
     }
 
     private void PerformWallJump()
     {
-        isOnWall = false;
-        isWallSliding = false;
-        isWallGrabbing = false;
-        data.wallJumpingCounter = 0f;
-
-        rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
-        if (transform.localScale.x != data.wallJumpingDirection)
+        if (data.stamina != data.staminaMin)
         {
-            PerformFlip();
+            isWallJumping = true;
+            isOnWall = false;
+            isWallSliding = false;
+            isWallGrabbing = false;
+            isWallClimbing = false;
+
+            data.stamina -= data.wallJumpStaminaDrain;
+
+            
+            data.wallJumpingCounter = 0f;
+            if (moveInput.x == 0 || (onRightWall && moveInput.x == 1) || (onLeftWall && moveInput.x == -1))
+            {
+                //rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                if (moveInput.y != 0) // might change later
+                {
+                    //rb.velocity = new Vector2(rb.velocity.x * transform.localScale.x, data.wallJumpingPower.y + 2f);
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 2f);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
+                }
+
+            }
+            else
+            {
+                rb.velocity = new Vector2(data.wallJumpingPower.x * data.wallJumpingDirection, data.wallJumpingPower.y);
+                if (transform.localScale.x != data.wallJumpingDirection)
+                {
+                    PerformFlip();
+                }
+            }
+
+            Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
+
         }
-        Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
+        else
+        {
+            isWallJumping = false;
+            data.wallJumpingDirection = -transform.localScale.x;
+            data.wallJumpingCounter = data.wallJumpingTime;
+            CancelInvoke(nameof(StopWallJumping));
+
+        }
+
     }
 
     private void StopWallJumping()
@@ -544,7 +658,7 @@ public class TestMovement : MonoBehaviour
     }
     private bool CanWallJump()
     {
-        return lastPressedJumpTime > 0 && lastOnWallTime > 0 && lastOnGroundTime <= 0 && (!isWallJumping);
+        return lastPressedJumpTime > 0 && lastOnWallTime > 0 && lastOnGroundTime <= 0 && !isWallJumping;
     }
     private bool CanJumpCut()
     {
@@ -553,18 +667,18 @@ public class TestMovement : MonoBehaviour
 
     private bool CanWallSlide()
     {
-        return lastOnWallTime > 0 && (!isGrounded) && moveInput.x != 0f && !isWallGrabbing && !isWallClimbing;
+        return lastOnWallTime > 0 && (!isGrounded) && moveInput.x != 0f && !isWallGrabbing && !isWallClimbing && !isWallJumping;
     }
     
     private bool CanWallGrab()
     {
-        return lastOnWallTime > 0 && Input.GetKey(KeyCode.LeftShift) && !isWallClimbing;
+        return lastOnWallTime > 0 && Input.GetKey(KeyCode.LeftShift) && !isWallClimbing && !isWallJumping;
     }
 
     private bool CanWallClimb()
     {
         //return lastOnWallTime > 0 && (moveInput.y != 0) && Input.GetKey(KeyCode.LeftShift);
-        if (lastOnWallTime > 0)
+        if (lastOnWallTime > 0 && !isWallJumping)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
