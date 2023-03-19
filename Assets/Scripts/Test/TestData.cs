@@ -7,8 +7,8 @@ using UnityEngine;
 public class TestData : ScriptableObject
 {
     [Header("Gravity")]
-    [HideInInspector] public float gravityStrength; //Downwards force (gravity) needed for the desired jumpHeight and jumpTimeToApex.
-    [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
+    public float gravityStrength; //Downwards force (gravity) needed for the desired jumpHeight and jumpTimeToApex.
+    public float gravityScale; //Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
                                                  //Also the value the player's rigidbody2D.gravityScale is set to.
     [Space(5)]
     public float fallGravityMult; //Multiplier to the player's gravityScale when falling.

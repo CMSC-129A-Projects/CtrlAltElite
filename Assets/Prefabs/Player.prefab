@@ -254,7 +254,8 @@ MonoBehaviour:
   wallCheck2: {fileID: 1041868833292053393}
   wallCheck3: {fileID: 1041868833847782371}
   ledgeCheck: {fileID: 1041868834993173954}
-  player: {fileID: 4483825495357224460}
+  player: {fileID: 1041868833086827193}
+  data: {fileID: 11400000, guid: 0f83e86fbeb793743a4eb8697d356879, type: 2}
   onGround: 0
   onPlatform: 0
   onWall: 0
