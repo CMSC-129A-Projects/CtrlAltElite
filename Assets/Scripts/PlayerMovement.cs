@@ -45,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isWallJumping;
     public bool isWallClimbing;
     public bool isWallGrabbing;
-    
-    
+
+
 
 
     [Space]
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         #region TIMERS
         // lastOnAirTime -= Time.deltaTime;
         // onGroundTime += Time.deltaTime;
-        
+
         #endregion
 
         if (isDashing) // don't allow the player to move while dashing
@@ -95,6 +95,14 @@ public class PlayerMovement : MonoBehaviour
         #region INPUT HANDLERS
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
+
+        if (!isOnWall) 
+        {
+            if (moveInput.x != 0)
+                CheckDirectionToFace(moveInput.x > 0);
+        }  
+        
+
         #endregion
 
         #region TIMER AND BOOL CHECKS
@@ -215,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
 
-        
+
 
         if (!isWallJumping && !isWallGrabbing && !isWallClimbing) // move player horizontally if not wall jumping
         {
@@ -225,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region STAMINA
         // regen stamina if grounded ONLY
-        if (isGrounded  && !inWater && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        if (isGrounded && !inWater && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
         {
             data.stamina += data.staminaRegen;
         }
@@ -344,7 +352,7 @@ public class PlayerMovement : MonoBehaviour
             // drain stamina overtime
             data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
             // don't make the player move when only grabbing
-            
+
             // SetGravityScale(0);
 
             // wall climbing
@@ -824,6 +832,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     #region GENERAL METHODS
+    private void CheckDirectionToFace(bool isMovingRight)
+    {
+        if (isMovingRight != isFacingRight)
+        {
+            PerformFlip();
+        }
+    }
     private void Flip()
     {
         if (isFacingRight && moveInput.x < 0f || !isFacingRight && moveInput.x > 0f)
