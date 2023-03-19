@@ -4,25 +4,11 @@ using UnityEngine;
 
 public class StickyPlatform : MonoBehaviour
 {
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            collision.transform.SetParent(this.transform);
-        }
-    }
+    [SerializeField] private PlayerMovement player;
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
-    }*/
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && player.isOnPlatform)
         {
             collision.gameObject.transform.SetParent(transform);
         }
@@ -30,7 +16,7 @@ public class StickyPlatform : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || !player.isOnPlatform)
         {
             collision.gameObject.transform.SetParent(null);
         }
