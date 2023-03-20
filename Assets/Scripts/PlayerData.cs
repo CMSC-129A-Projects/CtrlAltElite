@@ -19,7 +19,13 @@ public class PlayerData : ScriptableObject
 
     [Header("Gravity")]
     public float gravityScale;
+    public float jumpGravityScale;
     public float fallGravityScale;
+    public float minFallGravityScale;
+    public float maxFallGravityScale;
+    public float maxFallTimer;
+    [Range(0f, 3)] public float maxFallTimerCap;
+    public float forcedFallGravityScale;
     public float waterGravityScale;
 
     [Space]
@@ -32,6 +38,8 @@ public class PlayerData : ScriptableObject
     public float defaultMoveSpeed;
     public float speed;
     public float runMaxSpeed;
+    public float runAcceleration;
+    public float groundLinearDrag;
     
 
     [Space]
@@ -39,8 +47,11 @@ public class PlayerData : ScriptableObject
     public float defaultJumpPower;
     public float jumpPower;
     public float jumpCutPower;
+    public float hangTimeCounter;
     public float jumpHangTimeThreshold;
     [Range(0f, 1)] public float jumpHangGravityMult;
+    public float airLinearDrag;
+    public float fallMultiplier;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -53,8 +64,8 @@ public class PlayerData : ScriptableObject
     public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
     // wall climb
-    [Range(0.01f, 5f)] public float wallClimbingSpeedUp;
-    [Range(0.01f, 5f)] public float wallClimbingSpeedDown;
+    [Range(0.01f, 10f)] public float wallClimbingSpeedUp;
+    [Range(0.01f, 10f)] public float wallClimbingSpeedDown;
 
     [Space]
     [Header("Power Ups")]
