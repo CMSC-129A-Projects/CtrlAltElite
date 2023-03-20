@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 8621891251285689021}
   - component: {fileID: 8621891251285689022}
   - component: {fileID: 3636553565939934889}
-  - component: {fileID: 8136430132394958600}
+  - component: {fileID: 1041157698582026651}
   - component: {fileID: 1551914371703606055}
   - component: {fileID: 4510719558997444849}
   m_Layer: 0
@@ -413,7 +413,7 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8136430132394958600
+--- !u!114 &1041157698582026651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8621891251285689020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ff49b959e247d4a8faedfab23f4bb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d5e28f7ad55e264697706cab0a69bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5f1205a5794a32142bf0e84fcb5236b2, type: 2}
@@ -448,7 +448,6 @@ MonoBehaviour:
   lastOnGroundTime: 0
   onGroundTime: 0
   lastPressedJumpTime: 0
-  lastPressedWallJumpTime: 0
   isJumping: 0
   isJumpCut: 0
   inAir: 0
@@ -499,7 +498,7 @@ MonoBehaviour:
   wallCheck3: {fileID: 1736684613382298851}
   ledgeCheck: {fileID: 3165434990301920142}
   player: {fileID: 8621891251285689020}
-  data: {fileID: 11400000, guid: 0f83e86fbeb793743a4eb8697d356879, type: 2}
+  data: {fileID: 11400000, guid: 5f1205a5794a32142bf0e84fcb5236b2, type: 2}
   onGround: 0
   onPlatform: 0
   onWall: 0
