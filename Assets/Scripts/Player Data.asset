@@ -21,18 +21,23 @@ MonoBehaviour:
   staminaMax: 100
   staminaMin: 0
   gravityScale: 7
+  fallGravityScale: 0
+  waterGravityScale: 0
   topRayCastLength: 0.5
   edgeRayCastOffset: {x: 0.235, y: 0, z: 0}
   innerRayCastOffset: {x: 0.06, y: 0, z: 0}
   defaultMoveSpeed: 7
   speed: 7
+  runMaxSpeed: 0
   defaultJumpPower: 17
   jumpPower: 17
   jumpCutPower: 0.5
+  jumpHangTimeThreshold: 0
+  jumpHangGravityMult: 0
   wallSlidingSpeed: 2
   wallJumpingDirection: 1
-  wallJumpingTime: 0.05
-  wallJumpingCounter: -1.2369435
+  wallJumpingTime: 0.2
+  wallJumpingCounter: -17.133106
   wallJumpingDuration: 0.2
   wallJumpingPower: {x: 14, y: 12}
   wallClimbingSpeedUp: 3
@@ -49,4 +54,4 @@ MonoBehaviour:
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -1.2929151
+  jumpBufferTimeCounter: -22.837519

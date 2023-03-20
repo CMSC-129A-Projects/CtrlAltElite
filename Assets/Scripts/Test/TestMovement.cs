@@ -36,6 +36,7 @@ public class TestMovement : MonoBehaviour
     public float lastOnGroundTime;
     public float onGroundTime;
     public float lastPressedJumpTime;
+    public float lastPressedWallJumpTime;
     public bool isJumping;
     public bool isJumpCut;
     public bool inAir;
@@ -98,6 +99,7 @@ public class TestMovement : MonoBehaviour
         lastOnWallTime -= Time.deltaTime;
         lastOnWallRightTime -= Time.deltaTime;
         lastOnWallLeftTime -= Time.deltaTime;
+        lastPressedWallJumpTime -= Time.deltaTime;
 
         #endregion
 
@@ -200,57 +202,17 @@ public class TestMovement : MonoBehaviour
         LedgeCorrect();
 
         #region WALL CHECKS
-        WallJump();
-        if (CanWallJump())
-        {
-            isWallSliding = false;
-            isWallGrabbing = false;
-            isWallJumping = true;
-            isWallClimbing = false;
-        }
-        else if (CanWallClimb())
-        {
-            isWallSliding = false;
-            isWallGrabbing = false;
-            isWallJumping = false;
-            isWallClimbing = true;
-            PerformWallClimb();
-        }
-        else if (CanWallGrab()) 
-        {
-            isWallSliding = false;
-            isWallGrabbing = true;
-            isWallJumping = false;
-            isWallClimbing = false;
-            PerformWallGrab();
-        }
-        else if (CanWallSlide())
-        {
-            isWallSliding = true;
-            isWallGrabbing = false;
-            isWallJumping = false;
-            isWallClimbing = false;
-            PerformWallSlide();
-        }
-        else
-        {
-            isWallSliding = false;
-            isWallGrabbing = false;
-            isWallJumping = false;
-            isWallClimbing = false;
-        }
-        
-        
 
-        /*WallJump(); 
+
+        //WallJump();
         if (CanWallJump())
         {
-            
+
             isWallSliding = false;
             isWallGrabbing = false;
             isWallJumping = true;
             isWallClimbing = false;
-            //PerformWallJump();
+            PerformWallJump();
         }
         else
         {
@@ -292,10 +254,10 @@ public class TestMovement : MonoBehaviour
         else
         {
             isWallSliding = false;
-        }*/
+        }
 
-                
-        
+
+
         #endregion
 
         #region GRAVITY
@@ -360,6 +322,7 @@ public class TestMovement : MonoBehaviour
         }
         StickToWall();
         rb.velocity = new Vector2(rb.velocity.x, 0);
+        //rb.velocity = new Vector2(0, 0);
     }
 
     private void StickToWall()
@@ -439,6 +402,9 @@ public class TestMovement : MonoBehaviour
             isWallSliding = false;
             isWallGrabbing = false;
             isWallClimbing = false;
+
+            //lastPressedWallJumpTime = data.wallJumpingDuration;
+            lastPressedWallJumpTime = data.wallJumpingTime;
 
             data.stamina -= data.wallJumpStaminaDrain;
 
@@ -665,13 +631,13 @@ public class TestMovement : MonoBehaviour
             if (moveInput.x == 0)
             {
                 //rb.velocity = new Vector2(rb.velocity.x, 14f); // DO NOT CHANGE THIS
-                rb.AddForce(Vector2.up * 14f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
                 StartCoroutine(AddRight());
             }
             else if (moveInput.x != 0)
             {
                 //rb.velocity = new Vector2(rb.velocity.x, 14f);
-                rb.AddForce(Vector2.up * 14f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
 
                 //rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 2f);
                 /*isWallGrabbing = false;
@@ -702,7 +668,7 @@ public class TestMovement : MonoBehaviour
     }
     private bool CanWallJump()
     {
-        return lastPressedJumpTime > 0 && lastOnWallTime > 0 && lastOnGroundTime <= 0 && !isWallJumping;
+        return lastPressedJumpTime > 0 && lastOnWallTime > 0 && lastOnGroundTime <= 0 && !isWallJumping && !(lastPressedWallJumpTime > 0);
     }
     private bool CanJumpCut()
     {
@@ -724,7 +690,7 @@ public class TestMovement : MonoBehaviour
         //return lastOnWallTime > 0 && (moveInput.y != 0) && Input.GetKey(KeyCode.LeftShift);
         if (lastOnWallTime > 0 && !isWallJumping)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && ((isFacingRight && lastOnWallRightTime > 0) || (!isFacingRight && lastOnWallLeftTime > 0)))
             {
                 if (moveInput.y != 0 && moveInput.x != 0)
                 {
