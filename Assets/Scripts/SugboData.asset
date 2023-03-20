@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a1d5791f0d5745a72da6bf10be2da, type: 3}
   m_Name: SugboData
   m_EditorClassIdentifier: 
-  stamina: 64.40054
+  stamina: 100
   wallGrabStaminaDrain: 10
   wallJumpStaminaDrain: 0.2
   wallClimbStaminaDrain: 15
@@ -23,9 +23,9 @@ MonoBehaviour:
   gravityScale: 7
   fallGravityScale: 12
   waterGravityScale: 1
-  topRayCastLength: 0.34
-  edgeRayCastOffset: {x: 0.27, y: 0, z: 0}
-  innerRayCastOffset: {x: 0.06, y: 0, z: 0}
+  topRayCastLength: 0.5
+  edgeRayCastOffset: {x: 0.24, y: 0, z: 0}
+  innerRayCastOffset: {x: 0.02, y: 0, z: 0}
   defaultMoveSpeed: 7
   speed: 7
   runMaxSpeed: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   wallJumpingTime: 0.5
   wallJumpingCounter: 0
   wallJumpingDuration: 0.2
-  wallJumpingPower: {x: 14, y: 20}
+  wallJumpingPower: {x: 16, y: 12}
   wallClimbingSpeedUp: 3
   wallClimbingSpeedDown: 5
   moveSpeedTimer: 0
