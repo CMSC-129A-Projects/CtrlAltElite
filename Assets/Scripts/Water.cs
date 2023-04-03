@@ -5,7 +5,8 @@ using UnityEngine;
 public class Water : MonoBehaviour
 {
 
-    [SerializeField] private PlayerMovement player;
+    // [SerializeField] private PlayerMovement player;
+    [SerializeField] private TestMovement2 player;
 
     private bool inWater;
     public float waterGravity; 
@@ -18,7 +19,7 @@ public class Water : MonoBehaviour
         //waterGravity = player.data.gravityScale / 2;
         waterGravity = 1;
         waterSpeed = player.data.defaultMoveSpeed / 2;
-        waterJump = player.data.defaultJumpPower / 4;
+        waterJump = player.data.defaultJumpPower / 2;
     }
 
     private void FixedUpdate()
@@ -39,7 +40,7 @@ public class Water : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inWater = true;
-            player.data.speed = waterSpeed;
+            player.data.runMaxSpeed = waterSpeed;
             player.data.jumpPower = waterJump;
             player.rb.gravityScale = waterGravity;
         }
@@ -50,7 +51,7 @@ public class Water : MonoBehaviour
         {
             inWater = false;
             player.SetGravityScale(player.data.gravityScale);
-            player.data.speed = player.data.defaultMoveSpeed;
+            player.data.runMaxSpeed = player.data.defaultMoveSpeed;
             player.data.jumpPower = player.data.defaultJumpPower;
         }
     }

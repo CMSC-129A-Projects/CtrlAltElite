@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    [SerializeField] public PlayerMovement playerMovement;
+    // [SerializeField] public PlayerMovement playerMovement;
+    [SerializeField] public TestMovement2 playerMovement;
+    
+
 
     private int respawnItemTimer = 4;
     // https://www.youtube.com/watch?v=Y7pp2gzCzUI HOW TO ACCESS DATA FROM ANOTHER SCRIPT 
@@ -30,6 +33,7 @@ public class ItemCollector : MonoBehaviour
         if (collision.gameObject.CompareTag("Dash"))
         {
             playerMovement.canDash = true;
+            playerMovement.dashPressed = false;
             RespawnItem(collision);
         }
     }

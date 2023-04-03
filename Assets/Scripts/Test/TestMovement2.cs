@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestMovement2 : MonoBehaviour
@@ -18,6 +17,7 @@ public class TestMovement2 : MonoBehaviour
     public bool isFacingRight;
     public bool canMove;
     private bool changingDirection;
+    private Coroutine coroutine;
 
     [Space]
     [Header("Collision")]
@@ -95,7 +95,7 @@ public class TestMovement2 : MonoBehaviour
         {
             data.jumpBufferTimeCounter = data.jumpBufferTime;
         }
-        else 
+        else
         {
             data.jumpBufferTimeCounter -= Time.deltaTime;
         }
@@ -107,15 +107,33 @@ public class TestMovement2 : MonoBehaviour
         }
 
         #endregion
+
+        /*if (Input.GetKeyDown(KeyCode.K) && canDash) data.dashBufferCounter = data.dashBufferLength;
+        else data.dashBufferCounter -= Time.deltaTime;*/
+
+        if ((isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing) && !inWater) // can jump anytime when not in water
+        {
+            inAir = false;
+        }
+        else if (isGrounded && inWater) // can only jump when grounded in water
+        {
+            inAir = false;
+        }
+        else
+        {
+            inAir = true;
+        }
+
+        Dash();
+        
     }
 
     private void FixedUpdate()
     {
         CollisionCheck();
-        if (canDash)
-        {
+        UpdatePowerUps();
+        
 
-        }
         if (!isDashing)
         {
             if (canMove)
@@ -127,20 +145,40 @@ public class TestMovement2 : MonoBehaviour
                 rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(moveInput.x * data.runMaxSpeed, rb.velocity.y)), .5f * Time.deltaTime);
             }
 
+
             if (isGrounded)
             {
                 ApplyGroundLinearDrag();
                 data.hangTimeCounter = data.jumpHangGravityMult;
-                dashPressed = false;
+                // dashPressed = false;
             }
             else
             {
-                ApplyAirLinearDrag();
-                FallMultiplier();
-                data.hangTimeCounter -= Time.fixedDeltaTime;
-                //if (!isOnWall || rb.velocity.y < 0f || _wallRun) _isJumping = false;
-                if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
+                if (!inWater)
+                {
+                    ApplyAirLinearDrag();
+                    FallMultiplier();
+                    data.hangTimeCounter -= Time.fixedDeltaTime;
+                    //if (!isOnWall || rb.velocity.y < 0f || _wallRun) _isJumping = false;
+                    if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
+                }
+                
             }
+
+            if (inWater)
+            {
+                if (CanWaterJump())
+                {
+                    data.stamina -= data.waterStaminaDrain * 2;
+                    Jump(Vector2.up);
+                }
+                if (moveInput.y < 0f)
+                {
+                    //rb.gravityScale = data.fallGravityScale;
+                    SetGravityScale(3);
+                }
+            }
+            
 
             if (CanJump())
             {
@@ -154,16 +192,18 @@ public class TestMovement2 : MonoBehaviour
                     {
                         WallJump();
                     }*/
-                    WallJump();
-                    
+                    if (data.stamina != data.staminaMin)
+                        WallJump();
+
                 }
                 else
                 {
+                    // if (inWater && inAir) return;
                     Jump(Vector2.up);
-                }          
+                }
             }
 
-            if (!isJumping)
+            if (!isJumping && !inWater)
             {
                 if (CanWallSlide())
                 {
@@ -192,12 +232,33 @@ public class TestMovement2 : MonoBehaviour
             }
 
         }
+
+        #region STAMINA
+        // regen stamina if grounded ONLY
+        if (isGrounded && !inWater && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        {
+            //data.stamina += data.staminaRegen;
+            data.stamina = data.staminaMax;
+        }
+        // cap stamina at min and max
+        if (data.stamina >= data.staminaMax)
+        {
+            data.stamina = data.staminaMax;
+        }
+        if (data.stamina <= data.staminaMin)
+        {
+            data.stamina = data.staminaMin;
+        }
+
+        #endregion
     }
 
     #region WALL MECHANICS
 
     private void WallClimb()
     {
+        data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+
         float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
         rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
         isWallClimbing = true;
@@ -205,6 +266,8 @@ public class TestMovement2 : MonoBehaviour
     }
     private void WallGrab()
     {
+        data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
     }
@@ -217,6 +280,8 @@ public class TestMovement2 : MonoBehaviour
 
     private void WallJump()
     {
+        data.stamina -= data.wallJumpStaminaDrain;
+
         //Debug.Log("true");
         Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
         //Jump(Vector2.up + jumpDirection);
@@ -236,7 +301,7 @@ public class TestMovement2 : MonoBehaviour
             rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
             Flip();
         }
-        
+
         data.hangTimeCounter = 0f;
         data.jumpBufferTimeCounter = 0f;
         isJumping = true;
@@ -267,7 +332,164 @@ public class TestMovement2 : MonoBehaviour
     }
     #endregion
 
+    #region POWERUPS
+    private void UpdatePowerUps()
+    {
+        #region MOVESPEED
+        if (isMoveSpeed)
+        {
+            // Initial move speed increase
+            if (!moveSpeedInit)
+            {
+                data.runMaxSpeed = data.moveSpeedIncrease;
+                moveSpeedInit = true;
+            }
 
+            data.moveSpeedTimer += Time.deltaTime;
+
+            data.runMaxSpeed -= Time.deltaTime; // decrement move speed over time
+            if (data.moveSpeedTimer >= data.moveSpeedTimerCap)
+            {
+                data.runMaxSpeed = data.defaultMoveSpeed;
+                data.moveSpeedTimer = 0f;
+                moveSpeedInit = false;
+                isMoveSpeed = false;
+            }
+        }
+        #endregion
+
+        #region DOUBLE JUMP
+        if (canDoubleJump)
+        {
+            if (data.jumpBufferTimeCounter > 0f) // replace with jump buffer
+            {
+                Jump(Vector2.up);
+                if (isGrounded)
+                    doubleJumpPressed = false;
+                else if (!isGrounded && !isWallJumping)
+                    doubleJumpPressed = true;
+            }
+
+            // can DJ if picked DJ powerup from the ground
+            if (!doubleJumpPressed && isGrounded && !inAir)
+            {
+                canDoubleJump = true;
+            }
+            // cant DJ anymore when picking a DJ powerup while midair AND landing on ground not using the DJ
+            if (!doubleJumpPressed && isGrounded && inAir)
+            {
+                canDoubleJump = false;
+            }
+            // cant DJ anymore when picking a DJ powerup while midair AND wallsliding not using the DJ
+            if (!doubleJumpPressed && isWallSliding)
+            {
+                canDoubleJump = false;
+            }
+        }
+        if (doubleJumpPressed && !isGrounded)
+        {
+            canDoubleJump = false;
+            if (isGrounded)
+            {
+                doubleJumpPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDoubleJump)
+        {
+            doubleJumpPressed = false;
+        }
+        #endregion
+
+
+        #region JUMP BOOST
+        if (isJumpBoost)
+        {
+            data.jumpPower = data.jumpBoostIncrease;
+            data.jumpBoostTimer += Time.deltaTime;
+            if (data.jumpBoostTimer >= data.jumpBoostTimerCap)
+            {
+                data.jumpPower = data.defaultJumpPower;
+                data.jumpBoostTimer = 0f;
+                isJumpBoost = false;
+            }
+        }
+        #endregion
+
+        
+    }
+
+    private void Dash()
+    {
+        if (canDash)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                //dashPressed = true;
+                //StartCoroutine(Dash());   
+                StartCoroutine(_Dash());
+                if (isGrounded)
+                    dashPressed = false;
+                else if (!isGrounded && !isDashing)
+                    dashPressed = true;
+            }
+
+
+            // can dash if picked dash powerup from the ground
+            if (!dashPressed && isGrounded && !inAir)
+            {
+                canDash = true;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
+            if (!dashPressed && isGrounded && inAir)
+            {
+                canDash = false;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
+            if (!dashPressed && isWallSliding)
+            {
+                canDash = false;
+            }
+        }
+
+        if (dashPressed && !isGrounded)
+        {
+            canDash = false;
+            if (isGrounded)
+            {
+                dashPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDash)
+        {
+            dashPressed = false;
+        }
+    }
+    private IEnumerator _Dash()
+    {
+        canDash = false;
+        SetGravityScale(0f); // set gravity to 0 while dashing
+        PerformDash(); // perform dash
+        yield return new WaitForSeconds(data.dashTime); // time while dashing
+        SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
+        StopDash(); // stop isDashing bool
+    }
+
+    private void PerformDash()
+    {
+        isDashing = true;
+        rb.velocity = new Vector2(transform.localScale.x * data.dashPower, 0f);
+    }
+
+    private void StopDash()
+    {
+        isDashing = false;
+    }
+
+
+
+    #endregion
 
     #region MOVE METHODS
 
@@ -322,7 +544,7 @@ public class TestMovement2 : MonoBehaviour
                 {
                     SetGravityScale(data.fallGravityScale);
                 }
-                
+
             }
             // instant fall gravity
             else if (rb.velocity.y > 0 && !(Input.GetButton("Jump") || Input.GetKey(KeyCode.J)))
@@ -356,7 +578,7 @@ public class TestMovement2 : MonoBehaviour
         isJumping = true;
     }
 
-    
+
     #endregion
 
     #region CHECK METHODS
@@ -366,46 +588,27 @@ public class TestMovement2 : MonoBehaviour
 
         return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall);
     }
+
+    private bool CanWaterJump()
+    {
+        return data.jumpBufferTimeCounter > 0f && inWater;
+    }
     private bool CanWallSlide()
     {
-        return isOnWall && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
+        return isOnWall && (data.stamina != data.staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
     }
 
     private bool CanWallGrab()
     {
-        return isOnWall && Input.GetKey(KeyCode.LeftShift);
+        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift);
     }
 
     private bool CanWallClimb()
     {
-        return isOnWall && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
+        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
     }
 
-    /*private bool CanWallClimb()
-    {
-        //return lastOnWallTime > 0 && (moveInput.y != 0) && Input.GetKey(KeyCode.LeftShift);
-        if (lastOnWallTime > 0 && !isWallJumping)
-        {
-            if (Input.GetKey(KeyCode.LeftShift) && ((isFacingRight && lastOnWallRightTime > 0) || (!isFacingRight && lastOnWallLeftTime > 0)))
-            {
-                if (moveInput.y != 0 && moveInput.x != 0)
-                {
-                    return true;
-                }
-                if (moveInput.y != 0 && moveInput.x == 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
-
-        #endregion
+    #endregion
 
     #region COLLISION CHECK
 
