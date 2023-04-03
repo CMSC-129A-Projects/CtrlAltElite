@@ -25,7 +25,7 @@ MonoBehaviour:
   fallGravityScale: 12
   minFallGravityScale: 18
   maxFallGravityScale: 24
-  maxFallTimer: 1.2799994
+  maxFallTimer: 0.29999998
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
@@ -37,8 +37,8 @@ MonoBehaviour:
   runMaxSpeed: 7
   runAcceleration: 50
   groundLinearDrag: 15
-  defaultJumpPower: 20
-  jumpPower: 20
+  defaultJumpPower: 24
+  jumpPower: 24
   jumpCutPower: 0.5
   hangTimeCounter: 0.2
   jumpHangTimeThreshold: 1
@@ -55,14 +55,13 @@ MonoBehaviour:
   wallClimbingSpeedDown: 10
   moveSpeedTimer: 0
   moveSpeedTimerCap: 2
-  moveSpeedIncrease: 10.5
+  moveSpeedIncrease: 12
   jumpBoostTimer: 0
   jumpBoostTimerCap: 1
   jumpBoostIncrease: 26
-  dashPower: 18
+  dashPower: 27
   dashTime: 0.2
-  dashCooldown: 1
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -2.0353758
+  jumpBufferTimeCounter: -2.445738

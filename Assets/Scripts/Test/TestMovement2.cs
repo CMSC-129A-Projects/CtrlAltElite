@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestMovement2 : MonoBehaviour
@@ -18,6 +17,7 @@ public class TestMovement2 : MonoBehaviour
     public bool isFacingRight;
     public bool canMove;
     private bool changingDirection;
+    private Coroutine coroutine;
 
     [Space]
     [Header("Collision")]
@@ -107,15 +107,78 @@ public class TestMovement2 : MonoBehaviour
         }
 
         #endregion
+
+        /*if (Input.GetKeyDown(KeyCode.K) && canDash) data.dashBufferCounter = data.dashBufferLength;
+        else data.dashBufferCounter -= Time.deltaTime;*/
+
+        if ((isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing) && !inWater) // can jump anytime when not in water
+        {
+            inAir = false;
+        }
+        else if (isGrounded && inWater) // can only jump when grounded in water
+        {
+            inAir = false;
+        }
+        else
+        {
+            inAir = true;
+        }
+
+        #region DASH
+        if (canDash)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                //dashPressed = true;
+                //StartCoroutine(Dash());   
+                StartCoroutine(_Dash());
+                if (isGrounded)
+                    dashPressed = false;
+                else if (!isGrounded && !isDashing)
+                    dashPressed = true;
+            }
+
+
+            // can dash if picked dash powerup from the ground
+            if (!dashPressed && isGrounded && !inAir)
+            {
+                canDash = true;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
+            if (!dashPressed && isGrounded && inAir)
+            {
+                canDash = false;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
+            if (!dashPressed && isWallSliding)
+            {
+                canDash = false;
+            }
+        }
+
+        if (dashPressed && !isGrounded)
+        {
+            canDash = false;
+            if (isGrounded)
+            {
+                dashPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDash)
+        {
+            dashPressed = false;
+        }
+
+        #endregion
     }
 
     private void FixedUpdate()
     {
         CollisionCheck();
-        if (canDash)
-        {
+        UpdatePowerUps();
+        
 
-        }
         if (!isDashing)
         {
             if (canMove)
@@ -131,7 +194,7 @@ public class TestMovement2 : MonoBehaviour
             {
                 ApplyGroundLinearDrag();
                 data.hangTimeCounter = data.jumpHangGravityMult;
-                dashPressed = false;
+                // dashPressed = false;
             }
             else
             {
@@ -141,6 +204,7 @@ public class TestMovement2 : MonoBehaviour
                 //if (!isOnWall || rb.velocity.y < 0f || _wallRun) _isJumping = false;
                 if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
             }
+            
 
             if (CanJump())
             {
@@ -293,7 +357,117 @@ public class TestMovement2 : MonoBehaviour
     }
     #endregion
 
+    #region POWERUPS
+    private void UpdatePowerUps()
+    {
+        #region MOVESPEED
+        if (isMoveSpeed)
+        {
+            // Initial move speed increase
+            if (!moveSpeedInit)
+            {
+                data.runMaxSpeed = data.moveSpeedIncrease;
+                moveSpeedInit = true;
+            }
 
+            data.moveSpeedTimer += Time.deltaTime;
+
+            data.runMaxSpeed -= Time.deltaTime; // decrement move speed over time
+            if (data.moveSpeedTimer >= data.moveSpeedTimerCap)
+            {
+                data.runMaxSpeed = data.defaultMoveSpeed;
+                data.moveSpeedTimer = 0f;
+                moveSpeedInit = false;
+                isMoveSpeed = false;
+            }
+        }
+        #endregion
+
+        #region DOUBLE JUMP
+        if (canDoubleJump)
+        {
+            if (data.jumpBufferTimeCounter > 0f) // replace with jump buffer
+            {
+                Jump(Vector2.up);
+                if (isGrounded)
+                    doubleJumpPressed = false;
+                else if (!isGrounded && !isWallJumping)
+                    doubleJumpPressed = true;
+            }
+
+            // can DJ if picked DJ powerup from the ground
+            if (!doubleJumpPressed && isGrounded && !inAir)
+            {
+                canDoubleJump = true;
+            }
+            // cant DJ anymore when picking a DJ powerup while midair AND landing on ground not using the DJ
+            if (!doubleJumpPressed && isGrounded && inAir)
+            {
+                canDoubleJump = false;
+            }
+            // cant DJ anymore when picking a DJ powerup while midair AND wallsliding not using the DJ
+            if (!doubleJumpPressed && isWallSliding)
+            {
+                canDoubleJump = false;
+            }
+        }
+        if (doubleJumpPressed && !isGrounded)
+        {
+            canDoubleJump = false;
+            if (isGrounded)
+            {
+                doubleJumpPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDoubleJump)
+        {
+            doubleJumpPressed = false;
+        }
+        #endregion
+
+
+        #region JUMP BOOST
+        if (isJumpBoost)
+        {
+            data.jumpPower = data.jumpBoostIncrease;
+            data.jumpBoostTimer += Time.deltaTime;
+            if (data.jumpBoostTimer >= data.jumpBoostTimerCap)
+            {
+                data.jumpPower = data.defaultJumpPower;
+                data.jumpBoostTimer = 0f;
+                isJumpBoost = false;
+            }
+        }
+        #endregion
+
+        
+    }
+
+    private IEnumerator _Dash()
+    {
+        canDash = false;
+        SetGravityScale(0f); // set gravity to 0 while dashing
+        PerformDash(); // perform dash
+        yield return new WaitForSeconds(data.dashTime); // time while dashing
+        SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
+        StopDash(); // stop isDashing bool
+    }
+
+    private void PerformDash()
+    {
+        isDashing = true;
+        rb.velocity = new Vector2(transform.localScale.x * data.dashPower, 0f);
+    }
+
+    private void StopDash()
+    {
+        isDashing = false;
+    }
+
+
+
+    #endregion
 
     #region MOVE METHODS
 
@@ -392,6 +566,19 @@ public class TestMovement2 : MonoBehaviour
 
         return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall);
     }
+
+    private bool CanDoubleJump()
+    {
+        // return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall) && canDoubleJump;
+        if (canDoubleJump)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private bool CanWallSlide()
     {
         return isOnWall && (data.stamina != data.staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
@@ -406,6 +593,11 @@ public class TestMovement2 : MonoBehaviour
     {
         return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
     }
+
+    /*private bool CanDash()
+    {
+        return !dashPressed && data.dashBufferCounter > 0f && canDash;
+    }*/
 
     /*private bool CanWallClimb()
     {
