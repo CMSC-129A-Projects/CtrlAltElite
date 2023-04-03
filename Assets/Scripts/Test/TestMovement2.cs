@@ -124,53 +124,8 @@ public class TestMovement2 : MonoBehaviour
             inAir = true;
         }
 
-        #region DASH
-        if (canDash)
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                //dashPressed = true;
-                //StartCoroutine(Dash());   
-                StartCoroutine(_Dash());
-                if (isGrounded)
-                    dashPressed = false;
-                else if (!isGrounded && !isDashing)
-                    dashPressed = true;
-            }
-
-
-            // can dash if picked dash powerup from the ground
-            if (!dashPressed && isGrounded && !inAir)
-            {
-                canDash = true;
-            }
-            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
-            if (!dashPressed && isGrounded && inAir)
-            {
-                canDash = false;
-            }
-            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
-            if (!dashPressed && isWallSliding)
-            {
-                canDash = false;
-            }
-        }
-
-        if (dashPressed && !isGrounded)
-        {
-            canDash = false;
-            if (isGrounded)
-            {
-                dashPressed = false;
-            }
-        }
-
-        if (isGrounded && !canDash)
-        {
-            dashPressed = false;
-        }
-
-        #endregion
+        Dash();
+        
     }
 
     private void FixedUpdate()
@@ -190,6 +145,7 @@ public class TestMovement2 : MonoBehaviour
                 rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(moveInput.x * data.runMaxSpeed, rb.velocity.y)), .5f * Time.deltaTime);
             }
 
+
             if (isGrounded)
             {
                 ApplyGroundLinearDrag();
@@ -198,11 +154,29 @@ public class TestMovement2 : MonoBehaviour
             }
             else
             {
-                ApplyAirLinearDrag();
-                FallMultiplier();
-                data.hangTimeCounter -= Time.fixedDeltaTime;
-                //if (!isOnWall || rb.velocity.y < 0f || _wallRun) _isJumping = false;
-                if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
+                if (!inWater)
+                {
+                    ApplyAirLinearDrag();
+                    FallMultiplier();
+                    data.hangTimeCounter -= Time.fixedDeltaTime;
+                    //if (!isOnWall || rb.velocity.y < 0f || _wallRun) _isJumping = false;
+                    if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
+                }
+                
+            }
+
+            if (inWater)
+            {
+                if (CanWaterJump())
+                {
+                    data.stamina -= data.waterStaminaDrain * 2;
+                    Jump(Vector2.up);
+                }
+                if (moveInput.y < 0f)
+                {
+                    //rb.gravityScale = data.fallGravityScale;
+                    SetGravityScale(3);
+                }
             }
             
 
@@ -224,11 +198,12 @@ public class TestMovement2 : MonoBehaviour
                 }
                 else
                 {
+                    // if (inWater && inAir) return;
                     Jump(Vector2.up);
                 }
             }
 
-            if (!isJumping)
+            if (!isJumping && !inWater)
             {
                 if (CanWallSlide())
                 {
@@ -444,6 +419,53 @@ public class TestMovement2 : MonoBehaviour
         
     }
 
+    private void Dash()
+    {
+        if (canDash)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                //dashPressed = true;
+                //StartCoroutine(Dash());   
+                StartCoroutine(_Dash());
+                if (isGrounded)
+                    dashPressed = false;
+                else if (!isGrounded && !isDashing)
+                    dashPressed = true;
+            }
+
+
+            // can dash if picked dash powerup from the ground
+            if (!dashPressed && isGrounded && !inAir)
+            {
+                canDash = true;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
+            if (!dashPressed && isGrounded && inAir)
+            {
+                canDash = false;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
+            if (!dashPressed && isWallSliding)
+            {
+                canDash = false;
+            }
+        }
+
+        if (dashPressed && !isGrounded)
+        {
+            canDash = false;
+            if (isGrounded)
+            {
+                dashPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDash)
+        {
+            dashPressed = false;
+        }
+    }
     private IEnumerator _Dash()
     {
         canDash = false;
@@ -567,17 +589,9 @@ public class TestMovement2 : MonoBehaviour
         return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall);
     }
 
-    private bool CanDoubleJump()
+    private bool CanWaterJump()
     {
-        // return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall) && canDoubleJump;
-        if (canDoubleJump)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return data.jumpBufferTimeCounter > 0f && inWater;
     }
     private bool CanWallSlide()
     {
@@ -593,35 +607,6 @@ public class TestMovement2 : MonoBehaviour
     {
         return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
     }
-
-    /*private bool CanDash()
-    {
-        return !dashPressed && data.dashBufferCounter > 0f && canDash;
-    }*/
-
-    /*private bool CanWallClimb()
-    {
-        //return lastOnWallTime > 0 && (moveInput.y != 0) && Input.GetKey(KeyCode.LeftShift);
-        if (lastOnWallTime > 0 && !isWallJumping)
-        {
-            if (Input.GetKey(KeyCode.LeftShift) && ((isFacingRight && lastOnWallRightTime > 0) || (!isFacingRight && lastOnWallLeftTime > 0)))
-            {
-                if (moveInput.y != 0 && moveInput.x != 0)
-                {
-                    return true;
-                }
-                if (moveInput.y != 0 && moveInput.x == 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
 
     #endregion
 
