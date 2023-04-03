@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 public class PlatformCollider : MonoBehaviour
 {
     public GameObject currentPlatform;
-    [SerializeField] public PlayerMovement playerMovement;
+    // [SerializeField] public PlayerMovement playerMovement;
+    [SerializeField] public TestMovement2 playerMovement;
     private CapsuleCollider2D playerCollider;
     //[SerializeField] private TilemapRenderer tilemapRenderer;
     [SerializeField] private TilemapRenderer breakableTilemapRenderer;
