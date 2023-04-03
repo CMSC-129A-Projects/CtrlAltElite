@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stamina: 100
   wallGrabStaminaDrain: 10
-  wallJumpStaminaDrain: 0.2
+  wallJumpStaminaDrain: 20
   wallClimbStaminaDrain: 15
   waterStaminaDrain: 4
   staminaRegen: 5
@@ -25,7 +25,7 @@ MonoBehaviour:
   fallGravityScale: 12
   minFallGravityScale: 18
   maxFallGravityScale: 24
-  maxFallTimer: 0.32
+  maxFallTimer: 1.2799994
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
   defaultJumpPower: 20
   jumpPower: 20
   jumpCutPower: 0.5
-  hangTimeCounter: -0.40000004
+  hangTimeCounter: 0.2
   jumpHangTimeThreshold: 1
   jumpHangGravityMult: 0.2
   airLinearDrag: 6
@@ -65,4 +65,4 @@ MonoBehaviour:
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -0.4121784
+  jumpBufferTimeCounter: -2.0353758

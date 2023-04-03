@@ -95,7 +95,7 @@ public class TestMovement2 : MonoBehaviour
         {
             data.jumpBufferTimeCounter = data.jumpBufferTime;
         }
-        else 
+        else
         {
             data.jumpBufferTimeCounter -= Time.deltaTime;
         }
@@ -154,13 +154,14 @@ public class TestMovement2 : MonoBehaviour
                     {
                         WallJump();
                     }*/
-                    WallJump();
-                    
+                    if (data.stamina != data.staminaMin)
+                        WallJump();
+
                 }
                 else
                 {
                     Jump(Vector2.up);
-                }          
+                }
             }
 
             if (!isJumping)
@@ -192,12 +193,33 @@ public class TestMovement2 : MonoBehaviour
             }
 
         }
+
+        #region STAMINA
+        // regen stamina if grounded ONLY
+        if (isGrounded && !inWater && data.stamina >= data.staminaMin && data.stamina < data.staminaMax)
+        {
+            //data.stamina += data.staminaRegen;
+            data.stamina = data.staminaMax;
+        }
+        // cap stamina at min and max
+        if (data.stamina >= data.staminaMax)
+        {
+            data.stamina = data.staminaMax;
+        }
+        if (data.stamina <= data.staminaMin)
+        {
+            data.stamina = data.staminaMin;
+        }
+
+        #endregion
     }
 
     #region WALL MECHANICS
 
     private void WallClimb()
     {
+        data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+
         float speedModifier = moveInput.y > 0 ? data.wallClimbingSpeedUp : data.wallClimbingSpeedDown;
         rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
         isWallClimbing = true;
@@ -205,6 +227,8 @@ public class TestMovement2 : MonoBehaviour
     }
     private void WallGrab()
     {
+        data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
+
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
     }
@@ -217,6 +241,8 @@ public class TestMovement2 : MonoBehaviour
 
     private void WallJump()
     {
+        data.stamina -= data.wallJumpStaminaDrain;
+
         //Debug.Log("true");
         Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
         //Jump(Vector2.up + jumpDirection);
@@ -236,7 +262,7 @@ public class TestMovement2 : MonoBehaviour
             rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
             Flip();
         }
-        
+
         data.hangTimeCounter = 0f;
         data.jumpBufferTimeCounter = 0f;
         isJumping = true;
@@ -322,7 +348,7 @@ public class TestMovement2 : MonoBehaviour
                 {
                     SetGravityScale(data.fallGravityScale);
                 }
-                
+
             }
             // instant fall gravity
             else if (rb.velocity.y > 0 && !(Input.GetButton("Jump") || Input.GetKey(KeyCode.J)))
@@ -356,7 +382,7 @@ public class TestMovement2 : MonoBehaviour
         isJumping = true;
     }
 
-    
+
     #endregion
 
     #region CHECK METHODS
@@ -368,17 +394,17 @@ public class TestMovement2 : MonoBehaviour
     }
     private bool CanWallSlide()
     {
-        return isOnWall && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
+        return isOnWall && (data.stamina != data.staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
     }
 
     private bool CanWallGrab()
     {
-        return isOnWall && Input.GetKey(KeyCode.LeftShift);
+        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift);
     }
 
     private bool CanWallClimb()
     {
-        return isOnWall && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
+        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
     }
 
     /*private bool CanWallClimb()
@@ -405,7 +431,7 @@ public class TestMovement2 : MonoBehaviour
         }
     }*/
 
-        #endregion
+    #endregion
 
     #region COLLISION CHECK
 
