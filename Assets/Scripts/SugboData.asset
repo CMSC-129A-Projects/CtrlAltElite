@@ -25,12 +25,12 @@ MonoBehaviour:
   fallGravityScale: 12
   minFallGravityScale: 18
   maxFallGravityScale: 24
-  maxFallTimer: 0.50000006
+  maxFallTimer: 0.21999997
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
-  topRayCastLength: 0.5
-  edgeRayCastOffset: {x: 0.24, y: 0, z: 0}
+  topRayCastLength: 0.35
+  edgeRayCastOffset: {x: -0.19, y: 0, z: 0}
   innerRayCastOffset: {x: 0.02, y: 0, z: 0}
   defaultMoveSpeed: 7
   speed: 7
@@ -64,4 +64,4 @@ MonoBehaviour:
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -2.1608162
+  jumpBufferTimeCounter: -1.8092979
