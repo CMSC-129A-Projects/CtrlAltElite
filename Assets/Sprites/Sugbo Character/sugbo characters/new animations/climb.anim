@@ -65,7 +65,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -117,7 +117,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_14
+    path: Parts/FEMALE1_14
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -169,7 +169,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_20
+    path: Parts/FEMALE1_20
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -221,7 +221,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_29
+    path: Parts/FEMALE1_29
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -273,7 +273,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_35
+    path: Parts/FEMALE1_35
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -325,7 +325,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_7
+    path: Parts/FEMALE1_7
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -360,7 +360,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -372,49 +372,49 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3015294107
+      path: 962215508
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2497243208
+      path: 2676610283
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3097001874
+      path: 3016311601
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3242510134
+      path: 3390438293
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3521755740
+      path: 3669526271
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1524242862
+      path: 3493436257
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3015294107
+      path: 962215508
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -476,7 +476,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -513,7 +513,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -550,7 +550,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -605,7 +605,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -660,7 +660,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -715,7 +715,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_1
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -770,7 +770,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_14
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -825,7 +825,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_14
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -880,7 +880,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_14
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -935,7 +935,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_20
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -990,7 +990,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_20
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1045,7 +1045,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_20
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1100,7 +1100,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_29
+    path: Parts/FEMALE1_29
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1155,7 +1155,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_29
+    path: Parts/FEMALE1_29
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1210,7 +1210,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_29
+    path: Parts/FEMALE1_29
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1265,7 +1265,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_35
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1320,7 +1320,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_35
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1375,7 +1375,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_35
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1430,7 +1430,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: FEMALE1_7
+    path: Parts/FEMALE1_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1485,7 +1485,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: FEMALE1_7
+    path: Parts/FEMALE1_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1540,7 +1540,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: FEMALE1_7
+    path: Parts/FEMALE1_7
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -1551,7 +1551,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_14
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1561,7 +1561,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: FEMALE1_14
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1571,7 +1571,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: FEMALE1_14
+    path: Parts/FEMALE1_1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1581,7 +1581,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_20
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1591,7 +1591,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: FEMALE1_20
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1601,7 +1601,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: FEMALE1_20
+    path: Parts/FEMALE1_14
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1611,7 +1611,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_29
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1621,7 +1621,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: FEMALE1_29
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1631,7 +1631,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: FEMALE1_29
+    path: Parts/FEMALE1_20
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1641,7 +1641,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_1
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1651,7 +1651,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: FEMALE1_1
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1661,27 +1661,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: FEMALE1_1
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: FEMALE1_35
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: FEMALE1_35
+    path: Parts/FEMALE1_35
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1691,17 +1671,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_35
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: FEMALE1_7
+    path: Parts/FEMALE1_29
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1711,7 +1681,37 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: FEMALE1_7
+    path: Parts/FEMALE1_29
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Parts/FEMALE1_29
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Parts/FEMALE1_7
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Parts/FEMALE1_7
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1721,7 +1721,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: FEMALE1_7
+    path: Parts/FEMALE1_7
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
