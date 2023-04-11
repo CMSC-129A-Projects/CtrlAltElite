@@ -8,8 +8,10 @@ public class NPC : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
+    public Image npcImage;
     public string[] dialogue;
     private int index = 0;
+    private int lastIndex = 0;
 
     public GameObject contButton;
     public float wordSpeed;
@@ -35,8 +37,9 @@ public class NPC : MonoBehaviour
             {
                 NextLine();
             }
-
+            lastIndex = index;
         }
+
         if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
         {
             RemoveText();
@@ -51,7 +54,7 @@ public class NPC : MonoBehaviour
     public void RemoveText()
     {
         dialogueText.text = "";
-        index = 0;
+        index = lastIndex;
         dialoguePanel.SetActive(false);
     }
 
