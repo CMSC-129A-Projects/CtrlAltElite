@@ -9,7 +9,7 @@ public class NPC : MonoBehaviour
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public Image npcImage;
-    public string[] dialogue;
+    public List<string> dialogue = new List<string>();
     private int index = 0;
     private int lastIndex = 0;
 
@@ -17,13 +17,11 @@ public class NPC : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
-
     void Start()
     {
         dialogueText.text = "";
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
@@ -71,7 +69,7 @@ public class NPC : MonoBehaviour
     {
         contButton.SetActive(false);
 
-        if (index < dialogue.Length - 1)
+        if (index < dialogue.Count - 1)
         {
             index++;
             dialogueText.text = "";
