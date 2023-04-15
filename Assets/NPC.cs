@@ -17,6 +17,8 @@ public class NPC : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    private Coroutine typingCoroutine;
+
     void Start()
     {
         dialogueText.text = "";
@@ -29,7 +31,7 @@ public class NPC : MonoBehaviour
             if (!dialoguePanel.activeInHierarchy)
             {
                 dialoguePanel.SetActive(true);
-                StartCoroutine(Typing());
+                typingCoroutine = StartCoroutine(Typing());
             }
             else if (dialogueText.text == dialogue[index])
             {
@@ -40,6 +42,7 @@ public class NPC : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
         {
+            StopCoroutine(typingCoroutine);
             RemoveText();
         }
 
@@ -58,6 +61,7 @@ public class NPC : MonoBehaviour
 
     IEnumerator Typing()
     {
+        dialogueText.text = "";
         foreach (char letter in dialogue[index].ToCharArray())
         {
             dialogueText.text += letter;
@@ -72,8 +76,7 @@ public class NPC : MonoBehaviour
         if (index < dialogue.Count - 1)
         {
             index++;
-            dialogueText.text = "";
-            StartCoroutine(Typing());
+            typingCoroutine = StartCoroutine(Typing());
         }
         else
         {
@@ -94,6 +97,7 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
+            StopCoroutine(typingCoroutine);
             RemoveText();
         }
     }
