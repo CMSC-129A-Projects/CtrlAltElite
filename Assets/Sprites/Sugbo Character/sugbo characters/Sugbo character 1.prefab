@@ -256,11 +256,9 @@ GameObject:
   - component: {fileID: 8621891251285689021}
   - component: {fileID: 8621891251285689022}
   - component: {fileID: 3636553565939934889}
-  - component: {fileID: 1041157698582026651}
+  - component: {fileID: 2659952327968449867}
   - component: {fileID: 1551914371703606055}
   - component: {fileID: 4510719558997444849}
-  - component: {fileID: 4318153059466919539}
-  - component: {fileID: 7102286222005973420}
   m_Layer: 0
   m_Name: Sugbo character 1
   m_TagString: Player
@@ -330,7 +328,7 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1041157698582026651
+--- !u!114 &2659952327968449867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,51 +337,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 8621891251285689020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5e28f7ad55e264697706cab0a69bcf, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cecda0d9b2597147951fb2c91d288cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 5f1205a5794a32142bf0e84fcb5236b2, type: 2}
-  groundLayer:
+  _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
+    m_Bits: 0
+  _wallLayer:
     serializedVersion: 2
-    m_Bits: 64
-  rb: {fileID: 3636553565939934889}
+    m_Bits: 0
+  defaultGravity: 0
+  defaultMovementSpeed: 0
+  movementSpeed: 0
+  _maxMovementSpeed: 0
+  defaultJumpPower: 0
+  jumpCutPower: 0
+  jumpPower: 0
+  _defaultStaminaMax: 0
+  stamina: 0
+  waterStaminaDrain: 0
+  _jumpBufferTimeCounter: 0
+  _coyoteTimeCounter: 0
+  rb: {fileID: 0}
   moveInput: {x: 0, y: 0}
   isFacingRight: 0
   canMove: 0
-  isGrounded: 0
-  isOnPlatform: 0
-  isOnWall: 0
-  onRightWall: 0
-  onLeftWall: 0
-  canCornerCorrect: 0
-  canLedgeCorrect: 0
-  inWater: 0
-  lastOnAirTime: 0
-  lastOnGroundTime: 0
-  onGroundTime: 0
-  lastPressedJumpTime: 0
-  isJumping: 0
-  isJumpCut: 0
-  inAir: 0
-  isFalling: 0
-  lastOnWallTime: 0
-  lastOnWallRightTime: 0
-  lastOnWallLeftTime: 0
-  isWallSliding: 0
-  isWallJumping: 0
-  wallJumpStartTime: 0
-  lastWallJumpDir: 0
-  isWallClimbing: 0
-  isWallGrabbing: 0
-  isMoveSpeed: 0
-  isJumpBoost: 0
-  canDoubleJump: 0
-  doubleJumpPressed: 0
-  canDash: 0
-  dashPressed: 0
   isDashing: 0
 --- !u!114 &1551914371703606055
 MonoBehaviour:
@@ -439,37 +417,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.038630724, y: -0.13607979}
   m_Size: {x: 0.38771963, y: 0.8741112}
   m_Direction: 0
---- !u!114 &4318153059466919539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621891251285689020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5caa30b3c0e9da6489f90886bfbdffb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1041157698582026651}
---- !u!114 &7102286222005973420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621891251285689020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b1092e4f4a0e2428402960afd266d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPlatform: {fileID: 0}
-  playerMovement: {fileID: 1041157698582026651}
-  breakableTilemapRenderer: {fileID: 0}
-  inHidden: 0
-  inHiddenTimer: 0
-  lastInHidden: 0
 --- !u!1 &8621891251768681611
 GameObject:
   m_ObjectHideFlags: 0

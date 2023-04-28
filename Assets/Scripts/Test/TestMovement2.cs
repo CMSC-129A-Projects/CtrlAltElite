@@ -217,7 +217,17 @@ public class TestMovement2 : MonoBehaviour
                         WallJump();
                     }*/
                     if (data.stamina != data.staminaMin)
-                        WallJump();
+                    {
+                        if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
+                        {
+                            NeutralWallJump();
+                        }
+                        else
+                        {
+                            WallJump();
+                        }
+                    }
+                        
 
                 }
                 else
@@ -302,6 +312,17 @@ public class TestMovement2 : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -data.wallSlidingSpeed, float.MaxValue));
     }
 
+    private void NeutralWallJump()
+    {
+        data.stamina -= data.wallJumpStaminaDrain;
+        Vector2 direction = Vector2.up;
+        ApplyAirLinearDrag();
+        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);
+        data.hangTimeCounter = 0f;
+        data.jumpBufferTimeCounter = 0f;
+        isJumping = true;
+    }
     private void WallJump()
     {
         data.stamina -= data.wallJumpStaminaDrain;
@@ -314,15 +335,17 @@ public class TestMovement2 : MonoBehaviour
 
         //Debug.Log(direction);
 
-        ApplyAirLinearDrag();
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        // ApplyAirLinearDrag();
+        // rb.velocity = new Vector2(rb.velocity.x, 0f);
         if (isWallClimbing)
         {
-            rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);
+            // rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
         }
         else
         {
-            rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
+            // rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(data.wallJumpingPower.x * jumpDirection.x, data.wallJumpingPower.y);
             Flip();
         }
 
@@ -425,7 +448,6 @@ public class TestMovement2 : MonoBehaviour
         }
         #endregion
 
-
         #region JUMP BOOST
         if (isJumpBoost)
         {
@@ -439,8 +461,7 @@ public class TestMovement2 : MonoBehaviour
             }
         }
         #endregion
-
-        
+    
     }
 
     private void Dash()
