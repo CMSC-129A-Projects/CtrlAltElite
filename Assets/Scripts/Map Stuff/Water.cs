@@ -6,8 +6,8 @@ public class Water : MonoBehaviour
 {
 
     // [SerializeField] private PlayerMovement player;
-    // [SerializeField] private TestMovement2 player;
-    [SerializeField] private Movement player;
+    [SerializeField] private TestMovement2 player;
+    // [SerializeField] private Movement player;
 
     private bool inWater;
     public float waterGravity; 
