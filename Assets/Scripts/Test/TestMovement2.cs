@@ -62,10 +62,10 @@ public class TestMovement2 : MonoBehaviour
     public bool dashPressed;
     public bool isDashing;
 
-    [Space]
+    /*[Space]
     [Header("Camera Stuff")]
     // private CameraFollowObject _cameraFollowObject;
-    private float _fallSpeedYDampingChangeThreshold;
+    private float _fallSpeedYDampingChangeThreshold;*/
     #endregion
 
     private void Awake()
@@ -86,7 +86,7 @@ public class TestMovement2 : MonoBehaviour
         data.jumpBoostTimer = 0;
         data.moveSpeedTimer = 0;
 
-        _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
+        // _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
 
 
         SetGravityScale(data.gravityScale);
@@ -112,25 +112,6 @@ public class TestMovement2 : MonoBehaviour
             Flip();
         }
 
-        #endregion
-
-        #region CAMERA STUFF
-
-        // if we are falling past a certain speed threshold
-        if (rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.Instance.IsLerpingYDamping && !CameraManager.Instance.LerpedFromPlayerFalling)    
-        {
-            Debug.Log("is falling");
-            CameraManager.Instance.LerpYDamping(true);
-        }
-
-        // if we are standing still or moving up
-        if (rb.velocity.y >= 0f && !CameraManager.Instance.IsLerpingYDamping && CameraManager.Instance.LerpedFromPlayerFalling)
-        {
-            Debug.Log("is standing still");
-            // reset so it can be called again
-            CameraManager.Instance.LerpedFromPlayerFalling = false;
-            CameraManager.Instance.LerpYDamping(false);
-        }
         #endregion
 
         CollisionCheck();

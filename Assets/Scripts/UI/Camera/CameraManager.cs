@@ -7,9 +7,11 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
 
-    [SerializeField] private CinemachineVirtualCamera[] _allVirtualCameras;
+    // public CinemachineVirtualCamera[] _allVirtualCameras;
 
-    [Header("Controls for lerping the Y Damping during player jump/fall")]
+    public List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
+
+    /*[Header("Controls for lerping the Y Damping during player jump/fall")]
     [SerializeField] private float _fallPanAmount = 0.25f;
     [SerializeField] private float _fallYPanTime = 0.35f;
     public float _fallSpeedYDampingThreshold = -15f;
@@ -19,10 +21,10 @@ public class CameraManager : MonoBehaviour
 
     private Coroutine _lerpYPanCoroutine;
 
-    private CinemachineVirtualCamera _currentCamera;
+    public CinemachineVirtualCamera _currentCamera;
     private CinemachineFramingTransposer _framingTransposer;
 
-    private float _normYPanAmount;
+    private float _normYPanAmount;*/
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class CameraManager : MonoBehaviour
             Instance = this;
         }
 
-        for (int i = 0; i < _allVirtualCameras.Length; i++)
+/*        for (int i = 0; i < _allVirtualCameras.Length; i++)
         {
             if (_allVirtualCameras[i].enabled)
             {
@@ -43,10 +45,10 @@ public class CameraManager : MonoBehaviour
         }
 
         // set the YDamping amount so it's based on the inspector value
-        _normYPanAmount = _framingTransposer.m_YDamping;
+        _normYPanAmount = _framingTransposer.m_YDamping;*/
     }
 
-    #region LERP THE Y DAMPING
+    /*#region LERP THE Y DAMPING
     public void LerpYDamping(bool isFalling)
     {
         _lerpYPanCoroutine = StartCoroutine(LerpYAction(isFalling));
@@ -84,5 +86,5 @@ public class CameraManager : MonoBehaviour
 
         IsLerpingYDamping = false;
     }
-    #endregion
+    #endregion*/
 }
