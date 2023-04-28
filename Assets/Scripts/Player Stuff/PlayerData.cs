@@ -80,7 +80,7 @@ public class PlayerData : ScriptableObject
     // Dash
     public float dashPower;
     public float dashTime;
-    //public float dashCooldown;
+    public float dashCooldown;
 
 
     [Space]

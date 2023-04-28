@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -40,6 +41,7 @@ public class Movement : MonoBehaviour
     public bool isWallJumping;
     public bool isWallClimbing;
     public bool isWallGrabbing;
+    public bool canWallGrab;
 
 
 
@@ -69,6 +71,7 @@ public class Movement : MonoBehaviour
         data.jumpPower = data.defaultJumpPower;
         data.stamina = data.staminaMax;
 
+        canWallGrab = true;
         SetGravityScale(data.gravityScale);
     }
 
@@ -206,13 +209,14 @@ public class Movement : MonoBehaviour
         //code history for jump
         //if (Input.GetButtonDown("Jump") && isGrounded)
         //if (Input.GetButtonDown("Jump") && data.coyoteTimeCounter > 0f) // implement coyote timer
-        if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f && !isWallJumping) // implement jump buffer
+        if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f && !isWallJumping && !inAir) // implement jump buffer
         {
+            
             rb.velocity = new Vector2(rb.velocity.x, data.jumpPower);
 
             data.jumpBufferTimeCounter = 0f; // reset to 0 as soon as we jump.
         }
-        if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f && !isWallJumping)
+        if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f && !isWallJumping && !inAir)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
 
@@ -262,16 +266,25 @@ public class Movement : MonoBehaviour
         //if (!isWallJumping && isOnWall && (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.LeftShift)))
         if (CanWallGrab())
         {
-            /*if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.J)) // can WJ while WG
+            if (data.jumpBufferTimeCounter > 0f && data.coyoteTimeCounter > 0f && !isWallJumping)
             {
+                canWallGrab = false;
                 StopWallGrab();
-                PerformWallJump();
+                if ((moveInput.x < 0 && isFacingRight && onRightWall) || (moveInput.x > 0 && !isFacingRight && onLeftWall))
+                {
+                    // PerformWallJump();
+                    _PerformWallJump();
+                }
+                else
+                {
+                    PerformNeutralWallJump();
+                }
             }
             else
             {
                 PerformWallGrab();
-            }*/
-            PerformWallGrab();
+            }
+            
         }
         /*else if (isWallGrabbing && Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -290,6 +303,7 @@ public class Movement : MonoBehaviour
 
     private void StopWallGrab()
     {
+        
         isWallGrabbing = false;
         // SetGravityScale(data.gravityScale);
     }
@@ -312,8 +326,6 @@ public class Movement : MonoBehaviour
         rb.velocity = Vector2.zero;
 
     }
-
-
 
     #endregion
 
@@ -416,10 +428,34 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void _PerformWallJump()
+    {
+        Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
+        rb.velocity = new Vector2(data.wallJumpingPower.x * jumpDirection.x, data.wallJumpingPower.y);
+        PerformFlip();
+
+    }
+
+    private void PerformNeutralWallJump()
+    {
+        if (data.stamina >= data.staminaMin)
+        {
+            Debug.Log("Neutral");
+            StopWallGrab();
+            isWallJumping = true;
+            data.stamina -= data.wallJumpStaminaDrain;
+            data.wallJumpingCounter = 0f;
+            rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 4f);
+
+            Invoke(nameof(StopWallJumping), data.wallJumpingDuration);
+        }
+    }
+
     private void PerformWallJump()
     {
         if (data.stamina != data.staminaMin)
         {
+            Debug.Log("WJ");
             isWallJumping = true;
             data.stamina -= data.wallJumpStaminaDrain;
 
@@ -818,7 +854,6 @@ public class Movement : MonoBehaviour
     }
     #endregion
 
-
     #region GENERAL METHODS
     private void CheckDirectionToFace(bool isMovingRight)
     {
@@ -877,17 +912,22 @@ public class Movement : MonoBehaviour
     }
     private bool CanWallSlide()
     {
-        return isOnWall && (data.stamina != data.staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
+        return canWallGrab && isOnWall && (data.stamina != data.staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
     }
 
     private bool CanWallGrab()
     {
-        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift);
+        return isOnWall && (data.stamina >= data.staminaMin) && Input.GetKey(KeyCode.LeftShift);
     }
 
     private bool CanWallClimb()
     {
-        return isOnWall && (data.stamina != data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
+        return isOnWall && (data.stamina >= data.staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
+    }
+
+    private bool CanWallJump()
+    {
+        return isOnWall && (data.stamina >= data.staminaMin) && data.jumpBufferTimeCounter > 0f && !isGrounded;
     }
     #endregion
 
