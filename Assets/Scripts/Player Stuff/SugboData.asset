@@ -25,7 +25,7 @@ MonoBehaviour:
   fallGravityScale: 12
   minFallGravityScale: 18
   maxFallGravityScale: 24
-  maxFallTimer: 0.21999997
+  maxFallTimer: 0.25999996
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
@@ -61,7 +61,8 @@ MonoBehaviour:
   jumpBoostIncrease: 26
   dashPower: 27
   dashTime: 0.2
+  dashCooldown: 0
   coyoteTime: 0.1
   coyoteTimeCounter: 0.1
   jumpBufferTime: 0.1
-  jumpBufferTimeCounter: -1.8092979
+  jumpBufferTimeCounter: -0.72806185

@@ -7,6 +7,7 @@ public class Water : MonoBehaviour
 
     // [SerializeField] private PlayerMovement player;
     [SerializeField] private TestMovement2 player;
+    // [SerializeField] private Movement player;
 
     private bool inWater;
     public float waterGravity; 
@@ -18,6 +19,8 @@ public class Water : MonoBehaviour
         inWater = false;
         //waterGravity = player.data.gravityScale / 2;
         waterGravity = 1;
+        //waterSpeed = player.defaultMovementSpeed / 2;
+        //waterJump = player.defaultJumpPower / 2;
         waterSpeed = player.data.defaultMoveSpeed / 2;
         waterJump = player.data.defaultJumpPower / 2;
     }
@@ -27,6 +30,7 @@ public class Water : MonoBehaviour
         if (inWater) // decrease stamina while in water
         {
             player.data.stamina -= player.data.waterStaminaDrain * Time.deltaTime;
+            //player.stamina -= player.waterStaminaDrain * Time.deltaTime;
             
         }
         else
@@ -41,6 +45,8 @@ public class Water : MonoBehaviour
         {
             inWater = true;
             player.data.runMaxSpeed = waterSpeed;
+            //player.movementSpeed = waterSpeed;
+            //player.jumpPower = waterJump;
             player.data.jumpPower = waterJump;
             player.rb.gravityScale = waterGravity;
         }
@@ -50,7 +56,10 @@ public class Water : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inWater = false;
+            //player.rb.gravityScale = player.defaultGravity;
             player.SetGravityScale(player.data.gravityScale);
+            //player.movementSpeed = player.defaultMovementSpeed;
+            //player.jumpPower = player.defaultJumpPower;
             player.data.runMaxSpeed = player.data.defaultMoveSpeed;
             player.data.jumpPower = player.data.defaultJumpPower;
         }

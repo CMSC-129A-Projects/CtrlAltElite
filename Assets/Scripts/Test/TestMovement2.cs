@@ -79,6 +79,7 @@ public class TestMovement2 : MonoBehaviour
         isFacingRight = true;
         canMove = true;
         data.speed = data.defaultMoveSpeed;
+        data.runMaxSpeed = data.defaultMoveSpeed;
         data.jumpPower = data.defaultJumpPower;
         data.stamina = data.staminaMax;
         data.maxFallTimer = 0;
@@ -132,6 +133,10 @@ public class TestMovement2 : MonoBehaviour
         }
         #endregion
 
+        CollisionCheck();
+        LedgeCollisionCheck();
+        if (canLedgeCorrect) LedgeCorrect();
+
         /*if (Input.GetKeyDown(KeyCode.K) && canDash) data.dashBufferCounter = data.dashBufferLength;
         else data.dashBufferCounter -= Time.deltaTime;*/
 
@@ -149,12 +154,30 @@ public class TestMovement2 : MonoBehaviour
         }
 
         Dash();
+
+        
+
+        if (!isGrounded && isOnWall && !isWallJumping)
+        {
+            if (CanWallJump())
+            {
+                // WallJump();
+                if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
+                {
+                    NeutralWallJump();
+                }
+                else
+                {
+                    WallJump();
+                }
+            }
+        }
         
     }
 
     private void FixedUpdate()
     {
-        CollisionCheck();
+        
         UpdatePowerUps();
         
 
@@ -208,22 +231,30 @@ public class TestMovement2 : MonoBehaviour
             {
                 if (isOnWall && !isGrounded)
                 {
-                    /*if (!_wallRun && (_onRightWall && _horizontalDirection > 0f || !_onRightWall && _horizontalDirection < 0f))
-                    {
-                        StartCoroutine(NeutralWallJump());
-                    }
-                    else
-                    {
-                        WallJump();
-                    }*/
                     if (data.stamina != data.staminaMin)
-                        WallJump();
-
+                    {
+                        if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
+                        {
+                            NeutralWallJump();
+                        }
+                        else
+                        {
+                            WallJump();
+                        }
+                    }
                 }
                 else
                 {
                     // if (inWater && inAir) return;
-                    Jump(Vector2.up);
+                    if (inWater && !isGrounded)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        if (isGrounded || canDoubleJump)
+                            Jump(Vector2.up);
+                    }   
                 }
             }
 
@@ -279,6 +310,39 @@ public class TestMovement2 : MonoBehaviour
 
     #region WALL MECHANICS
 
+    #region LEDGE CORRECT
+    private void LedgeCorrect()
+    {
+        if (canLedgeCorrect)
+        {
+            //SetGravityScale(data.gravityScale);
+            canMove = false;
+            isWallGrabbing = false;
+            isWallSliding = false;
+            isOnWall = false;
+            canLedgeCorrect = false;
+            if (moveInput.x == 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
+                StartCoroutine(AddRight());
+                
+            }
+            else if (moveInput.x != 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, data.wallJumpingPower.y / 1.857f);
+                canMove = true;
+            }
+        }
+    }
+    IEnumerator AddRight()
+    {
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.right * 15f * transform.localScale.x);
+        canMove = true;
+    }
+    #endregion
+
+
     private void WallClimb()
     {
         data.stamina -= data.wallClimbStaminaDrain * Time.deltaTime;
@@ -297,32 +361,42 @@ public class TestMovement2 : MonoBehaviour
     }
     private void WallSlide()
     {
-        //rb.velocity = new Vector2(rb.velocity.x, -data.runMaxSpeed * data.wallSlidingSpeed);
-
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -data.wallSlidingSpeed, float.MaxValue));
     }
 
+    private void NeutralWallJump()
+    {
+        Debug.Log("Neutral");
+        data.stamina -= data.wallJumpStaminaDrain;
+        Vector2 direction = Vector2.up;
+        ApplyAirLinearDrag();
+        /*rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);*/
+        rb.velocity = new Vector2(0f, data.wallJumpingPower.y + 2f);
+        data.hangTimeCounter = 0f;
+        data.jumpBufferTimeCounter = 0f;
+        isJumping = true;
+    }
     private void WallJump()
     {
+        Debug.Log("WJ");
         data.stamina -= data.wallJumpStaminaDrain;
-
-        //Debug.Log("true");
         Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
-        //Jump(Vector2.up + jumpDirection);
-
         Vector2 direction = Vector2.up + jumpDirection;
 
         //Debug.Log(direction);
 
         ApplyAirLinearDrag();
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        // rb.velocity = new Vector2(rb.velocity.x, 0f);
         if (isWallClimbing)
         {
-            rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);
+            // rb.AddForce(new Vector2(0, data.wallJumpingPower.y), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(0f, data.wallJumpingPower.y);
         }
         else
         {
-            rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
+            // rb.AddForce(direction * data.wallJumpingPower, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(data.wallJumpingPower.x * jumpDirection.x, data.wallJumpingPower.y);
             Flip();
         }
 
@@ -425,7 +499,6 @@ public class TestMovement2 : MonoBehaviour
         }
         #endregion
 
-
         #region JUMP BOOST
         if (isJumpBoost)
         {
@@ -439,8 +512,7 @@ public class TestMovement2 : MonoBehaviour
             }
         }
         #endregion
-
-        
+    
     }
 
     private void Dash()
@@ -590,9 +662,6 @@ public class TestMovement2 : MonoBehaviour
     #region JUMP METHODS
     private void Jump(Vector2 direction)
     {
-        /*if (!isGrounded && !isOnWall)
-            _extraJumpsValue--;*/
-
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(direction * data.jumpPower, ForceMode2D.Impulse);
@@ -611,6 +680,11 @@ public class TestMovement2 : MonoBehaviour
         //return lastOnGroundTime > 0 && !isJumping;
 
         return data.jumpBufferTimeCounter > 0f && (data.hangTimeCounter > 0f || isOnWall);
+    }
+
+    private bool CanWallJump()
+    {
+        return data.jumpBufferTimeCounter > 0f && !isGrounded && (data.stamina != data.staminaMin) && !inWater;
     }
 
     private bool CanWaterJump()
@@ -641,7 +715,7 @@ public class TestMovement2 : MonoBehaviour
         GroundCollisionCheck();
         PlatformCollisionCheck();
         WallCollisionCheck();
-        LedgeCollisionCheck();
+        // LedgeCollisionCheck();
         CornerCorrectCheck(); // TODO - have to fix this
         WaterCollisionCheck();
     }
