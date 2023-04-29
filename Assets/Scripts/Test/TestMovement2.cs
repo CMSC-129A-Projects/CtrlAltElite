@@ -116,6 +116,7 @@ public class TestMovement2 : MonoBehaviour
 
         CollisionCheck();
         LedgeCollisionCheck();
+        UpdatePowerUps();
         if (canLedgeCorrect) LedgeCorrect();
 
         /*if (Input.GetKeyDown(KeyCode.K) && canDash) data.dashBufferCounter = data.dashBufferLength;
@@ -134,9 +135,40 @@ public class TestMovement2 : MonoBehaviour
             inAir = true;
         }
 
-        Dash();
+        // Dash();
 
-        
+        if (CanJump())
+        {
+            if (isOnWall && !isGrounded)
+            {
+                if (data.stamina != data.staminaMin)
+                {
+                    if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
+                    {
+                        NeutralWallJump();
+                    }
+                    else
+                    {
+                        WallJump();
+                    }
+                }
+            }
+            else
+            {
+                // if (inWater && inAir) return;
+                if (inWater && !isGrounded)
+                {
+                    return;
+                }
+                else
+                {
+                    if (isGrounded || canDoubleJump)
+                        Jump(Vector2.up);
+                }
+            }
+        }
+
+
 
         if (!isGrounded && isOnWall && !isWallJumping)
         {
@@ -159,7 +191,7 @@ public class TestMovement2 : MonoBehaviour
     private void FixedUpdate()
     {
         
-        UpdatePowerUps();
+        /*UpdatePowerUps();*/
         
 
         if (!isDashing)
@@ -208,7 +240,7 @@ public class TestMovement2 : MonoBehaviour
             }
             
 
-            if (CanJump())
+            /*if (CanJump())
             {
                 if (isOnWall && !isGrounded)
                 {
@@ -237,7 +269,7 @@ public class TestMovement2 : MonoBehaviour
                             Jump(Vector2.up);
                     }   
                 }
-            }
+            }*/
 
             if (!isJumping && !inWater)
             {
@@ -493,7 +525,54 @@ public class TestMovement2 : MonoBehaviour
             }
         }
         #endregion
-    
+
+        #region DASH
+
+        if (canDash)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                StartCoroutine(_Dash());
+                if (isGrounded)
+                    dashPressed = true;
+                else if (!isGrounded && !isDashing)
+                    dashPressed = false;
+            }
+            if (dashPressed && isGrounded)
+            {
+                canDash = false;
+            }
+            // can dash if picked dash powerup from the ground
+            else if (!dashPressed && isGrounded && !inAir)
+            {
+                canDash = true;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND landing on ground not using the dash
+            else if (!dashPressed && isGrounded && inAir)
+            {
+                canDash = false;
+            }
+            // cant dash anymore when picking a dash powerup while midair AND wallsliding not using the dash
+            else if (!dashPressed && isWallSliding)
+            {
+                canDash = false;
+            }
+        }
+        if (dashPressed && !isGrounded)
+        {
+            canDash = false;
+            if (isGrounded)
+            {
+                dashPressed = false;
+            }
+        }
+
+        if (isGrounded && !canDash)
+        {
+            dashPressed = false;
+        }
+        #endregion
+
     }
 
     private void Dash()
@@ -546,15 +625,19 @@ public class TestMovement2 : MonoBehaviour
     private IEnumerator _Dash()
     {
         canDash = false;
+        canMove = false;
         SetGravityScale(0f); // set gravity to 0 while dashing
         PerformDash(); // perform dash
         yield return new WaitForSeconds(data.dashTime); // time while dashing
         SetGravityScale(data.gravityScale); // set gravity back to normal after dashing
         StopDash(); // stop isDashing bool
+        canMove = true;
     }
 
     private void PerformDash()
     {
+        dashPressed = true;
+        canDash = false;
         isDashing = true;
         rb.velocity = new Vector2(transform.localScale.x * data.dashPower, 0f);
     }
