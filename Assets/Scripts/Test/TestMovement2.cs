@@ -94,6 +94,7 @@ public class TestMovement2 : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.Paused) return;
         #region INPUT HANDLER
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
@@ -190,9 +191,9 @@ public class TestMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (PauseMenu.Paused) return;
         /*UpdatePowerUps();*/
-        
+
 
         if (!isDashing)
         {
