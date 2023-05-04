@@ -1,0 +1,21 @@
+name: Run Unit Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake
+        dotnet tool install --global dotnet-ef
+        dotnet restore
+
+    - name: Run unit tests
+      run: dotnet test --logger "console;verbosity=normal"
