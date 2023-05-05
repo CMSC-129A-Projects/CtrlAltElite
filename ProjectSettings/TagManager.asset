@@ -16,6 +16,7 @@ TagManager:
   - Water
   - BreakableTile
   - BreakablePlatform
+  - Boundary
   layers:
   - Default
   - TransparentFX
