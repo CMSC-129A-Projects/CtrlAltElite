@@ -80,6 +80,7 @@ public class TestMovement2 : MonoBehaviour
     {
         isFacingRight = true;
         canMove = true;
+        isDead = false;
         data.speed = data.defaultMoveSpeed;
         data.runMaxSpeed = data.defaultMoveSpeed;
         data.jumpPower = data.defaultJumpPower;

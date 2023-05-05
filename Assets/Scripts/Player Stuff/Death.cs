@@ -6,8 +6,8 @@ using UnityEngine.Tilemaps;
 public class Death : MonoBehaviour
 {
     public string currentBoundary;
-    public BoxCollider2D currentCollider;
-    public GameObject currentRespawn;
+    public static BoxCollider2D currentCollider;
+    public static GameObject currentRespawn;
     [SerializeField] private float _respawnTimer;
     [SerializeField] private float _animationTimer;
 
@@ -28,7 +28,7 @@ public class Death : MonoBehaviour
 
     private IEnumerator StartRespawn()
     {
-        var _deathScript = transform.GetComponent<TestMovement2>();
+        // var _deathScript = transform.GetComponent<TestMovement2>();
         // _deathScript.SetGravityScale(0);
         TestMovement2.isDead = true;
         TestMovement2.canMove = false;
