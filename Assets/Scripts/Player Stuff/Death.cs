@@ -17,7 +17,7 @@ public class Death : MonoBehaviour
         {
             currentBoundary = collision.gameObject.name;
             currentCollider = collision.gameObject.GetComponent<BoxCollider2D>();
-            currentRespawn = collision.transform.GetChild(0).gameObject;
+            if (collision.gameObject.transform.childCount > 0) currentRespawn = collision.transform.GetChild(0).gameObject;
         }
 
         if (collision.gameObject.CompareTag("Spikes"))
