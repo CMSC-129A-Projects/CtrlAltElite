@@ -23,14 +23,14 @@ public class PlayerControllerTests
         PlayerController playerController = player.AddComponent<PlayerController>();
 
         // Arrange
-        Player.health = 100;
+        player.health = 100;
 
         // Act
-        Player.hurt(2);
+        player.hurt(2);
 
         // Assert
-        Debug.Log(Player.health);
-        Assert.AreEqual(Player.health, 98);
+        Debug.Log(player.health);
+        Assert.AreEqual(player.health, 98);
 
 
         
