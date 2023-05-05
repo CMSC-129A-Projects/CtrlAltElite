@@ -10,7 +10,10 @@ public void TestTESTNAMEHERE()
 }
 ```
 
-which should also follow the general convention of having `Assign`, `Act`, and `Assert`.
+which should also follow the general convention of having `Arrange`, `Act`, and `Assert`.
+
+It was annoying to set the unit testing because the `projectPath` cannot be found however the easy fix was to set the path to the root directory, not the project name.
+So, the project path is now `./`.
 
 # Files
 
