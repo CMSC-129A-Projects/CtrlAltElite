@@ -10,10 +10,12 @@ public class TestMovement2 : MonoBehaviour
     #region Variables
     public Rigidbody2D rb;
     private Collision coll;
+    
 
     public Vector2 moveInput;
     public bool isFacingRight;
-    public bool canMove;
+    public static bool canMove;
+    public static bool isDead;
     private bool changingDirection;
     private Coroutine coroutine;
 
@@ -94,25 +96,28 @@ public class TestMovement2 : MonoBehaviour
 
     private void Update()
     {
-        #region INPUT HANDLER
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Jump") || (Input.GetKeyDown(KeyCode.J)))
+        if (canMove && !isDead)
         {
-            data.jumpBufferTimeCounter = data.jumpBufferTime;
-        }
-        else
-        {
-            data.jumpBufferTimeCounter -= Time.deltaTime;
-        }
+            #region INPUT HANDLER
+            moveInput.x = Input.GetAxisRaw("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
+            if (Input.GetButtonDown("Jump") || (Input.GetKeyDown(KeyCode.J)))
+            {
+                data.jumpBufferTimeCounter = data.jumpBufferTime;
+            }
+            else
+            {
+                data.jumpBufferTimeCounter -= Time.deltaTime;
+            }
 
-        changingDirection = (rb.velocity.x > 0f && moveInput.x < 0f) || (rb.velocity.x < 0f && moveInput.x > 0f);
-        if ((moveInput.x < 0f && isFacingRight || moveInput.x > 0f && !isFacingRight) && !CanWallGrab() && !CanWallSlide())
-        {
-            Flip();
-        }
+            changingDirection = (rb.velocity.x > 0f && moveInput.x < 0f) || (rb.velocity.x < 0f && moveInput.x > 0f);
+            if ((moveInput.x < 0f && isFacingRight || moveInput.x > 0f && !isFacingRight) && !CanWallGrab() && !CanWallSlide())
+            {
+                Flip();
+            }
 
-        #endregion
+            #endregion
+        }
 
         CollisionCheck();
         LedgeCollisionCheck();
@@ -196,11 +201,11 @@ public class TestMovement2 : MonoBehaviour
 
         if (!isDashing)
         {
-            if (canMove)
+            if (canMove && !isDead)
             {
                 MoveCharacter();
             }
-            else
+            else if (!canMove && !isDead)
             {
                 rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(moveInput.x * data.runMaxSpeed, rb.velocity.y)), .5f * Time.deltaTime);
             }
