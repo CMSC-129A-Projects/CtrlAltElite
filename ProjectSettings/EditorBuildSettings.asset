@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JaniTest.unity
     guid: ce31e9700abe17f41a7741582eae3bd1
+  - enabled: 1
+    path: Assets/Scenes/Settings menu.unity
+    guid: f65f9052e2f181840ba3fcad28516c5a
   m_configObjects: {}
