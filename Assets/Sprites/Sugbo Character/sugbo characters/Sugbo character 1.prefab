@@ -255,12 +255,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8621891251285689021}
   - component: {fileID: 8621891251285689022}
-  - component: {fileID: 640508043439955135}
   - component: {fileID: 3636553565939934889}
+  - component: {fileID: 4799378809924964857}
   - component: {fileID: 1551914371703606055}
   - component: {fileID: 4510719558997444849}
   - component: {fileID: 8739404671715587997}
   - component: {fileID: 7043686188956932961}
+  - component: {fileID: 3021115168823219124}
   m_Layer: 0
   m_Name: Sugbo character 1
   m_TagString: Player
@@ -309,61 +310,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &640508043439955135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621891251285689020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5e28f7ad55e264697706cab0a69bcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 5f1205a5794a32142bf0e84fcb5236b2, type: 2}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  rb: {fileID: 3636553565939934889}
-  moveInput: {x: 0, y: 0}
-  isFacingRight: 0
-  canMove: 0
-  isGrounded: 0
-  isOnPlatform: 0
-  isOnWall: 0
-  onRightWall: 0
-  onLeftWall: 0
-  canCornerCorrect: 0
-  canLedgeCorrect: 0
-  inWater: 0
-  lastOnAirTime: 0
-  lastOnGroundTime: 0
-  onGroundTime: 0
-  lastPressedJumpTime: 0
-  isJumping: 0
-  isJumpCut: 0
-  inAir: 0
-  isFalling: 0
-  lastOnWallTime: 0
-  lastOnWallRightTime: 0
-  lastOnWallLeftTime: 0
-  isWallSliding: 0
-  isWallJumping: 0
-  wallJumpStartTime: 0
-  lastWallJumpDir: 0
-  isWallClimbing: 0
-  isWallGrabbing: 0
-  isMoveSpeed: 0
-  isJumpBoost: 0
-  canDoubleJump: 0
-  doubleJumpPressed: 0
-  canDash: 0
-  dashPressed: 0
-  isDashing: 0
 --- !u!50 &3636553565939934889
 Rigidbody2D:
   serializedVersion: 4
@@ -385,6 +331,21 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4799378809924964857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621891251285689020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909ae5ddb1d528841b3f0c575b7f284c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBoundary: 
+  _respawnTimer: 2
+  _animationTimer: 1
 --- !u!114 &1551914371703606055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5caa30b3c0e9da6489f90886bfbdffb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 640508043439955135}
+  playerMovement: {fileID: 0}
 --- !u!114 &7043686188956932961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,11 +426,118 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlatform: {fileID: 0}
-  playerMovement: {fileID: 640508043439955135}
+  playerMovement: {fileID: 0}
   breakableTilemapRenderer: {fileID: 0}
   inHidden: 0
   inHiddenTimer: 0
   lastInHidden: 0
+--- !u!114 &3021115168823219124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621891251285689020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614efd55144ff7d44a775fa07ee87ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rb: {fileID: 3636553565939934889}
+  moveInput: {x: 0, y: 0}
+  isFacingRight: 0
+  isGrounded: 0
+  isOnPlatform: 0
+  isOnWall: 0
+  onRightWall: 0
+  onLeftWall: 0
+  canCornerCorrect: 0
+  canLedgeCorrect: 0
+  inWater: 0
+  lastOnAirTime: 0
+  lastOnGroundTime: 0
+  onGroundTime: 0
+  lastPressedJumpTime: 0
+  isJumping: 0
+  isJumpCut: 0
+  inAir: 0
+  isFalling: 0
+  lastOnWallTime: 0
+  lastOnWallRightTime: 0
+  lastOnWallLeftTime: 0
+  isWallSliding: 0
+  isWallJumping: 0
+  wallJumpStartTime: 0
+  lastWallJumpDir: 0
+  isWallClimbing: 0
+  isWallGrabbing: 0
+  isMoveSpeed: 0
+  isJumpBoost: 0
+  canDoubleJump: 0
+  doubleJumpPressed: 0
+  canDash: 0
+  dashPressed: 0
+  isDashing: 0
+  stamina: 100
+  wallGrabStaminaDrain: 10
+  wallJumpStaminaDrain: 20
+  wallClimbStaminaDrain: 15
+  waterStaminaDrain: 4
+  staminaRegen: 5
+  staminaMax: 100
+  staminaMin: 0
+  gravityScale: 7
+  jumpGravityScale: 3
+  fallGravityScale: 12
+  minFallGravityScale: 18
+  maxFallGravityScale: 24
+  maxFallTimer: 0
+  maxFallTimerCap: 3
+  forcedFallGravityScale: 24
+  waterGravityScale: 1
+  topRayCastLength: 0.35
+  edgeRayCastOffset: {x: -0.19, y: 0, z: 0}
+  innerRayCastOffset: {x: 0.02, y: 0, z: 0}
+  defaultMoveSpeed: 7
+  speed: 0
+  runMaxSpeed: 7
+  runAcceleration: 50
+  groundLinearDrag: 15
+  defaultJumpPower: 22
+  jumpPower: 0
+  jumpCutPower: 0.5
+  hangTimeCounter: 0.2
+  jumpHangTimeThreshold: 1
+  jumpHangGravityMult: 0.2
+  airLinearDrag: 6
+  fallMultiplier: 0
+  wallSlidingSpeed: 2
+  wallJumpingDirection: 1
+  wallJumpingTime: 0.5
+  wallJumpingCounter: 0
+  wallJumpingDuration: 0.2
+  wallJumpingPower: {x: 32, y: 24}
+  wallClimbingSpeedUp: 6
+  wallClimbingSpeedDown: 10
+  moveSpeedTimer: 0
+  moveSpeedTimerCap: 2
+  moveSpeedIncrease: 12
+  jumpBoostTimer: 0
+  jumpBoostTimerCap: 1
+  jumpBoostIncrease: 26
+  dashPower: 27
+  dashTime: 0.2
+  dashCooldown: 0
+  coyoteTime: 0.1
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.1
+  jumpBufferTimeCounter: 0
 --- !u!1 &8621891251768681611
 GameObject:
   m_ObjectHideFlags: 0

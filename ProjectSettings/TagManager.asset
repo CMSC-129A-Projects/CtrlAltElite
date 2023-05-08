@@ -17,6 +17,7 @@ TagManager:
   - BreakableTile
   - BreakablePlatform
   - Boundary
+  - BreakableTileMap
   layers:
   - Default
   - TransparentFX

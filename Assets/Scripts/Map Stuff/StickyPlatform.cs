@@ -5,7 +5,13 @@ using UnityEngine;
 public class StickyPlatform : MonoBehaviour
 {
     //[SerializeField] private PlayerMovement player;
-    [SerializeField] private TestMovement2 player;
+    // [SerializeField] private TestMovement2 player;
+    private SugboMovement player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<SugboMovement>();
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {

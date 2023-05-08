@@ -5,12 +5,15 @@ using UnityEngine;
 public class ItemCollector : MonoBehaviour
 {
     // [SerializeField] public PlayerMovement playerMovement;
-    [SerializeField] public TestMovement2 playerMovement;
-    
+    // [SerializeField] public TestMovement2 playerMovement;
+    private SugboMovement playerMovement;
 
+    private void Awake()
+    {
+        playerMovement = FindObjectOfType<SugboMovement>();
+    }
 
     private int respawnItemTimer = 4;
-    // https://www.youtube.com/watch?v=Y7pp2gzCzUI HOW TO ACCESS DATA FROM ANOTHER SCRIPT 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
