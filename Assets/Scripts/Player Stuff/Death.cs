@@ -28,8 +28,10 @@ public class Death : MonoBehaviour
 
     private IEnumerator StartRespawn()
     {
+        Debug.Log("Death");
         // var _deathScript = transform.GetComponent<TestMovement2>();
         // _deathScript.SetGravityScale(0);
+
         TestMovement2.isDead = true;
         TestMovement2.canMove = false;
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
@@ -41,7 +43,7 @@ public class Death : MonoBehaviour
         yield return new WaitForSeconds(_animationTimer);
         TestMovement2.isDead = false;
         TestMovement2.canMove = true;
-        
+        Debug.Log("Move");
         // _deathScript.SetGravityScale(_deathScript.data.gravityScale);
     }
 }

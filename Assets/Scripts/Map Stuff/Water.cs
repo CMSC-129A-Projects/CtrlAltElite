@@ -6,9 +6,9 @@ public class Water : MonoBehaviour
 {
 
     // [SerializeField] private PlayerMovement player;
-    [SerializeField] private TestMovement2 player;
+    // [SerializeField] private TestMovement2 player;
     // [SerializeField] private Movement player;
-
+    private SugboMovement player;
     private bool inWater;
     public float waterGravity; 
     public float waterSpeed;
@@ -16,20 +16,22 @@ public class Water : MonoBehaviour
 
     private void Start()
     {
+
+        player = FindObjectOfType<SugboMovement>();
         inWater = false;
         //waterGravity = player.data.gravityScale / 2;
         waterGravity = 1;
         //waterSpeed = player.defaultMovementSpeed / 2;
         //waterJump = player.defaultJumpPower / 2;
-        waterSpeed = player.data.defaultMoveSpeed / 2;
-        waterJump = player.data.defaultJumpPower / 2;
+        waterSpeed = player.defaultMoveSpeed / 2;
+        waterJump = player.defaultJumpPower / 2;
     }
 
     private void FixedUpdate()
     {
         if (inWater) // decrease stamina while in water
         {
-            player.data.stamina -= player.data.waterStaminaDrain * Time.deltaTime;
+            player.stamina -= player.waterStaminaDrain * Time.deltaTime;
             //player.stamina -= player.waterStaminaDrain * Time.deltaTime;
             
         }
@@ -44,11 +46,12 @@ public class Water : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inWater = true;
-            player.data.runMaxSpeed = waterSpeed;
+            player.runMaxSpeed = waterSpeed;
             //player.movementSpeed = waterSpeed;
             //player.jumpPower = waterJump;
-            player.data.jumpPower = waterJump;
-            player.rb.gravityScale = waterGravity;
+            player.jumpPower = waterJump;
+            // player.rb.gravityScale = waterGravity;
+            player.SetGravityScale(waterGravity);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,11 +60,11 @@ public class Water : MonoBehaviour
         {
             inWater = false;
             //player.rb.gravityScale = player.defaultGravity;
-            player.SetGravityScale(player.data.gravityScale);
+            player.SetGravityScale(player.gravityScale);
             //player.movementSpeed = player.defaultMovementSpeed;
             //player.jumpPower = player.defaultJumpPower;
-            player.data.runMaxSpeed = player.data.defaultMoveSpeed;
-            player.data.jumpPower = player.data.defaultJumpPower;
+            player.runMaxSpeed = player.defaultMoveSpeed;
+            player.jumpPower = player.defaultJumpPower;
         }
     }
 }

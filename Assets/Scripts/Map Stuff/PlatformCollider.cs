@@ -7,10 +7,13 @@ public class PlatformCollider : MonoBehaviour
 {
     public GameObject currentPlatform;
     // [SerializeField] public PlayerMovement playerMovement;
-    [SerializeField] public TestMovement2 playerMovement;
+    // [SerializeField] public TestMovement2 playerMovement;
+    private SugboMovement playerMovement;
     private CapsuleCollider2D playerCollider;
     //[SerializeField] private TilemapRenderer tilemapRenderer;
-    [SerializeField] private TilemapRenderer breakableTilemapRenderer;
+    // public TilemapRenderer breakableTilemapRenderer;
+    GameObject breakableTilemapObject;
+    public TilemapRenderer breakableTilemapRenderer;
 
     private float respawnPlatformTimer = 3;
     private float breakPlatformTimer = 1;
@@ -21,8 +24,16 @@ public class PlatformCollider : MonoBehaviour
 
     private void Start()
     {
+        breakableTilemapObject = GameObject.FindWithTag("BreakableTileMap");
+        playerMovement = FindObjectOfType<SugboMovement>();
+        // breakableTilemapRenderer = GameObject.FindWithTag("BreakableTileMap");
+        if (breakableTilemapObject != null)
+        {
+            breakableTilemapRenderer = breakableTilemapObject.GetComponent<TilemapRenderer>();
+        }
         playerCollider = playerMovement.GetComponent<CapsuleCollider2D>();
         inHiddenTimer = 0.1f;
+        
     }
     // Update is called once per frame
     void Update()
