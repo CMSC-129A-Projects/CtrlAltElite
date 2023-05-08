@@ -181,6 +181,8 @@ public class SugboMovement : MonoBehaviour
         // _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
 
         SetGravityScale(gravityScale);
+
+        
     }
 
     private void Update()

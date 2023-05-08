@@ -10,10 +10,12 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private float _respawnTimer;
     [SerializeField] private float _animationTimer;
     public float[] respawnPosition = new float[3];
+    private SugboMovement player;
 
     private void Awake()
     {
-        currentRespawn = GameObject.FindWithTag("Respawn");
+        currentRespawn = GameObject.FindGameObjectWithTag("Respawn");
+        player = GetComponent<SugboMovement>();
         respawnPosition[0] = currentRespawn.transform.position.x;
         respawnPosition[1] = currentRespawn.transform.position.y;
         respawnPosition[2] = currentRespawn.transform.position.z;
@@ -30,6 +32,9 @@ public class PlayerDeath : MonoBehaviour
                 respawnPosition[0] = currentRespawn.transform.position.x;
                 respawnPosition[1] = currentRespawn.transform.position.y;
                 respawnPosition[2] = currentRespawn.transform.position.z;
+
+                /*Debug.Log("AutoSave");
+                player.SavePlayer();*/
             }
         }
 
@@ -56,9 +61,6 @@ public class PlayerDeath : MonoBehaviour
         yield return new WaitForSeconds(_animationTimer);
         TestMovement2.isDead = false;
         TestMovement2.canMove = true;
-        Debug.Log("AutoSave");
-        GameObject player = GameObject.FindWithTag("Player");
-        player.GetComponent<SugboMovement>().SavePlayer();
         // call SugboMovement.SavePlayer() here
         // _deathScript.SetGravityScale(_deathScript.data.gravityScale);
     }
