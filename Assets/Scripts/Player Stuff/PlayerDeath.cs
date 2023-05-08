@@ -33,8 +33,8 @@ public class PlayerDeath : MonoBehaviour
                 respawnPosition[1] = currentRespawn.transform.position.y;
                 respawnPosition[2] = currentRespawn.transform.position.z;
 
-                /*Debug.Log("AutoSave");
-                player.SavePlayer();*/
+                Debug.Log("AutoSave");
+                player.SavePlayer();
             }
         }
 
@@ -50,17 +50,18 @@ public class PlayerDeath : MonoBehaviour
         // var _deathScript = transform.GetComponent<TestMovement2>();
         // _deathScript.SetGravityScale(0);
 
-        TestMovement2.isDead = true;
-        TestMovement2.canMove = false;
+        SugboMovement.isDead = true;
+        SugboMovement.canMove = false;
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         // transform.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(_respawnTimer);
         // transform.GetComponent<SpriteRenderer>().enabled = true;
-        transform.position = currentRespawn.transform.position;
+        // transform.position = currentRespawn.transform.position;
+        player.LoadPlayer();
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         yield return new WaitForSeconds(_animationTimer);
-        TestMovement2.isDead = false;
-        TestMovement2.canMove = true;
+        SugboMovement.isDead = false;
+        SugboMovement.canMove = true;
         // call SugboMovement.SavePlayer() here
         // _deathScript.SetGravityScale(_deathScript.data.gravityScale);
     }

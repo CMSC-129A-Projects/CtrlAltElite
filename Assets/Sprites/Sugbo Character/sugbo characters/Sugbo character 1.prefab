@@ -256,12 +256,12 @@ GameObject:
   - component: {fileID: 8621891251285689021}
   - component: {fileID: 8621891251285689022}
   - component: {fileID: 3636553565939934889}
-  - component: {fileID: 4799378809924964857}
   - component: {fileID: 1551914371703606055}
   - component: {fileID: 4510719558997444849}
   - component: {fileID: 8739404671715587997}
   - component: {fileID: 7043686188956932961}
   - component: {fileID: 3021115168823219124}
+  - component: {fileID: 8715007829956872616}
   m_Layer: 0
   m_Name: Sugbo character 1
   m_TagString: Player
@@ -331,21 +331,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4799378809924964857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8621891251285689020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909ae5ddb1d528841b3f0c575b7f284c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentBoundary: 
-  _respawnTimer: 2
-  _animationTimer: 1
 --- !u!114 &1551914371703606055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5caa30b3c0e9da6489f90886bfbdffb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
 --- !u!114 &7043686188956932961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlatform: {fileID: 0}
-  playerMovement: {fileID: 0}
   breakableTilemapRenderer: {fileID: 0}
   inHidden: 0
   inHiddenTimer: 0
@@ -450,6 +433,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 3636553565939934889}
+  death: {fileID: 0}
   moveInput: {x: 0, y: 0}
   isFacingRight: 0
   isGrounded: 0
@@ -538,6 +522,25 @@ MonoBehaviour:
   coyoteTimeCounter: 0
   jumpBufferTime: 0.1
   jumpBufferTimeCounter: 0
+--- !u!114 &8715007829956872616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8621891251285689020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909ae5ddb1d528841b3f0c575b7f284c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBoundary: 
+  _respawnTimer: 0
+  _animationTimer: 0
+  respawnPosition:
+  - 0
+  - 0
+  - 0
 --- !u!1 &8621891251768681611
 GameObject:
   m_ObjectHideFlags: 0

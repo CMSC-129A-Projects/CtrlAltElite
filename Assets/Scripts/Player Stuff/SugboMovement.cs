@@ -187,6 +187,7 @@ public class SugboMovement : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.N))
         {
             SavePlayer();
@@ -195,6 +196,7 @@ public class SugboMovement : MonoBehaviour
         {
             LoadPlayer();
         }
+        // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
         {
             #region INPUT HANDLER
@@ -229,14 +231,17 @@ public class SugboMovement : MonoBehaviour
         if ((isGrounded || isOnWall || isWallSliding || isWallClimbing || isWallGrabbing) && !inWater) // can jump anytime when not in water
         {
             inAir = false;
+            coyoteTimeCounter = coyoteTime;
         }
         else if (isGrounded && inWater) // can only jump when grounded in water
         {
             inAir = false;
+            coyoteTimeCounter = coyoteTime;
         }
         else
         {
             inAir = true;
+            coyoteTimeCounter -= Time.deltaTime;
         }
         #endregion
 
@@ -267,7 +272,7 @@ public class SugboMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (isGrounded || canDoubleJump)
+                    if (isGrounded || canDoubleJump || coyoteTimeCounter > 0f)
                         Jump(Vector2.up);
                 }
             }
@@ -698,6 +703,9 @@ public class SugboMovement : MonoBehaviour
 
     private void MoveCharacter()
     {
+        // rb.AddForce(new Vector2(moveInput.x, 0f) * runAcceleration);
+        // rb.velocity.x = new Vector2(moveInput.x * speed, rb.velocity.y);
+        // rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
         rb.AddForce(new Vector2(moveInput.x, 0f) * runAcceleration);
 
         if (Mathf.Abs(rb.velocity.x) > runMaxSpeed)
@@ -754,6 +762,7 @@ public class SugboMovement : MonoBehaviour
             {
                 //rb.gravityScale = fallGravityScale;
                 SetGravityScale(fallGravityScale);
+                coyoteTimeCounter = 0;
             }
             // jump gravity
             else
@@ -784,7 +793,7 @@ public class SugboMovement : MonoBehaviour
     #region CHECK METHODS
     private bool CanJump()
     {
-        return jumpBufferTimeCounter > 0f && (hangTimeCounter > 0f || isOnWall);
+        return jumpBufferTimeCounter > 0f && (hangTimeCounter > 0f || isOnWall) && coyoteTimeCounter > 0f;
     }
 
     private bool CanWallJump()
