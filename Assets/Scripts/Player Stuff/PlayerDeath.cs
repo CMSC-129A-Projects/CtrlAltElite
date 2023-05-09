@@ -32,13 +32,16 @@ public class PlayerDeath : MonoBehaviour
             currentCollider = collision.gameObject.GetComponent<BoxCollider2D>();
             if (collision.gameObject.transform.childCount > 0)
             {
-                currentRespawn = collision.transform.GetChild(0).gameObject;
+                /*currentRespawn = collision.transform.GetChild(0).gameObject;
                 respawnPosition[0] = currentRespawn.transform.position.x;
                 respawnPosition[1] = currentRespawn.transform.position.y;
                 respawnPosition[2] = currentRespawn.transform.position.z;
 
                 Debug.Log("AutoSave");
-                player.SavePlayer();
+                player.SavePlayer();*/
+                Debug.Log("New Spawnpoint Found: Autosaving");
+                currentRespawn = collision.transform.GetChild(0).gameObject;
+                DataPersistenceManager.Instance.SaveGame();
             }
         }
 
@@ -61,7 +64,8 @@ public class PlayerDeath : MonoBehaviour
         yield return new WaitForSeconds(_respawnTimer);
         // transform.GetComponent<SpriteRenderer>().enabled = true;
         // transform.position = currentRespawn.transform.position;
-        player.LoadPlayer();
+        // player.LoadPlayer();
+        DataPersistenceManager.Instance.LoadGame();
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         yield return new WaitForSeconds(_animationTimer);
         SugboMovement.isDead = false;

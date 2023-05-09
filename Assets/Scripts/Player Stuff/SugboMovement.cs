@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SugboMovement : MonoBehaviour
+public class SugboMovement : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
@@ -190,11 +190,15 @@ public class SugboMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.N))
         {
-            SavePlayer();
+            // SavePlayer();
+            Debug.Log("Manual Save");
+            DataPersistenceManager.Instance.SaveGame();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            LoadPlayer();
+            // LoadPlayer();
+            Debug.Log("Manual Load");
+            DataPersistenceManager.Instance.LoadGame();
         }
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
@@ -395,8 +399,8 @@ public class SugboMovement : MonoBehaviour
         #endregion
     }
 
-    #region SAVE STUFF
-    public void SavePlayer()
+    #region old SAVE STUFF
+    /*public void SavePlayer()
     {
         SaveSystem.SavePlayer(this);
     }
@@ -413,7 +417,21 @@ public class SugboMovement : MonoBehaviour
         position.z = data.currentRespawnPosition[2];
 
         transform.position = position;
+    }*/
+    #endregion
+
+    // Data Persistence
+    #region SAVE STUFF
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.respawnPoint;
     }
+
+    public void SaveData(ref GameData data)
+    {
+        data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
+    }
+
     #endregion
 
     #region WALL MECHANICS
