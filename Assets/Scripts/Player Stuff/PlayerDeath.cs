@@ -16,9 +16,13 @@ public class PlayerDeath : MonoBehaviour
     {
         currentRespawn = GameObject.FindGameObjectWithTag("Respawn");
         player = GetComponent<SugboMovement>();
-        respawnPosition[0] = currentRespawn.transform.position.x;
-        respawnPosition[1] = currentRespawn.transform.position.y;
-        respawnPosition[2] = currentRespawn.transform.position.z;
+        if (currentRespawn != null)
+        {
+            respawnPosition[0] = currentRespawn.transform.position.x;
+            respawnPosition[1] = currentRespawn.transform.position.y;
+            respawnPosition[2] = currentRespawn.transform.position.z;
+        }
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
