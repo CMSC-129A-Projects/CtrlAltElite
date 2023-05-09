@@ -427,7 +427,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         this.transform.position = data.respawnPoint;
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(GameData data)
     {
         data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
     }
