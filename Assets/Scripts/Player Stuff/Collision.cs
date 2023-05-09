@@ -67,7 +67,7 @@ public class Collision : MonoBehaviour
         inWater = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, waterLayer);
     }
 
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, collisionRadius);
@@ -82,7 +82,7 @@ public class Collision : MonoBehaviour
 
         Gizmos.color = Color.blue;
         // Corner Check
-        /*Gizmos.DrawLine(transform.position + player.data.edgeRayCastOffset, transform.position + player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
+        *//*Gizmos.DrawLine(transform.position + player.data.edgeRayCastOffset, transform.position + player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position - player.data.edgeRayCastOffset, transform.position - player.data.edgeRayCastOffset + Vector3.up * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset, transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position - player.data.innerRayCastOffset, transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength);
@@ -91,7 +91,7 @@ public class Collision : MonoBehaviour
         Gizmos.DrawLine(transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
                         transform.position - player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.left * player.data.topRayCastLength);
         Gizmos.DrawLine(transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength,
-                        transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);*/
+                        transform.position + player.data.innerRayCastOffset + Vector3.up * player.data.topRayCastLength + Vector3.right * player.data.topRayCastLength);*//*
 
         Gizmos.DrawLine(transform.position + data.edgeRayCastOffset, transform.position + data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
         Gizmos.DrawLine(transform.position - data.edgeRayCastOffset, transform.position - data.edgeRayCastOffset + Vector3.up * data.topRayCastLength);
@@ -106,11 +106,5 @@ public class Collision : MonoBehaviour
 
         
 
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Debug.Log(collision.collider.gameObject.layer);
-        //Debug.Log(LayerMask.LayerToName(collision.collider.gameObject.layer));
-    }
+    }*/
 }
