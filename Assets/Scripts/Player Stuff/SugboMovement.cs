@@ -118,7 +118,6 @@ public class SugboMovement : MonoBehaviour
     public float jumpHangTimeThreshold;
     [Range(0f, 1)] public float jumpHangGravityMult;
     public float airLinearDrag;
-    public float fallMultiplier;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -830,7 +829,7 @@ public class SugboMovement : MonoBehaviour
         PlatformCollisionCheck();
         WallCollisionCheck();
         // LedgeCollisionCheck();
-        CornerCorrectCheck(); // TODO - have to fix this
+        // CornerCorrectCheck(); // TODO - have to fix this
         WaterCollisionCheck();
     }
 
