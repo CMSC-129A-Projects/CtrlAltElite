@@ -11,6 +11,6 @@ public class GameData
     public Vector2 respawnPoint;
     public GameData()
     {
-        respawnPoint = Vector2.zero;
+        this.respawnPoint = Vector2.zero;
     }
 }

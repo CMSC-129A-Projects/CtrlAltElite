@@ -192,13 +192,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             // SavePlayer();
             Debug.Log("Manual Save");
-            DataPersistenceManager.Instance.SaveGame();
+            DataPersistenceManager.instance.SaveGame();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
             // LoadPlayer();
             Debug.Log("Manual Load");
-            DataPersistenceManager.Instance.LoadGame();
+            DataPersistenceManager.instance.LoadGame();
         }
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)

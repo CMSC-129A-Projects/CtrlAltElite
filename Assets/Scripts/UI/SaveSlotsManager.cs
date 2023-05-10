@@ -15,17 +15,17 @@ public class SaveSlotsManager : MonoBehaviour
     public void OnSaveSlotClicked(SaveSlot saveSlot)
     {
         // update the selected profile id
-        DataPersistenceManager.Instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+        // DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
         // create a new game
-        DataPersistenceManager.Instance.NewGame();
+        DataPersistenceManager.instance.NewGame();
         // load gameplay scene asynchronously
         SceneManager.LoadSceneAsync("SaveTest");
     }
 
-    public void ActivateMenu()
+    /*public void ActivateMenu()
     {
         // load all of the profiles that exist
-        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.Instance.GetAllProfilesGameData();
+        Dictionary<string, GameData> profilesGameData = DataPersistenceManager.instance.GetAllProfilesGameData();
 
         // loop through each of the save slots
 
@@ -35,5 +35,5 @@ public class SaveSlotsManager : MonoBehaviour
             profilesGameData.TryGetValue(saveSlot.GetProfileId(), out profileData);
             saveSlot.SetData(profileData);
         }
-    }
+    }*/
 }
