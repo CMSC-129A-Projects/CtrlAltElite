@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SaveTest.unity
     guid: cd3449480449f164faf906e23bb86bef
+  - enabled: 1
+    path: Assets/Scenes/TestMenuSave.unity
+    guid: 70a4764e26ecf4241bf77eeadc9adfd4
   m_configObjects: {}

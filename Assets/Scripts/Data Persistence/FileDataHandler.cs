@@ -9,7 +9,7 @@ public class FileDataHandler
     private string dataDirPath = "";
     private string dataFileName = "";
     private bool useEncryption = false;
-    private readonly string encryptionCodeword = "sugbo";
+    private readonly string encryptionCodeWord = "word";
 
     public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
     {
@@ -20,14 +20,14 @@ public class FileDataHandler
 
     public GameData Load()
     {
+        // use Path.Combine to account for different OS's having different path separators
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
-
         if (File.Exists(fullPath))
         {
             try
             {
-                // load serialized data from file
+                // load the serialized data from the file
                 string dataToLoad = "";
                 using (FileStream stream = new FileStream(fullPath, FileMode.Open))
                 {
@@ -36,19 +36,19 @@ public class FileDataHandler
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
-                
-                // decrypt if ever
+
+                // optionally decrypt the data
                 if (useEncryption)
                 {
                     dataToLoad = EncryptDecrypt(dataToLoad);
                 }
 
-                // deserialize data from Json back to the C# object
+                // deserialize the data from Json back into the C# object
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch (Exception e)
             {
-                Debug.LogError("Error occured when trying to load file to " + fullPath + "\n" + e);
+                Debug.LogError("Error occured when trying to load data from file: " + fullPath + "\n" + e);
             }
         }
         return loadedData;
@@ -56,20 +56,23 @@ public class FileDataHandler
 
     public void Save(GameData data)
     {
+        // use Path.Combine to account for different OS's having different path separators
         string fullPath = Path.Combine(dataDirPath, dataFileName);
-
         try
         {
+            // create the directory the file will be written to if it doesn't already exist
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-            
+
+            // serialize the C# game data object into Json
             string dataToStore = JsonUtility.ToJson(data, true);
 
-            // use encryption if ever
+            // optionally encrypt the data
             if (useEncryption)
             {
                 dataToStore = EncryptDecrypt(dataToStore);
             }
 
+            // write the serialized data to the file
             using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(stream))
@@ -80,53 +83,17 @@ public class FileDataHandler
         }
         catch (Exception e)
         {
-            Debug.LogError("Error occured when trying to save file to " + fullPath + "\n" + e);
+            Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + e);
         }
-
     }
 
-    /*public Dictionary<string, GameData> LoadAllProfiles()
-    {
-        Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>();
-
-        // loop over all directory names in path
-        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
-
-        foreach (DirectoryInfo dirInfo in dirInfos)
-        {
-            string profileId = dirInfo.Name;
-
-            // check if file exists
-            string fullPath = Path.Combine(dataDirPath, profileId, dataFileName);
-            if (!File.Exists(fullPath)) 
-            {
-                Debug.LogWarning("Skipping directory when loading all profiles because it does not contain data: " + profileId);
-                continue;
-            }
-
-            // load game data
-            GameData profileData = Load(profileId);
-            // check if data is not null
-            if (profileData != null)
-            {
-                profileDictionary.Add(profileId, profileData);
-            }
-            else
-            {
-                Debug.LogError("Tried to load profile but something went wrong. ProfileId: " + profileId);
-            }
-        }
-
-        return profileDictionary;
-    }*/
-
-    // perform XOR encryption
+    // the below is a simple implementation of XOR encryption
     private string EncryptDecrypt(string data)
     {
         string modifiedData = "";
         for (int i = 0; i < data.Length; i++)
         {
-            modifiedData += (char)(data[i] ^ encryptionCodeword[i % encryptionCodeword.Length]);
+            modifiedData += (char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
         }
         return modifiedData;
     }
