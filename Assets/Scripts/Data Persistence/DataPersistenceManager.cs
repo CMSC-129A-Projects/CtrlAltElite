@@ -24,41 +24,89 @@ public class DataPersistenceManager : MonoBehaviour
         if (instance != null)
         {
             Debug.Log("Found one more Data Persistence Instance. Destroying the newest one");
-            /*Destroy(this.gameObject);
-            return;*/
+            Destroy(this.gameObject);
+            return;
         }
         instance = this;
-        // DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
         // dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
 
+    /*private void Start()
+    {
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        LoadGame();
+    }*/
+
     public void NewGame()
     {
         this.gameData = new GameData();
-        baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
+        /*baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
         if (baseRespawn != null)
         {
             Debug.Log("BaseRespawn spotted at " + baseRespawn.transform.position);
             this.gameData.respawnPoint.x = baseRespawn.transform.position.x;
             this.gameData.respawnPoint.y = baseRespawn.transform.position.y;
-        }
+        }*/
     }
 
     public void LoadGame()
     {
+        // load any saved data from a file using the data handler
         this.gameData = dataHandler.Load();
+
+        // start a new game if the data is null and we're configured to initialize data for debugging purposes
+        if (this.gameData == null && initializeDataIfNull)
+        {
+            NewGame();
+        }
+
+        // if no data can be loaded, don't continue
+        if (this.gameData == null)
+        {
+            Debug.Log("No data was found. A New Game needs to be started before data can be loaded.");
+            return;
+        }
+
+        // push the loaded data to all other scripts that need it
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadData(gameData);
+        }
+    }
+
+    /*public void LoadGame()
+    {
+        this.gameData = dataHandler.Load();
+
+        if (this.gameData == null && initializeDataIfNull)
+        {
+            NewGame();
+        }
 
         if (this.gameData == null)
         {
-            Debug.Log("No data was found. Initializing default data");
-            NewGame();
+            Debug.Log("No data was found. A new game must be created");
+            // NewGame();
+            return;
         }
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -67,24 +115,51 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("Loaded player respawn: " + gameData.respawnPoint.x + " " + gameData.respawnPoint.y);
-    }
-    
-    public void SaveGame() 
+    }*/
+
+    /*public void SaveGame() 
     {
+        if (this.gameData == null)
+        {
+            return;
+        }
+
+        if (dataPersistenceObjects != null)
+        {
+            foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+            {
+                dataPersistenceObj.SaveData(gameData);
+            }
+
+            Debug.Log("Saved player respawn: " + gameData.respawnPoint.x + " " + gameData.respawnPoint.y);
+
+            dataHandler.Save(gameData);
+        } 
+    }*/
+
+    public void SaveGame()
+    {
+        // if we don't have any data to save, log a warning here
+        if (this.gameData == null)
+        {
+            Debug.LogWarning("No data was found. A New Game needs to be started before data can be saved.");
+            return;
+        }
+
+        // pass the data to other scripts so they can update it
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.SaveData(gameData);
         }
 
-        Debug.Log("Saved player respawn: " + gameData.respawnPoint.x + " " + gameData.respawnPoint.y);
-
+        // save that data to a file using the data handler
         dataHandler.Save(gameData);
     }
 
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

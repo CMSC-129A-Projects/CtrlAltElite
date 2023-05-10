@@ -11,6 +11,8 @@ public class GameData
     public Vector2 respawnPoint;
     public GameData()
     {
-        this.respawnPoint = Vector2.zero;
+        Debug.Log("GameData");
+        // this.respawnPoint = Vector2.zero;
+        this.respawnPoint = new Vector2(-115.97f, -11.44f);
     }
 }
