@@ -10,11 +10,13 @@ public class GameData
     public float defaultJumpPower;
     public float staminaMax;
     public Vector2 respawnPoint;
+    public Vector2 position;
     public GameData()
     {
         Debug.Log("GameData");
         // this.respawnPoint = Vector2.zero;
-        this.respawnPoint = new Vector2(-115.97f, -11.44f);
+        // this.respawnPoint = new Vector2(-115.97f, -11.44f);
+        this.position = Vector2.zero;
     }
 
     /*public int GetPercentageComplete()

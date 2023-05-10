@@ -424,12 +424,23 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
-        this.transform.position = data.respawnPoint;
+        // this.transform.position = data.respawnPoint;
+        this.transform.position = data.position;
     }
 
     public void SaveData(GameData data)
     {
-        data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
+        // data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
+        data.position = this.transform.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boundary"))
+        {
+            Debug.Log("New Boundary");
+            NewDataPersistenceManager.instance.SaveGame();
+        }
     }
 
     #endregion
