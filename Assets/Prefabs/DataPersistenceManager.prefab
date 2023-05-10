@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c9210fb684245440b0ee3584235a4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initializeDataIfNull: 1
-  fileName: sugbo.data
+  initializeDataIfNull: 0
+  fileName: test.data
   useEncryption: 0
