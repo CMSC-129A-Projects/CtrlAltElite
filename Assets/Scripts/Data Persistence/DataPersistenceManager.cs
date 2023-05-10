@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class DataPersistenceManager : MonoBehaviour
 {
     [Header("Debugging")]
+    [SerializeField] private bool disableDataPersistence;
     [SerializeField] private bool initializeDataIfNull;
+    [SerializeField] private bool overrideSelectedProfileId = false;
+    [SerializeField] private string testSelectedProfileId = "test";
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
@@ -16,7 +19,7 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
-    private string selectedProfileID = "test";
+    private string selectedProfileID = "";
     public static DataPersistenceManager instance { get; private set; }
 
     private void Awake()
@@ -29,8 +32,22 @@ public class DataPersistenceManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+        
+        if (disableDataPersistence)
+        {
+            Debug.LogWarning("Data Persistence is currently disabled");
+        }
         // dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+
+        this.selectedProfileID = dataHandler.GetMostRecentlyUpdatedProfileId();
+
+        if (overrideSelectedProfileId)
+        {
+            this.selectedProfileID = testSelectedProfileId;
+            Debug.LogWarning("Overrode selected profile id with test id: " + testSelectedProfileId);
+        }
+
     }
 
     private void OnEnable()
@@ -46,6 +63,14 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        LoadGame();
+    }
+
+    public void ChangeSelectedProfileId(string newProfileId)
+    {
+        // update the profile to use for saving and loading
+        this.selectedProfileID = newProfileId;
+        // load the game, which will use that profile, updating our game data accordingly
         LoadGame();
     }
 
@@ -70,8 +95,12 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame()
     {
+        if (disableDataPersistence)
+        {
+            return;
+        }
         // load any saved data from a file using the data handler
-        this.gameData = dataHandler.Load();
+        this.gameData = dataHandler.Load(selectedProfileID);
 
         // start a new game if the data is null and we're configured to initialize data for debugging purposes
         if (this.gameData == null && initializeDataIfNull)
@@ -93,52 +122,14 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
-    /*public void LoadGame()
-    {
-        this.gameData = dataHandler.Load();
-
-        if (this.gameData == null && initializeDataIfNull)
-        {
-            NewGame();
-        }
-
-        if (this.gameData == null)
-        {
-            Debug.Log("No data was found. A new game must be created");
-            // NewGame();
-            return;
-        }
-
-        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
-        {
-            dataPersistenceObj.LoadData(gameData);
-        }
-
-        Debug.Log("Loaded player respawn: " + gameData.respawnPoint.x + " " + gameData.respawnPoint.y);
-    }*/
-
-    /*public void SaveGame() 
-    {
-        if (this.gameData == null)
-        {
-            return;
-        }
-
-        if (dataPersistenceObjects != null)
-        {
-            foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
-            {
-                dataPersistenceObj.SaveData(gameData);
-            }
-
-            Debug.Log("Saved player respawn: " + gameData.respawnPoint.x + " " + gameData.respawnPoint.y);
-
-            dataHandler.Save(gameData);
-        } 
-    }*/
-
     public void SaveGame()
     {
+        // return right away if data persistence is disabled
+        if (disableDataPersistence)
+        {
+            return;
+        }
+
         // if we don't have any data to save, log a warning here
         if (this.gameData == null)
         {
@@ -152,8 +143,11 @@ public class DataPersistenceManager : MonoBehaviour
             dataPersistenceObj.SaveData(gameData);
         }
 
+        // timestamp the data so we know when it was last saved
+        gameData.lastUpdated = System.DateTime.Now.ToBinary();
+
         // save that data to a file using the data handler
-        dataHandler.Save(gameData);
+        dataHandler.Save(gameData, selectedProfileID);
     }
 
 
@@ -177,5 +171,10 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveGame();
+    }
+
+    public Dictionary<string, GameData> GetAllProfilesGameData()
+    {
+        return dataHandler.LoadAllProfiles();
     }
 }
