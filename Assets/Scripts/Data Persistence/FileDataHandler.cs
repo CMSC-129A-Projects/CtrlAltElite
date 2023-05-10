@@ -18,9 +18,9 @@ public class FileDataHandler
         this.useEncryption = useEncryption;
     }
 
-    public GameData Load(string profileID)
+    public GameData Load()
     {
-        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
 
         if (File.Exists(fullPath))
@@ -54,9 +54,9 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(GameData data, string profileID)
+    public void Save(GameData data)
     {
-        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
 
         try
         {
@@ -85,7 +85,7 @@ public class FileDataHandler
 
     }
 
-    public Dictionary<string, GameData> LoadAllProfiles()
+    /*public Dictionary<string, GameData> LoadAllProfiles()
     {
         Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>();
 
@@ -118,7 +118,7 @@ public class FileDataHandler
         }
 
         return profileDictionary;
-    }
+    }*/
 
     // perform XOR encryption
     private string EncryptDecrypt(string data)

@@ -39,9 +39,9 @@ public class PlayerDeath : MonoBehaviour
 
                 Debug.Log("AutoSave");
                 player.SavePlayer();*/
-                Debug.Log("New Spawnpoint Found: Autosaving");
+                // Debug.Log("New Spawnpoint Found: Autosaving");
                 currentRespawn = collision.transform.GetChild(0).gameObject;
-                DataPersistenceManager.Instance.SaveGame();
+                DataPersistenceManager.instance.SaveGame();
             }
         }
 
@@ -65,7 +65,7 @@ public class PlayerDeath : MonoBehaviour
         // transform.GetComponent<SpriteRenderer>().enabled = true;
         // transform.position = currentRespawn.transform.position;
         // player.LoadPlayer();
-        DataPersistenceManager.Instance.LoadGame();
+        DataPersistenceManager.instance.LoadGame();
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         yield return new WaitForSeconds(_animationTimer);
         SugboMovement.isDead = false;
