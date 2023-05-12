@@ -6,6 +6,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    private BodySpriteSetter bodySpriteSetter;
     public Rigidbody2D rb;
     private Collision coll;
     public PlayerDeath death;
@@ -160,6 +161,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        bodySpriteSetter = GetComponent<BodySpriteSetter>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collision>();
         death = GetComponent<PlayerDeath>();
@@ -177,7 +179,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         maxFallTimer = 0;
         jumpBoostTimer = 0;
         moveSpeedTimer = 0;
-
         // _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
 
         SetGravityScale(gravityScale);
@@ -199,6 +200,11 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             // LoadPlayer();
             Debug.Log("Manual Load");
             NewDataPersistenceManager.instance.LoadGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            bodySpriteSetter.SetPlayerSprites();
         }
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
@@ -426,6 +432,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         // this.transform.position = data.respawnPoint;
         this.transform.position = data.position;
+        if (bodySpriteSetter != null) bodySpriteSetter.SetPlayerSprites();
     }
 
     public void SaveData(GameData data)

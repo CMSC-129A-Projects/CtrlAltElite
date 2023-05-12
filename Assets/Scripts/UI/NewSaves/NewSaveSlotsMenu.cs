@@ -33,9 +33,10 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // case - loading game
         if (isLoadingGame)
         {
-            Debug.Log("isLoadingGame");
+            Debug.Log("Loaded Save Slot Clicked");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-            SaveGameAndLoadScene();
+            // SaveGameAndLoadScene();
+            SaveGameAndLoadScene_Load();
         }
         // case - new game, but the save slot has data
         else if (saveSlot.hasData)
@@ -47,7 +48,7 @@ public class NewSaveSlotsMenu : MonoBehaviour
                 {
                     NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
                     NewDataPersistenceManager.instance.NewGame();
-                    SaveGameAndLoadScene();
+                    SaveGameAndLoadScene_New();
                 },
                 // function to execute if we select 'cancel'
                 () =>
@@ -59,17 +60,16 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // case - new game, and the save slot has no data
         else
         {
-            Debug.Log("Might be here");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             NewDataPersistenceManager.instance.NewGame();
             Debug.Log("New Game Created");
-            SaveGameAndLoadScene();
+            SaveGameAndLoadScene_New();
         }
 
         
     }
 
-    private void SaveGameAndLoadScene()
+    private void SaveGameAndLoadScene_New()
     {
         Debug.Log("SaveGameAndLoadScene");
         // save the game anytime before loading a new scene
@@ -78,6 +78,14 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // Change these for testing
         SceneManager.LoadSceneAsync("JaniTest");
         // SceneManager.LoadSceneAsync("SaveTest");
+    }
+
+    private void SaveGameAndLoadScene_Load()
+    {
+        Debug.Log("LoadingGame");
+        NewDataPersistenceManager.instance.SaveGame();
+        // change SaveTest to the scene number soon
+        SceneManager.LoadSceneAsync("SaveTest");
     }
 
     public void OnClearClicked(NewSaveSlot saveSlot)

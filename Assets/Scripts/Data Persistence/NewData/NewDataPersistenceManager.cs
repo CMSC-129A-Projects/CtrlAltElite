@@ -19,7 +19,7 @@ public class NewDataPersistenceManager : MonoBehaviour
     [Header("Auto Saving Configuration")]
     [SerializeField] private float autoSaveTimeSeconds = 60f;
 
-    private GameData gameData;
+    public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private NewFileDataHandler dataHandler;
 
@@ -51,11 +51,13 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("OnEnable");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
+        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

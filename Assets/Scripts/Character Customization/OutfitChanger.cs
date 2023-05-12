@@ -11,7 +11,7 @@ public class OutfitChanger : MonoBehaviour
     public List<Sprite> options = new List<Sprite>();
 
 
-    private int CurrentOption = 0;
+    public int CurrentOption = 0;
 
     public void NextOption()
     {
