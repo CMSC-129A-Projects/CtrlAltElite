@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.Profiling;
+using UnityEditor.Experimental.GraphView;
+using System.Linq;
 
 public class NewFileDataHandler
 {
@@ -18,6 +21,22 @@ public class NewFileDataHandler
         this.dataFileName = dataFileName;
         this.useEncryption = useEncryption;
     }
+
+    public bool HasFilesIn()
+    {
+        string fullPath = Path.Combine(dataDirPath);
+        if (Directory.Exists(fullPath))
+        {
+            IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
+            if (dirInfos.Count() > 0)
+            {
+                return true;
+            }
+        }
+        Debug.LogWarning("No Files in " + dataDirPath);
+        return false;
+    }
+
 
     public GameData Load(string profileId, bool allowRestoreFromBackup = true)
     {

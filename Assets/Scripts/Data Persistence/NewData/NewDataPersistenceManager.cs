@@ -21,7 +21,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
-    private FileDataHandler dataHandler;
+    private NewFileDataHandler dataHandler;
 
     private string selectedProfileId = "";
 
@@ -45,8 +45,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             Debug.LogWarning("Data Persistence is currently disabled!");
         }
 
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
-
+        this.dataHandler = new NewFileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         InitializeSelectedProfileId();
     }
 
@@ -104,6 +103,14 @@ public class NewDataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         this.gameData = new GameData();
+
+        /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
+        if (baseRespawn != null)
+        {
+            this.gameData.respawnPoint = baseRespawn.transform.position;
+            this.gameData.position = this.gameData.respawnPoint;
+        }*/
+        
     }
 
     public void LoadGame()
@@ -120,6 +127,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         // start a new game if the data is null and we're configured to initialize data for debugging purposes
         if (this.gameData == null && initializeDataIfNull)
         {
+            Debug.Log("Here");
             NewGame();
         }
 
@@ -131,10 +139,14 @@ public class NewDataPersistenceManager : MonoBehaviour
         }
 
         // push the loaded data to all other scripts that need it
-        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        if (dataPersistenceObjects != null)
         {
-            dataPersistenceObj.LoadData(gameData);
+            foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+            {
+                dataPersistenceObj.LoadData(gameData);
+            }
         }
+        
     }
 
     public void SaveGame()
@@ -150,6 +162,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         if (this.gameData == null)
         {
             Debug.LogWarning("No data was found. A New Game needs to be started before data can be saved.");
+            // NewGame();
             return;
         }
 
@@ -185,9 +198,15 @@ public class NewDataPersistenceManager : MonoBehaviour
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
 
+    /*public bool HasGameData()
+    {
+        Debug.Log("HasGameData " + gameData);
+        return gameData != null;
+    }*/
+
     public bool HasGameData()
     {
-        return gameData != null;
+        return dataHandler.HasFilesIn();
     }
 
     public Dictionary<string, GameData> GetAllProfilesGameData()

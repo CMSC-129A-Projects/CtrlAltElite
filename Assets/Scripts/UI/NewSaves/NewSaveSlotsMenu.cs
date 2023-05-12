@@ -33,6 +33,7 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // case - loading game
         if (isLoadingGame)
         {
+            Debug.Log("isLoadingGame");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             SaveGameAndLoadScene();
         }
@@ -56,18 +57,25 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // case - new game, and the save slot has no data
         else
         {
+            Debug.Log("Might be here");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             NewDataPersistenceManager.instance.NewGame();
+            Debug.Log("New Game Created");
             SaveGameAndLoadScene();
         }
+
+        
     }
 
     private void SaveGameAndLoadScene()
     {
+        Debug.Log("SaveGameAndLoadScene");
         // save the game anytime before loading a new scene
         NewDataPersistenceManager.instance.SaveGame();
         // load the scene
-        SceneManager.LoadSceneAsync("SaveTest");
+        // Change these for testing
+        SceneManager.LoadSceneAsync("JaniTest");
+        // SceneManager.LoadSceneAsync("SaveTest");
     }
 
     public void OnClearClicked(NewSaveSlot saveSlot)

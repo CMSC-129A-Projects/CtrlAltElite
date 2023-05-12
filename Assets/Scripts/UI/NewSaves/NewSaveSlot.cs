@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using TMPro;
+using TMPro;
 using UnityEngine.UI;
 
 public class NewSaveSlot : MonoBehaviour
@@ -14,9 +14,10 @@ public class NewSaveSlot : MonoBehaviour
     [SerializeField] private GameObject hasDataContent;
     /*[SerializeField] private TextMeshProUGUI percentageCompleteText;
     [SerializeField] private TextMeshProUGUI deathCountText;*/
+    [SerializeField] private TextMeshProUGUI playerPosition;
 
-    /*[Header("Clear Data Button")]
-    [SerializeField] private Button clearButton;*/
+    [Header("Clear Data Button")]
+    [SerializeField] private Button clearButton;
 
     public bool hasData { get; private set; } = false;
 
@@ -44,6 +45,8 @@ public class NewSaveSlot : MonoBehaviour
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
             // clearButton.gameObject.SetActive(true);
+
+            playerPosition.text = data.position.x.ToString() + ", " + data.position.y.ToString();
 
             /*percentageCompleteText.text = data.GetPercentageComplete() + "% COMPLETE";
             deathCountText.text = "DEATH COUNT: " + data.deathCount;*/

@@ -192,13 +192,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             // SavePlayer();
             Debug.Log("Manual Save");
-            DataPersistenceManager.instance.SaveGame();
+            NewDataPersistenceManager.instance.SaveGame();
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
             // LoadPlayer();
             Debug.Log("Manual Load");
-            DataPersistenceManager.instance.LoadGame();
+            NewDataPersistenceManager.instance.LoadGame();
         }
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
@@ -430,8 +430,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        // data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
-        data.position = this.transform.position;
+        data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
+        data.position = data.respawnPoint;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

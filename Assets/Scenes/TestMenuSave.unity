@@ -341,8 +341,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TestSaveSlotsMenu, Main
+      - m_Target: {fileID: 1170560162}
+        m_TargetAssemblyTypeName: NewSaveSlotsMenu, Assembly-CSharp
         m_MethodName: OnBackClicked
         m_Mode: 1
         m_Arguments:
@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewSaveSlotsMenu, Main
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 507571575}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: NewSaveSlot, Main
+      value: NewSaveSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433339, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Pivot.x
@@ -535,10 +535,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1170560161}
     m_Modifications:
-    - target: {fileID: -8814278284344314918, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
-      propertyPath: profileId
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 171964174997433284, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Name
       value: NewSaveSlot
@@ -553,7 +549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewSaveSlotsMenu, Main
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -561,7 +557,7 @@ PrefabInstance:
       objectReference: {fileID: 555228272}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: NewSaveSlot, Main
+      value: NewSaveSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433339, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Pivot.x
@@ -647,6 +643,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 171964175897918666, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
 --- !u!224 &555228271 stripped
@@ -665,71 +665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081784545d65e224492b74d43b34c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &617644547
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501254, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501255, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: initializeDataIfNull
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501305, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_Name
-      value: DataPersistenceManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7265916125340501305, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 335e8d1f857bafd42917c34aa454422f, type: 3}
 --- !u!1001 &903045042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -755,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewSaveSlotsMenu, Main
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -763,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 903045044}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: NewSaveSlot, Main
+      value: NewSaveSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433339, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Pivot.x
@@ -874,9 +809,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
+      propertyPath: initializeDataIfNull
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7265916125340501254, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7265916125340501254, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1129,11 +1068,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NewSaveSlotsMenu, Main
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1619276193}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: NewSaveSlot, Main
+      value: NewSaveSlot, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433339, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Pivot.x
@@ -1733,6 +1676,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604771221}
   m_CullTransparentMesh: 1
+--- !u!114 &1619276193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8814278284344314918, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+  m_PrefabInstance: {fileID: 1280527419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081784545d65e224492b74d43b34c43e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1864667192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1864667193
 RectTransform:
   m_ObjectHideFlags: 0

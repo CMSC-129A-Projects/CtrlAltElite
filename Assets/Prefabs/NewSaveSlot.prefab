@@ -148,9 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081784545d65e224492b74d43b34c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileId: 
+  profileId: 0
   noDataContent: {fileID: 171964175352517735}
   hasDataContent: {fileID: 171964175897918666}
+  playerPosition: {fileID: 171964176764445729}
+  clearButton: {fileID: 0}
 --- !u!1 &171964175352517735
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +374,7 @@ GameObject:
   - component: {fileID: 171964176764445728}
   - component: {fileID: 171964176764445729}
   m_Layer: 5
-  m_Name: PercentageComplete
+  m_Name: Player Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
