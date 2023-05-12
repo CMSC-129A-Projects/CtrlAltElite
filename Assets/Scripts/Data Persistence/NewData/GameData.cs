@@ -11,11 +11,19 @@ public class GameData
     public float staminaMax;
     public Vector2 respawnPoint;
     public Vector2 position;
+    public int headIndex;
+    public int bodyIndex;
+    public int armIndex;
+    public int legIndex;
     public GameData()
     {
-        Debug.Log("GameData");
+        Debug.Log("Init Game Data");
         this.respawnPoint = Vector2.zero;
         this.position = Vector2.zero;
+        this.headIndex = 0;
+        this.bodyIndex = 0;
+        this.armIndex = 0;
+        this.legIndex = 0;
 
 
         // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);

@@ -19,7 +19,7 @@ public class NewDataPersistenceManager : MonoBehaviour
     [Header("Auto Saving Configuration")]
     [SerializeField] private float autoSaveTimeSeconds = 60f;
 
-    private GameData gameData;
+    public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private NewFileDataHandler dataHandler;
 
@@ -51,11 +51,13 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("OnEnable");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
+        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -83,7 +85,7 @@ public class NewDataPersistenceManager : MonoBehaviour
     public void DeleteProfileData(string profileId)
     {
         // delete the data for this profile id
-        // dataHandler.Delete(profileId);
+        dataHandler.Delete(profileId);
         // initialize the selected profile id
         InitializeSelectedProfileId();
         // reload the game so that our data matches the newly selected profile id
@@ -216,6 +218,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private IEnumerator AutoSave()
     {
+        Debug.Log("AutoSave Started");
         while (true)
         {
             yield return new WaitForSeconds(autoSaveTimeSeconds);

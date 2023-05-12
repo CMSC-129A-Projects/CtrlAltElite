@@ -13,8 +13,8 @@ public class NewSaveSlotsMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
 
-    /*[Header("Confirmation Popup")]
-    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;*/
+    [Header("Confirmation Popup")]
+    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;
 
     private NewSaveSlot[] saveSlots;
 
@@ -33,41 +33,43 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // case - loading game
         if (isLoadingGame)
         {
-            Debug.Log("isLoadingGame");
+            Debug.Log("Loaded Save Slot Clicked");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-            SaveGameAndLoadScene();
+            // SaveGameAndLoadScene();
+            SaveGameAndLoadScene_Load();
         }
-        /*// case - new game, but the save slot has data
+        // case - new game, but the save slot has data
         else if (saveSlot.hasData)
         {
             confirmationPopupMenu.ActivateMenu(
                 "Starting a New Game with this slot will override the currently saved data. Are you sure?",
                 // function to execute if we select 'yes'
-                () => {
-                    DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-                    DataPersistenceManager.instance.NewGame();
-                    SaveGameAndLoadScene();
+                () =>
+                {
+                    NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+                    NewDataPersistenceManager.instance.NewGame();
+                    SaveGameAndLoadScene_New();
                 },
                 // function to execute if we select 'cancel'
-                () => {
+                () =>
+                {
                     this.ActivateMenu(isLoadingGame);
                 }
             );
-        }*/
+        }
         // case - new game, and the save slot has no data
         else
         {
-            Debug.Log("Might be here");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             NewDataPersistenceManager.instance.NewGame();
             Debug.Log("New Game Created");
-            SaveGameAndLoadScene();
+            SaveGameAndLoadScene_New();
         }
 
         
     }
 
-    private void SaveGameAndLoadScene()
+    private void SaveGameAndLoadScene_New()
     {
         Debug.Log("SaveGameAndLoadScene");
         // save the game anytime before loading a new scene
@@ -78,22 +80,33 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // SceneManager.LoadSceneAsync("SaveTest");
     }
 
+    private void SaveGameAndLoadScene_Load()
+    {
+        Debug.Log("LoadingGame");
+        NewDataPersistenceManager.instance.SaveGame();
+        // change SaveTest to the scene number soon
+        SceneManager.LoadSceneAsync("SaveTest");
+    }
+
     public void OnClearClicked(NewSaveSlot saveSlot)
     {
+        
         DisableMenuButtons();
 
-        /*confirmationPopupMenu.ActivateMenu(
+        confirmationPopupMenu.ActivateMenu(
             "Are you sure you want to delete this saved data?",
             // function to execute if we select 'yes'
-            () => {
-                DataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
+            () =>
+            {
+                NewDataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
                 ActivateMenu(isLoadingGame);
             },
             // function to execute if we select 'cancel'
-            () => {
+            () =>
+            {
                 ActivateMenu(isLoadingGame);
             }
-        );*/
+        );
     }
 
     public void OnBackClicked()
