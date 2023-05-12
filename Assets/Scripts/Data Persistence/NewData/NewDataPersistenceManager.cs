@@ -216,6 +216,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private IEnumerator AutoSave()
     {
+        Debug.Log("AutoSave Started");
         while (true)
         {
             yield return new WaitForSeconds(autoSaveTimeSeconds);
