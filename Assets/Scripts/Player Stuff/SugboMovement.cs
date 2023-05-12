@@ -859,7 +859,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         PlatformCollisionCheck();
         WallCollisionCheck();
         // LedgeCollisionCheck();
-        CornerCorrectCheck(); // TODO - have to fix this
+        // CornerCorrectCheck(); // TODO - have to fix this
         WaterCollisionCheck();
     }
 
