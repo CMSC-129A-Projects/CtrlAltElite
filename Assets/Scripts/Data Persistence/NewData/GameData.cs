@@ -10,11 +10,29 @@ public class GameData
     public float defaultJumpPower;
     public float staminaMax;
     public Vector2 respawnPoint;
+    public Vector2 position;
     public GameData()
     {
         Debug.Log("GameData");
-        // this.respawnPoint = Vector2.zero;
-        this.respawnPoint = new Vector2(-115.97f, -11.44f);
+        this.respawnPoint = Vector2.zero;
+        this.position = Vector2.zero;
+
+
+        // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);
+
+        // starting position of JaniTest DO NOT CHANGE THIS 
+        this.position = new Vector2(-87, -15);
+
+        // starting position of SaveTest DO NOT CHANGE THIS 
+        // this.position = new Vector2(-115.8605f, -9.98346f);
+
+        // test
+        /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
+        if (baseRespawn != null)
+        {
+            this.respawnPoint = baseRespawn.transform.position;
+            this.position = this.respawnPoint;
+        }*/
     }
 
     /*public int GetPercentageComplete()

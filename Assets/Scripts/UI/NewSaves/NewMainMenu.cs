@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TestMenuSave : MonoBehaviour
+public class NewMainMenu : MonoBehaviour
 {
     [Header("Menu Navigation")]
-    [SerializeField] private TestSaveSlotsMenu saveSlotsMenu;
+    [SerializeField] private NewSaveSlotsMenu saveSlotsMenu;
 
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
@@ -16,29 +17,22 @@ public class TestMenuSave : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Menu: " + DataPersistenceManager.instance.HasGameData());
-        if (!DataPersistenceManager.instance.HasGameData())
+        DisableButtonsDependingOnData();
+    }
+
+    private void DisableButtonsDependingOnData()
+    {
+        if (!NewDataPersistenceManager.instance.HasGameData())
         {
-            continueGameButton.interactable = false; 
+            continueGameButton.interactable = false;
             loadGameButton.interactable = false;
         }
     }
+
     public void OnNewGameClicked()
     {
-        /*DisableAllButtons();
-        Debug.Log("New Game Clicked");
-        DataPersistenceManager.instance.NewGame();
-        SceneManager.LoadSceneAsync("SaveTest");*/
         saveSlotsMenu.ActivateMenu(false);
         this.DeactivateMenu();
-    }
-
-    public void OnContinueGameClicked()
-    {
-        DisableAllButtons();
-        Debug.Log("Continue Clicked");
-        DataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadSceneAsync("SaveTest");
     }
 
     public void OnLoadGameClicked()
@@ -47,19 +41,30 @@ public class TestMenuSave : MonoBehaviour
         this.DeactivateMenu();
     }
 
-    private void DisableAllButtons()
+    public void OnContinueGameClicked()
+    {
+        DisableMenuButtons();
+        // save the game anytime before loading a new scene
+        NewDataPersistenceManager.instance.SaveGame();
+        // load the next scene - which will in turn load the game because of 
+        // OnSceneLoaded() in the DataPersistenceManager
+        SceneManager.LoadSceneAsync("SampleScene");
+    }
+
+    private void DisableMenuButtons()
     {
         newGameButton.interactable = false;
         continueGameButton.interactable = false;
     }
+
     public void ActivateMenu()
     {
         this.gameObject.SetActive(true);
+        DisableButtonsDependingOnData();
     }
 
     public void DeactivateMenu()
     {
         this.gameObject.SetActive(false);
     }
-
 }

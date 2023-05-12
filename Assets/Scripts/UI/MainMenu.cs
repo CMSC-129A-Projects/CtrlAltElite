@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("New Game Clicked");
         // initialize game data
-        DataPersistenceManager.instance.NewGame();
+        // DataPersistenceManager.instance.NewGame();
         // load scene
         SceneManager.LoadSceneAsync("SaveTest");
     }
