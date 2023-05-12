@@ -13,8 +13,8 @@ public class NewSaveSlotsMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button backButton;
 
-    /*[Header("Confirmation Popup")]
-    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;*/
+    [Header("Confirmation Popup")]
+    [SerializeField] private ConfirmationPopupMenu confirmationPopupMenu;
 
     private NewSaveSlot[] saveSlots;
 
@@ -37,23 +37,25 @@ public class NewSaveSlotsMenu : MonoBehaviour
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             SaveGameAndLoadScene();
         }
-        /*// case - new game, but the save slot has data
+        // case - new game, but the save slot has data
         else if (saveSlot.hasData)
         {
             confirmationPopupMenu.ActivateMenu(
                 "Starting a New Game with this slot will override the currently saved data. Are you sure?",
                 // function to execute if we select 'yes'
-                () => {
-                    DataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-                    DataPersistenceManager.instance.NewGame();
+                () =>
+                {
+                    NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
+                    NewDataPersistenceManager.instance.NewGame();
                     SaveGameAndLoadScene();
                 },
                 // function to execute if we select 'cancel'
-                () => {
+                () =>
+                {
                     this.ActivateMenu(isLoadingGame);
                 }
             );
-        }*/
+        }
         // case - new game, and the save slot has no data
         else
         {
@@ -80,22 +82,23 @@ public class NewSaveSlotsMenu : MonoBehaviour
 
     public void OnClearClicked(NewSaveSlot saveSlot)
     {
-        NewDataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
-        ActivateMenu(isLoadingGame);
-        // DisableMenuButtons();
+        
+        DisableMenuButtons();
 
-        /*confirmationPopupMenu.ActivateMenu(
+        confirmationPopupMenu.ActivateMenu(
             "Are you sure you want to delete this saved data?",
             // function to execute if we select 'yes'
-            () => {
-                DataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
+            () =>
+            {
+                NewDataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
                 ActivateMenu(isLoadingGame);
             },
             // function to execute if we select 'cancel'
-            () => {
+            () =>
+            {
                 ActivateMenu(isLoadingGame);
             }
-        );*/
+        );
     }
 
     public void OnBackClicked()
