@@ -36,7 +36,7 @@ public class NewSaveSlot : MonoBehaviour
             hasData = false;
             noDataContent.SetActive(true);
             hasDataContent.SetActive(false);
-            // clearButton.gameObject.SetActive(false);
+            clearButton.gameObject.SetActive(false);
         }
         // there is data for this profileId
         else
@@ -44,7 +44,7 @@ public class NewSaveSlot : MonoBehaviour
             hasData = true;
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
-            // clearButton.gameObject.SetActive(true);
+            clearButton.gameObject.SetActive(true);
 
             playerPosition.text = data.position.x.ToString() + ", " + data.position.y.ToString();
 
@@ -61,6 +61,6 @@ public class NewSaveSlot : MonoBehaviour
     public void SetInteractable(bool interactable)
     {
         saveSlotButton.interactable = interactable;
-        // clearButton.interactable = interactable;
+        clearButton.interactable = interactable;
     }
 }

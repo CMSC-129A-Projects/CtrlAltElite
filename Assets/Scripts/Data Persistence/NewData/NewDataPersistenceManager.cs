@@ -83,7 +83,7 @@ public class NewDataPersistenceManager : MonoBehaviour
     public void DeleteProfileData(string profileId)
     {
         // delete the data for this profile id
-        // dataHandler.Delete(profileId);
+        dataHandler.Delete(profileId);
         // initialize the selected profile id
         InitializeSelectedProfileId();
         // reload the game so that our data matches the newly selected profile id

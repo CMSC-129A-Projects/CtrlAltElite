@@ -80,7 +80,9 @@ public class NewSaveSlotsMenu : MonoBehaviour
 
     public void OnClearClicked(NewSaveSlot saveSlot)
     {
-        DisableMenuButtons();
+        NewDataPersistenceManager.instance.DeleteProfileData(saveSlot.GetProfileId());
+        ActivateMenu(isLoadingGame);
+        // DisableMenuButtons();
 
         /*confirmationPopupMenu.ActivateMenu(
             "Are you sure you want to delete this saved data?",
