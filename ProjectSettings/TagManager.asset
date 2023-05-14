@@ -23,7 +23,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
   - Ground
@@ -53,6 +53,39 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1086481723
+    locked: 0
+  - name: Water
+    uniqueID: 3593424677
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Terrain
+    uniqueID: 1370770299
+    locked: 0
+  - name: OneWay
+    uniqueID: 2565049109
+    locked: 0
+  - name: BreakableOneWay
+    uniqueID: 1150274699
+    locked: 0
+  - name: TwoWay
+    uniqueID: 112588283
+    locked: 0
+  - name: BreakableTiles
+    uniqueID: 3580580007
+    locked: 0
+  - name: Hidden
+    uniqueID: 860137407
+    locked: 0
+  - name: HiddenOutCheck
+    uniqueID: 922548883
+    locked: 0
+  - name: Spikes
+    uniqueID: 2613183851
+    locked: 0
+  - name: New Layer 11
+    uniqueID: 196968153
     locked: 0

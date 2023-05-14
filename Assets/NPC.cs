@@ -17,11 +17,14 @@ public class NPC : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    public TextMeshProUGUI interactText; 
+
     private Coroutine typingCoroutine;
 
     void Start()
     {
         dialogueText.text = "";
+        interactText.text = ""; 
     }
 
     void Update()
@@ -32,6 +35,7 @@ public class NPC : MonoBehaviour
             {
                 dialoguePanel.SetActive(true);
                 typingCoroutine = StartCoroutine(Typing());
+                interactText.text = ""; 
             }
             else if (dialogueText.text == dialogue[index])
             {
@@ -57,6 +61,7 @@ public class NPC : MonoBehaviour
         dialogueText.text = "";
         index = lastIndex;
         dialoguePanel.SetActive(false);
+        interactText.text = "Press E"; 
     }
 
     IEnumerator Typing()
@@ -89,6 +94,7 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
+            interactText.text = "Press E"; 
         }
     }
 
@@ -97,8 +103,13 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
-            StopCoroutine(typingCoroutine);
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+            }
             RemoveText();
+            interactText.text = ""; 
         }
     }
+
 }
