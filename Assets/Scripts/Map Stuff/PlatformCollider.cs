@@ -143,8 +143,9 @@ public class PlatformCollider : MonoBehaviour
     private IEnumerator DisableCollision()
     {
         BoxCollider2D platformCollider = currentPlatform.GetComponent<BoxCollider2D>();
+        playerMovement.SetGravityScale(playerMovement.fallGravityScale);
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
 
 
