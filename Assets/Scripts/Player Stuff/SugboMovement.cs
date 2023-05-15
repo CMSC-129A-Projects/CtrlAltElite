@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SugboMovement : MonoBehaviour, IDataPersistence
 {
@@ -437,8 +438,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
-        data.position = data.respawnPoint;
+        if (PlayerDeath.currentRespawn != null)
+        {
+            data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
+            data.position = data.respawnPoint;
+            data.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        }
+            
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

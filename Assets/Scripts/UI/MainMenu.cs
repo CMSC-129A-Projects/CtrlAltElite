@@ -40,7 +40,7 @@ public void PlayGame()
 
     public void ChangeScenetoMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadSceneAsync("TestMenuSave");
     }
 }
 

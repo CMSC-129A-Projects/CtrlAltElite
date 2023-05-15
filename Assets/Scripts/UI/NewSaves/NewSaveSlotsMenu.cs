@@ -76,7 +76,8 @@ public class NewSaveSlotsMenu : MonoBehaviour
         NewDataPersistenceManager.instance.SaveGame();
         // load the scene
         // Change these for testing
-        SceneManager.LoadSceneAsync("JaniTest");
+        // SceneManager.LoadSceneAsync("JaniTest");
+        SceneManager.LoadSceneAsync("CharacterCustomization");
         // SceneManager.LoadSceneAsync("SaveTest");
     }
 
@@ -85,7 +86,9 @@ public class NewSaveSlotsMenu : MonoBehaviour
         Debug.Log("LoadingGame");
         NewDataPersistenceManager.instance.SaveGame();
         // change SaveTest to the scene number soon
-        SceneManager.LoadSceneAsync("SaveTest");
+        // SceneManager.LoadSceneAsync("SaveTest");
+        int _sceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
+        SceneManager.LoadSceneAsync(_sceneIndex);
     }
 
     public void OnClearClicked(NewSaveSlot saveSlot)
