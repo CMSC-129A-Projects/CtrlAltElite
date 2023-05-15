@@ -183,8 +183,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         // _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
 
         SetGravityScale(gravityScale);
-
-        
+        Debug.Log("Loading Player");
+        NewDataPersistenceManager.instance.SaveGame();
+        NewDataPersistenceManager.instance.LoadGame();
     }
 
     private void Update()

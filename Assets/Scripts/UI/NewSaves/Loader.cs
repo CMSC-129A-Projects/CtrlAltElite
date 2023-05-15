@@ -10,7 +10,7 @@ public class Loader : MonoBehaviour
         bodySpriteSetter = new BodySpriteSetter();
         Debug.Log("Loader Awake");
         NewDataPersistenceManager.instance.SaveGame();
-        NewDataPersistenceManager.instance.LoadGame();
+        // NewDataPersistenceManager.instance.LoadGame();
         /*Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.bodyIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);

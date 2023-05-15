@@ -12,7 +12,6 @@ public class NewMainMenu : MonoBehaviour
 
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
-    [SerializeField] private Button continueGameButton;
     [SerializeField] private Button loadGameButton;
 
     private void Start()
@@ -24,7 +23,6 @@ public class NewMainMenu : MonoBehaviour
     {
         if (!NewDataPersistenceManager.instance.HasGameData())
         {
-            continueGameButton.interactable = false;
             loadGameButton.interactable = false;
         }
     }
@@ -41,20 +39,9 @@ public class NewMainMenu : MonoBehaviour
         this.DeactivateMenu();
     }
 
-    public void OnContinueGameClicked()
-    {
-        DisableMenuButtons();
-        // save the game anytime before loading a new scene
-        NewDataPersistenceManager.instance.SaveGame();
-        // load the next scene - which will in turn load the game because of 
-        // OnSceneLoaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync("SampleScene");
-    }
-
     private void DisableMenuButtons()
     {
         newGameButton.interactable = false;
-        continueGameButton.interactable = false;
     }
 
     public void ActivateMenu()
