@@ -43,7 +43,7 @@ public class PlayerDeath : MonoBehaviour
                 currentRespawn = collision.transform.GetChild(0).gameObject;
                 Debug.Log(currentRespawn.transform.position);
                 // DataPersistenceManager.instance.SaveGame();
-                // NewDataPersistenceManager.instance.SaveGame();
+                NewDataPersistenceManager.instance.SaveGame();
             }
         }
 

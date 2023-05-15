@@ -22,7 +22,11 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         SceneManager.LoadSceneAsync("SaveTest");*/
         Debug.Log("StartGame()");
         NewDataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadSceneAsync("SaveTest");
+        // SceneManager.LoadSceneAsync("SaveTest");
+
+        /*NewDataPersistenceManager.instance.gameData.position.x = -73.00418090820313f;
+        NewDataPersistenceManager.instance.gameData.position.y = -18.1600341796875f;*/
+        SceneManager.LoadSceneAsync("City 3");
     }
 
     #region SAVE STUFF
