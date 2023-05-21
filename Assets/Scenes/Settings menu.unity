@@ -4807,7 +4807,7 @@ GameObject:
   - component: {fileID: 1875101225}
   - component: {fileID: 1875101224}
   m_Layer: 0
-  m_Name: MainMenu
+  m_Name: OptionsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4838,6 +4838,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 717450776}
+  - {fileID: 1898820540}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4966,19 +4967,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898820536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.3081841}
   m_LocalScale: {x: 0.46197918, y: 0.46197918, z: 0.46197918}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 315199748}
   - {fileID: 1842179549}
   - {fileID: 190886596}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1875101225}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 884.89606, y: 502.4164}
+  m_AnchoredPosition: {x: 910.93256, y: 418.5868}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1977768931

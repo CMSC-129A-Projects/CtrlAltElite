@@ -13,6 +13,7 @@ public class NewMainMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button loadGameButton;
+    [SerializeField] private Button settingsButton;
 
     private void Start()
     {
@@ -38,6 +39,8 @@ public class NewMainMenu : MonoBehaviour
         saveSlotsMenu.ActivateMenu(true);
         this.DeactivateMenu();
     }
+
+
 
     private void DisableMenuButtons()
     {
