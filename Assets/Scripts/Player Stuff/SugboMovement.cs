@@ -167,6 +167,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collision>();
         death = GetComponent<PlayerDeath>();
+        // this.transform.position = NewDataPersistenceManager.instance.gameData.position;
     }
 
     void Start()
@@ -184,9 +185,26 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         // _fallSpeedYDampingChangeThreshold = CameraManager.Instance._fallSpeedYDampingThreshold;
 
         SetGravityScale(gravityScale);
-        Debug.Log("Loading Player");
+
+        //Debug.Log("Loading Player");
+        //Debug.Log("newGame " + NewDataPersistenceManager.instance.gameData.newGame);
+        /*NewDataPersistenceManager.instance.LoadGame();
         NewDataPersistenceManager.instance.SaveGame();
-        NewDataPersistenceManager.instance.LoadGame();
+        NewDataPersistenceManager.instance.LoadGame();*/
+        if (NewDataPersistenceManager.instance.gameData.newGame)
+        {
+            //Debug.Log("True newGame");
+            NewDataPersistenceManager.instance.SaveGame();
+            NewDataPersistenceManager.instance.LoadGame();
+        }
+        else
+        {
+            //Debug.Log("False newGame");
+            NewDataPersistenceManager.instance.LoadGame();
+        }
+        //Debug.Log("ASDASD");
+        //Debug.Log(NewDataPersistenceManager.instance.gameData.position + " " + NewDataPersistenceManager.instance.gameData.newGame);
+        transform.position = NewDataPersistenceManager.instance.gameData.position;
     }
 
     private void Update()
@@ -411,33 +429,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         #endregion
     }
 
-    #region old SAVE STUFF
-    /*public void SavePlayer()
-    {
-        SaveSystem.SavePlayer(this);
-    }
-
-    public void LoadPlayer()
-    {
-        PlayerSaveData data = SaveSystem.LoadPlayer();
-        defaultMoveSpeed = data.defaultMoveSpeed;
-        defaultJumpPower = data.defaultJumpPower;
-        stamina = data.staminaMax;
-        Vector3 position;
-        position.x = data.currentRespawnPosition[0];
-        position.y = data.currentRespawnPosition[1];
-        position.z = data.currentRespawnPosition[2];
-
-        transform.position = position;
-    }*/
-    #endregion
-
     // Data Persistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
         // this.transform.position = data.respawnPoint;
-        this.transform.position = data.position;
+        transform.position = data.position;
         if (bodySpriteSetter != null) bodySpriteSetter.SetPlayerSprites();
     }
 
@@ -448,6 +445,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
             data.position = data.respawnPoint;
             data.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            // HARD CODED CHANGE THIS IF NECESSARY
+            // 5 FOR CITY 1, 6 FOR CITY 2, 7 FOR CITY 3, etc.
+            if (data.sceneIndex >= 5) data.newGame = false;
         }
             
     }

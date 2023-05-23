@@ -34,10 +34,11 @@ public class BodySpriteSetter : MonoBehaviour
     public void SetPlayerSprites()
     {
         Debug.Log("BSS SETTING");
-        Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.respawnPoint);
+        /*Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.bodyIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);*/
         headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.headIndex];
         bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.bodyIndex];
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];

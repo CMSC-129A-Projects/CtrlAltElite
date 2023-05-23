@@ -9,7 +9,15 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
     public List<OutfitChanger> outfitChangers = new List<OutfitChanger>();
     [SerializeField] private TMP_InputField inputField;
 
+    [Header("Random Names")]
+    public List<string> randomNames = new List<string>();
+
+    
+
     public void RandomizeCharacter(){
+        int nameIndex = Random.Range(0, randomNames.Count);
+        inputField.text = randomNames[nameIndex];
+
         foreach (OutfitChanger changer in outfitChangers)
         {
             changer.Randomize();
@@ -34,7 +42,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         // load the next scene - which will in turn load the game because of 
         // OnSceneLoaded() in the DataPersistenceManager
         SceneManager.LoadSceneAsync("SaveTest");*/
-        Debug.Log("StartGame()");
+        // Debug.Log("StartGame()");
+        
         NewDataPersistenceManager.instance.SaveGame();
         // SceneManager.LoadSceneAsync("SaveTest");
 

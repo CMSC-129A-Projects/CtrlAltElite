@@ -84,10 +84,13 @@ public class NewSaveSlotsMenu : MonoBehaviour
     private void SaveGameAndLoadScene_Load()
     {
         Debug.Log("LoadingGame");
+        // NewDataPersistenceManager.instance.gameData.newGame = false;
         NewDataPersistenceManager.instance.SaveGame();
         // change SaveTest to the scene number soon
         // SceneManager.LoadSceneAsync("SaveTest");
         int _sceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
+        
+        Debug.Log(NewDataPersistenceManager.instance.gameData.name + " " + NewDataPersistenceManager.instance.gameData.newGame);
         SceneManager.LoadSceneAsync(_sceneIndex);
     }
 
