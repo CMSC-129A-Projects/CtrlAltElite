@@ -17,7 +17,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
     }
     public void ActivateMenu()
     {
