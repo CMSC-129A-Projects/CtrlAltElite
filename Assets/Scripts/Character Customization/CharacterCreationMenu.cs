@@ -1,16 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 {
     public List<OutfitChanger> outfitChangers = new List<OutfitChanger>();
+    [SerializeField] private TMP_InputField inputField;
 
     public void RandomizeCharacter(){
         foreach (OutfitChanger changer in outfitChangers)
         {
             changer.Randomize();
+        }
+    }
+
+    private void Update()
+    {
+        if (inputField.isFocused)
+        {
+            SugboMovement.canMove = false;
+        }
+        else
+        {
+            SugboMovement.canMove = true;
         }
     }
 
@@ -52,7 +66,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         data.headIndex = outfitChangers[0].CurrentOption;
         data.bodyIndex = outfitChangers[1].CurrentOption;
         data.armIndex = outfitChangers[3].CurrentOption;
-        data.legIndex = outfitChangers[5].CurrentOption;  
+        data.legIndex = outfitChangers[5].CurrentOption;
+        data.name = inputField.text;
     }
     #endregion
 }

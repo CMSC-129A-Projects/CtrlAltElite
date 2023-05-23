@@ -2349,7 +2349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &556869845
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3859,6 +3859,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9213815491865704490, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: inputField
+      value: 
+      objectReference: {fileID: 1569896232}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
 --- !u!1 &1006359752
@@ -7564,6 +7568,7 @@ MonoBehaviour:
   - {fileID: 1257610152}
   - {fileID: 1177626863}
   - {fileID: 382213527}
+  inputField: {fileID: 1569896232}
 --- !u!1 &1727907566
 GameObject:
   m_ObjectHideFlags: 0
