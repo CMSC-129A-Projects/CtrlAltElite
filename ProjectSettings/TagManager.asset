@@ -19,6 +19,7 @@ TagManager:
   - Boundary
   - BreakableTileMap
   - BaseRespawn
+  - Area
   layers:
   - Default
   - TransparentFX
