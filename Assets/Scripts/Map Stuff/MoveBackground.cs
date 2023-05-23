@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveBackground : MonoBehaviour
 {
     private float length;
-    private float StartPos;
+    private Vector3 startPosition;
     private GameObject cam;
     [SerializeField] private float parallaxEffect;
 
@@ -13,7 +13,7 @@ public class MoveBackground : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("Main Camera");
-        StartPos = transform.position.x;
+        startPosition = transform.position;
         length = gameObject.GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
@@ -23,13 +23,15 @@ public class MoveBackground : MonoBehaviour
         float temp = (cam.transform.position.x * (1 - parallaxEffect));
         float distance = (cam.transform.position.x * parallaxEffect);
 
-        transform.position = new Vector3(StartPos + distance, transform.position.y, transform.position.z);
+        transform.position = new Vector3(startPosition.x + distance, cam.transform.position.y, transform.position.z);
 
-        if(temp > StartPos + length){
-            StartPos += length;
+        if (temp > startPosition.x + length)
+        {
+            startPosition.x += length;
         }
-        else if(temp < StartPos - length){
-            StartPos -= length;
+        else if (temp < startPosition.x - length)
+        {
+            startPosition.x -= length;
         }
     }
 }
