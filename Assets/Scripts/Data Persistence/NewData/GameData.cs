@@ -17,6 +17,8 @@ public class GameData
     public int legIndex;
     public int sceneIndex;
     public string name;
+    public float volumePreference;
+    public bool newGame;
     public GameData()
     {
         Debug.Log("Init Game Data");
@@ -28,6 +30,8 @@ public class GameData
         this.legIndex = 0;
         this.sceneIndex = 0;
         this.name = "";
+        this.volumePreference = 1f;
+        this.newGame = true;
 
 
         // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);
