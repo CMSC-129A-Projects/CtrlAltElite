@@ -16,6 +16,7 @@ public class GameData
     public int armIndex;
     public int legIndex;
     public int sceneIndex;
+    public string name;
     public GameData()
     {
         Debug.Log("Init Game Data");
@@ -26,6 +27,7 @@ public class GameData
         this.armIndex = 0;
         this.legIndex = 0;
         this.sceneIndex = 0;
+        this.name = "";
 
 
         // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);

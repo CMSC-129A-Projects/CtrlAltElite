@@ -48,7 +48,10 @@ public class NewSaveSlot : MonoBehaviour
             hasDataContent.SetActive(true);
             clearButton.gameObject.SetActive(true);
 
-            playerPosition.text = data.position.x.ToString() + ", " + data.position.y.ToString();
+            // playerPosition.text = data.position.x.ToString() + ", " + data.position.y.ToString();
+
+            // just used the playerPosition object but it's actually the name
+            playerPosition.text = data.name;
             // lastUpdated.text = data.lastUpdated.ToString();
             lastUpdated.text = DateTime.FromBinary(data.lastUpdated).ToShortDateString() + " " + DateTime.FromBinary(data.lastUpdated).ToShortTimeString();
 

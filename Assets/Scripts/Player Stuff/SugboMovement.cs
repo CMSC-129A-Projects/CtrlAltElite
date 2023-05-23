@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -191,7 +192,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.N))
+        /*if (Input.GetKeyDown(KeyCode.N))
         {
             // SavePlayer();
             Debug.Log("Manual Save");
@@ -207,7 +208,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         if (Input.GetKeyDown(KeyCode.B))
         {
             bodySpriteSetter.SetPlayerSprites();
-        }
+        }*/
+
+        
+
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
         {
