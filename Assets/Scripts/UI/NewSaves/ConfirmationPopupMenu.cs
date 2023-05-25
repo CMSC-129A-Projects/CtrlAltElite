@@ -11,12 +11,14 @@ public class ConfirmationPopupMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI displayText;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
+    [SerializeField] private Image displayImage;
 
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)
     {
         this.gameObject.SetActive(true);
 
         // set the display text
+        
         this.displayText.text = displayText;
 
         // remove any existing listeners just to make sure there aren't any previous ones hanging around

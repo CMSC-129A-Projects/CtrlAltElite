@@ -20,6 +20,7 @@ TagManager:
   - BreakableTileMap
   - BaseRespawn
   - Area
+  - MedalPiece
   layers:
   - Default
   - TransparentFX

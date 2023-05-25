@@ -112,7 +112,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             this.gameData.respawnPoint = baseRespawn.transform.position;
             this.gameData.position = this.gameData.respawnPoint;
         }*/
-        
+
     }
 
     public void LoadGame()
