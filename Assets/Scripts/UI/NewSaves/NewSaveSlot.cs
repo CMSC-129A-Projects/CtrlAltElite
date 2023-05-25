@@ -15,8 +15,9 @@ public class NewSaveSlot : MonoBehaviour
     [SerializeField] private GameObject hasDataContent;
     /*[SerializeField] private TextMeshProUGUI percentageCompleteText;
     [SerializeField] private TextMeshProUGUI deathCountText;*/
-    [SerializeField] private TextMeshProUGUI playerPosition;
+    [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI lastUpdated;
+    [SerializeField] private TextMeshProUGUI medalsCollected;
 
     [Header("Clear Data Button")]
     [SerializeField] private Button clearButton;
@@ -51,10 +52,10 @@ public class NewSaveSlot : MonoBehaviour
             // playerPosition.text = data.position.x.ToString() + ", " + data.position.y.ToString();
 
             // just used the playerPosition object but it's actually the name
-            playerPosition.text = data.name;
+            playerName.text = data.name;
             // lastUpdated.text = data.lastUpdated.ToString();
             lastUpdated.text = DateTime.FromBinary(data.lastUpdated).ToShortDateString() + " " + DateTime.FromBinary(data.lastUpdated).ToShortTimeString();
-
+            medalsCollected.text = "Medals: " + data.medalsCollected;
             /*percentageCompleteText.text = data.GetPercentageComplete() + "% COMPLETE";
             deathCountText.text = "DEATH COUNT: " + data.deathCount;*/
         }
@@ -69,5 +70,11 @@ public class NewSaveSlot : MonoBehaviour
     {
         saveSlotButton.interactable = interactable;
         clearButton.interactable = interactable;
+    }
+
+    public void DisableSaveSlotInteractable(bool interactable)
+    {
+        saveSlotButton.interactable = interactable;
+        clearButton.interactable = !interactable;
     }
 }

@@ -12,7 +12,19 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
     [Header("Random Names")]
     public List<string> randomNames = new List<string>();
 
-    
+    private void Awake()
+    {
+        // set initial pos of player to this coordinate don't change this, defo not hardcoded
+        NewDataPersistenceManager.instance.gameData.position = new Vector2(-87, -15);
+        FindObjectOfType<SugboMovement>().transform.position = NewDataPersistenceManager.instance.gameData.position;
+    }
+
+    private void Start()
+    {
+        // set initial pos of player to this coordinate don't change this, defo not hardcoded
+        NewDataPersistenceManager.instance.gameData.position = new Vector2(-87, -15);
+        FindObjectOfType<SugboMovement>().transform.position = NewDataPersistenceManager.instance.gameData.position;
+    }
 
     public void RandomizeCharacter(){
         int nameIndex = Random.Range(0, randomNames.Count);
@@ -49,7 +61,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
         /*NewDataPersistenceManager.instance.gameData.position.x = -73.00418090820313f;
         NewDataPersistenceManager.instance.gameData.position.y = -18.1600341796875f;*/
-        SceneManager.LoadSceneAsync("City 3");
+        // SceneManager.LoadSceneAsync("City 3");
+        SceneManager.LoadSceneAsync("SaveTest");
     }
 
     #region SAVE STUFF

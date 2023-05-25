@@ -19,9 +19,11 @@ public class GameData
     public string name;
     public float volumePreference;
     public bool newGame;
+    public int medalsCollected;
+    public int totalMedals;
     public GameData()
     {
-        Debug.Log("Init Game Data");
+        
         this.respawnPoint = Vector2.zero;
         this.position = Vector2.zero;
         this.headIndex = 0;
@@ -32,6 +34,8 @@ public class GameData
         this.name = "";
         this.volumePreference = 1f;
         this.newGame = true;
+        this.medalsCollected = 0;
+        this.totalMedals = 5;
 
 
         // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);

@@ -104,6 +104,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
+        Debug.Log("NEW Init Game Data");
         this.gameData = new GameData();
 
         /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
@@ -112,7 +113,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             this.gameData.respawnPoint = baseRespawn.transform.position;
             this.gameData.position = this.gameData.respawnPoint;
         }*/
-        
+
     }
 
     public void LoadGame()

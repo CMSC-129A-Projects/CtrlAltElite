@@ -146,6 +146,10 @@ public class NewSaveSlotsMenu : MonoBehaviour
             {
                 saveSlot.SetInteractable(false);
             }
+            else if (profileData != null && !isLoadingGame)
+            {
+                saveSlot.DisableSaveSlotInteractable(false);
+            }
             else
             {
                 saveSlot.SetInteractable(true);
