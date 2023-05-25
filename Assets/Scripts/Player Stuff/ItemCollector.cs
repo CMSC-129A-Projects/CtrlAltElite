@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ItemCollector : MonoBehaviour, IDataPersistence
+public class ItemCollector : MonoBehaviour
 {
     // [SerializeField] public PlayerMovement playerMovement;
     // [SerializeField] public TestMovement2 playerMovement;
     private SugboMovement playerMovement;
+    [SerializeField] private GameObject achievementText;
+    private string achievement = "";
 
     private void Awake()
     {
@@ -42,23 +45,24 @@ public class ItemCollector : MonoBehaviour, IDataPersistence
 
         if (collision.gameObject.CompareTag("MedalPiece"))
         {
+            collision.gameObject.SetActive(false);
             NewDataPersistenceManager.instance.gameData.medalsCollected += 1;
-            Destroy(collision.gameObject);
-            Debug.Log(NewDataPersistenceManager.instance.gameData.medalsCollected);
+            achievementText.SetActive(true);
+            string text = $"Medal {NewDataPersistenceManager.instance.gameData.medalsCollected}/" +
+              $"{NewDataPersistenceManager.instance.gameData.totalMedals} collected.";
+            achievementText.GetComponent<TextMeshProUGUI>().text = text;
+
+
+            StartCoroutine(DisableAchievementText());
         }
     }
 
-    #region SAVE STUFF
-    public void LoadData(GameData data)
+    IEnumerator DisableAchievementText()
     {
-        
+        yield return new WaitForSeconds(3);
+        achievementText.SetActive(false);
     }
 
-    public void SaveData(GameData data)
-    {
-        
-    }
-    #endregion
 
     #region RESPAWN ITEM
     public void RespawnItem(Collider2D collision)

@@ -20,6 +20,7 @@ public class GameData
     public float volumePreference;
     public bool newGame;
     public int medalsCollected;
+    public int totalMedals;
     public GameData()
     {
         
@@ -34,6 +35,7 @@ public class GameData
         this.volumePreference = 1f;
         this.newGame = true;
         this.medalsCollected = 0;
+        this.totalMedals = 5;
 
 
         // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);

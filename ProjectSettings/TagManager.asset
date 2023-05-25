@@ -21,6 +21,7 @@ TagManager:
   - BaseRespawn
   - Area
   - MedalPiece
+  - Achievement
   layers:
   - Default
   - TransparentFX

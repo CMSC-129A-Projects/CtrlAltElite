@@ -209,7 +209,19 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NewDataPersistenceManager.instance.gameData.sceneIndex += 1;
+            SceneManager.LoadSceneAsync(NewDataPersistenceManager.instance.gameData.sceneIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            // LoadPlayer();
+            Debug.Log("Manual Load");
+            NewDataPersistenceManager.instance.LoadGame();
+        }
+
         /*if (Input.GetKeyDown(KeyCode.N))
         {
             // SavePlayer();
@@ -228,7 +240,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             bodySpriteSetter.SetPlayerSprites();
         }*/
 
-        
+
 
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
