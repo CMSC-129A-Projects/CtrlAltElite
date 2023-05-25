@@ -7,12 +7,10 @@ public class ItemCollector : MonoBehaviour, IDataPersistence
     // [SerializeField] public PlayerMovement playerMovement;
     // [SerializeField] public TestMovement2 playerMovement;
     private SugboMovement playerMovement;
-    public int medalsCollected = 0;
 
     private void Awake()
     {
         playerMovement = FindObjectOfType<SugboMovement>();
-        medalsCollected = NewDataPersistenceManager.instance.gameData.medalsCollected;
     }
 
     private int respawnItemTimer = 4;
@@ -44,20 +42,21 @@ public class ItemCollector : MonoBehaviour, IDataPersistence
 
         if (collision.gameObject.CompareTag("MedalPiece"))
         {
-            medalsCollected += 1;
+            NewDataPersistenceManager.instance.gameData.medalsCollected += 1;
             Destroy(collision.gameObject);
+            Debug.Log(NewDataPersistenceManager.instance.gameData.medalsCollected);
         }
     }
 
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
-        medalsCollected = data.medalsCollected;
+        
     }
 
     public void SaveData(GameData data)
     {
-        data.medalsCollected = medalsCollected;
+        
     }
     #endregion
 

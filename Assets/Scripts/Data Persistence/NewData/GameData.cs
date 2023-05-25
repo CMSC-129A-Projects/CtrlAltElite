@@ -22,7 +22,7 @@ public class GameData
     public int medalsCollected;
     public GameData()
     {
-        Debug.Log("Init Game Data");
+        
         this.respawnPoint = Vector2.zero;
         this.position = Vector2.zero;
         this.headIndex = 0;

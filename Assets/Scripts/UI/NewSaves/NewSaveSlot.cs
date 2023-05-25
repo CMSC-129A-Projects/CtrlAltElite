@@ -71,4 +71,10 @@ public class NewSaveSlot : MonoBehaviour
         saveSlotButton.interactable = interactable;
         clearButton.interactable = interactable;
     }
+
+    public void DisableSaveSlotInteractable(bool interactable)
+    {
+        saveSlotButton.interactable = interactable;
+        clearButton.interactable = !interactable;
+    }
 }
