@@ -38,13 +38,13 @@ public class PauseMenu : MonoBehaviour
     public void Play()
     {
         PauseMenuCanvas.SetActive(false);
-        Time.timeScale = 1f;
+            Time.timeScale = 1f;
         Paused = false;
     }
 
     public void MainMenuButton()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("TestMenuSave");
     }
 
     public void OptionsButton()
