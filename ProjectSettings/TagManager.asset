@@ -22,6 +22,7 @@ TagManager:
   - Area
   - MedalPiece
   - Achievement
+  - LightBoundary
   layers:
   - Default
   - TransparentFX
