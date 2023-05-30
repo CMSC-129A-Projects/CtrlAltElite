@@ -90,7 +90,7 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // SceneManager.LoadSceneAsync("SaveTest");
         int _sceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
         
-        Debug.Log(NewDataPersistenceManager.instance.gameData.name + " " + NewDataPersistenceManager.instance.gameData.newGame);
+        // Debug.Log(NewDataPersistenceManager.instance.gameData.name + " " + NewDataPersistenceManager.instance.gameData.newGame);
         SceneManager.LoadSceneAsync(_sceneIndex);
     }
 

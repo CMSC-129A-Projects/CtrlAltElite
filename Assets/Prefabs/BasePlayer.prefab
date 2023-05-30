@@ -681,6 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5caa30b3c0e9da6489f90886bfbdffb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  achievementText: {fileID: 0}
 --- !u!114 &5350440297204200974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,7 +841,9 @@ MonoBehaviour:
   head: {fileID: 6879225082068242368}
   body: {fileID: 6879225083142733642}
   arm: {fileID: 6879225081846775610}
+  otherArm: {fileID: 6879225082427131602}
   leg: {fileID: 6879225082974298921}
+  otherLeg: {fileID: 6879225081570952155}
   headOptions:
   - {fileID: -1345330839, guid: 50f16ea4ef9a3c945bd677d6afea7a9f, type: 3}
   - {fileID: -873061188, guid: 50f16ea4ef9a3c945bd677d6afea7a9f, type: 3}
