@@ -23,6 +23,7 @@ TagManager:
   - MedalPiece
   - Achievement
   - LightBoundary
+  - Foreigner
   layers:
   - Default
   - TransparentFX

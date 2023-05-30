@@ -37,12 +37,12 @@ public class Loader : MonoBehaviour
         // NewDataPersistenceManager.instance.SaveGame();
         // NewDataPersistenceManager.instance.LoadGame();
         // Debug.Log(NewDataPersistenceManager.instance.gameData.position);
-        /*Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.bodyIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);*/
+        Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);
 
-        bodySpriteSetter.SetPlayerSprites();
+        // bodySpriteSetter.SetPlayerSprites();
         // call SetSprites() here
     }
 }
