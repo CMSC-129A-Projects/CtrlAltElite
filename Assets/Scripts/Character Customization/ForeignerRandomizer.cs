@@ -46,12 +46,12 @@ public class ForeignerRandomizer : MonoBehaviour, IDataPersistence
         Debug.Log(NewDataPersistenceManager.instance.gameData.FbodyIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.FarmIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.FlegIndex);
-        headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.headIndex];
-        bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.bodyIndex];
-        armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
-        otherArmSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
-        legSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.legIndex];
-        otherLegSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
+        headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.FheadIndex];
+        bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.FbodyIndex];
+        armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
+        otherArmSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
+        legSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.FlegIndex];
+        otherLegSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
     }
 
     public void LoadData(GameData data)
