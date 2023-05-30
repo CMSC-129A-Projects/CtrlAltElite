@@ -36,8 +36,6 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         }
     }
 
-    
-
     private void Update()
     {
         if (inputField.isFocused)
@@ -79,12 +77,6 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
             _foreigner_list.Add(Random.Range(0, changer.options.Count));
         }
 
-        Debug.Log("FOREIGNER LIST");
-        foreach (int value in _foreigner_list)
-        {
-            Debug.Log(value);
-        }
-
         NewDataPersistenceManager.instance.gameData.FheadIndex = _foreigner_list[0];
         NewDataPersistenceManager.instance.gameData.FbodyIndex = _foreigner_list[1];
         NewDataPersistenceManager.instance.gameData.FarmIndex = _foreigner_list[3];
@@ -97,7 +89,6 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
-        // Debug.Log($"{data.headIndex} {data.bodyIndex} {data.armIndex} {data.legIndex}");
         outfitChangers[0].CurrentOption = data.headIndex;
         outfitChangers[0].bodyPart.sprite = outfitChangers[0].options[data.headIndex];
 
@@ -109,7 +100,6 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
         outfitChangers[4].CurrentOption = data.legIndex;
         outfitChangers[4].bodyPart.sprite = outfitChangers[4].options[data.legIndex];
-
     }
 
     public void SaveData(GameData data)
@@ -119,8 +109,6 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         data.armIndex = outfitChangers[3].CurrentOption;
         data.legIndex = outfitChangers[5].CurrentOption;
         data.name = inputField.text;
-
-       
     }
     #endregion
 }
