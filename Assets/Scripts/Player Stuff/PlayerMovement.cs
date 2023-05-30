@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private AudioSource jumpSFX;
 
 
 
@@ -216,6 +217,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetButtonUp("Jump") || Input.GetKeyUp(KeyCode.J) && rb.velocity.y > 0f)
         {
+            jumpSFX.Play();
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * data.jumpCutPower);
 
             data.coyoteTimeCounter = 0f; // reset to 0 once jump button is realesed.

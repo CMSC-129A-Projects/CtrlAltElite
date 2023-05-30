@@ -1,23 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class BodySpriteSetter : MonoBehaviour, IDataPersistence
+public class BodySpriteSetter : MonoBehaviour
 {
     [SerializeField] private GameObject head;
     [SerializeField] private GameObject body;
     [SerializeField] private GameObject arm;
-    [SerializeField] private GameObject otherArm;
     [SerializeField] private GameObject leg;
-    [SerializeField] private GameObject otherLeg;
 
     private SpriteRenderer headSpriteRenderer;
     private SpriteRenderer bodySpriteRenderer;
     private SpriteRenderer armSpriteRenderer;
-    private SpriteRenderer otherArmSpriteRenderer;
     private SpriteRenderer legSpriteRenderer;
-    private SpriteRenderer otherLegSpriteRenderer;
 
     [Header("Sprite to Cycle Through")]
     [Header("Head")]
@@ -34,14 +29,12 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
         headSpriteRenderer = head.GetComponent<SpriteRenderer>();
         bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
         armSpriteRenderer = arm.GetComponent<SpriteRenderer>();
-        otherArmSpriteRenderer = otherArm.GetComponent<SpriteRenderer>();
         legSpriteRenderer = leg.GetComponent<SpriteRenderer>();
-        otherLegSpriteRenderer = otherLeg.GetComponent<SpriteRenderer>();
     }
     public void SetPlayerSprites()
     {
         Debug.Log("BSS SETTING");
-        // Debug.Log(NewDataPersistenceManager.instance.gameData.respawnPoint);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.respawnPoint);
         /*Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.bodyIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);
@@ -49,19 +42,6 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
         headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.headIndex];
         bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.bodyIndex];
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
-        otherArmSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
         legSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.legIndex];
-        otherLegSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
-    }
-
-    public void LoadData(GameData data)
-    {
-        // Debug.Log("Loading Data in BSS");
-        SetPlayerSprites();
-    }
-
-    public void SaveData(GameData data)
-    {
-        data.sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 }
