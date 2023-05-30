@@ -36,6 +36,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         }
     }
 
+    
+
     private void Update()
     {
         if (inputField.isFocused)
@@ -55,14 +57,41 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         // OnSceneLoaded() in the DataPersistenceManager
         SceneManager.LoadSceneAsync("SaveTest");*/
         // Debug.Log("StartGame()");
-        
+        RandomizeForeigner();
         NewDataPersistenceManager.instance.SaveGame();
         // SceneManager.LoadSceneAsync("SaveTest");
 
         /*NewDataPersistenceManager.instance.gameData.position.x = -73.00418090820313f;
         NewDataPersistenceManager.instance.gameData.position.y = -18.1600341796875f;*/
         // SceneManager.LoadSceneAsync("City 3");
-        SceneManager.LoadSceneAsync("SaveTest");
+        //SceneManager.LoadSceneAsync("SaveTest");
+        SceneManager.LoadSceneAsync("NewIntroScene");
+    }
+
+    public void RandomizeForeigner()
+    {
+        // Randomize foreigner
+
+        List<int> _foreigner_list = new List<int>();
+
+        foreach (OutfitChanger changer in outfitChangers)
+        {
+            _foreigner_list.Add(Random.Range(0, changer.options.Count));
+        }
+
+        Debug.Log("FOREIGNER LIST");
+        foreach (int value in _foreigner_list)
+        {
+            Debug.Log(value);
+        }
+
+        NewDataPersistenceManager.instance.gameData.FheadIndex = _foreigner_list[0];
+        NewDataPersistenceManager.instance.gameData.FbodyIndex = _foreigner_list[1];
+        NewDataPersistenceManager.instance.gameData.FarmIndex = _foreigner_list[3];
+        NewDataPersistenceManager.instance.gameData.FlegIndex = _foreigner_list[5];
+
+        int _nameIndex = Random.Range(0, randomNames.Count);
+        NewDataPersistenceManager.instance.gameData.Fname = randomNames[_nameIndex];
     }
 
     #region SAVE STUFF
@@ -90,6 +119,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         data.armIndex = outfitChangers[3].CurrentOption;
         data.legIndex = outfitChangers[5].CurrentOption;
         data.name = inputField.text;
+
+       
     }
     #endregion
 }

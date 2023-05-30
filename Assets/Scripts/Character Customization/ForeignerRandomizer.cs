@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BodySpriteSetter : MonoBehaviour, IDataPersistence
+public class ForeignerRandomizer : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject head;
     [SerializeField] private GameObject body;
@@ -40,12 +40,12 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
     }
     public void SetPlayerSprites()
     {
-        Debug.Log("BSS SETTING");
+        Debug.Log("FOREIGNER SETTING");
         // Debug.Log(NewDataPersistenceManager.instance.gameData.respawnPoint);
-        /*Debug.Log(NewDataPersistenceManager.instance.gameData.headIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.bodyIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);*/
+        Debug.Log(NewDataPersistenceManager.instance.gameData.FheadIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.FbodyIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.FarmIndex);
+        Debug.Log(NewDataPersistenceManager.instance.gameData.FlegIndex);
         headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.headIndex];
         bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.bodyIndex];
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
@@ -62,6 +62,6 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        data.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
     }
 }
