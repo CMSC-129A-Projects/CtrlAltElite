@@ -21,11 +21,8 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterCustomization.unity
     guid: 8e7c6b287ad5adc4fb8f33174911f4fe
   - enabled: 1
-    path: Assets/Scenes/NewIntroScene.unity
-    guid: f68dbeb4c4874b44f86ad619e159f4ea
-  - enabled: 1
     path: Assets/Scenes/City 1.unity
-    guid: 67e32be241d3c23c8be9a122ea9ebd49
+    guid: 9510fed4196ca36419ab66776eba8239
   - enabled: 1
     path: Assets/Scenes/City 2.unity
     guid: 9c583a7283fd631448a2b29e9fb39219
