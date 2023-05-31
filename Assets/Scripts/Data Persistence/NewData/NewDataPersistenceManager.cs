@@ -42,7 +42,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
         if (disableDataPersistence)
         {
-            //Debug.LogWarning("Data Persistence is currently disabled!");
+            Debug.LogWarning("Data Persistence is currently disabled!");
         }
 
         this.dataHandler = new NewFileDataHandler(Application.persistentDataPath, fileName, useEncryption);
@@ -51,13 +51,13 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //Debug.Log("OnEnable");
+        Debug.Log("OnEnable");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        //Debug.Log("OnDisable");
+        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -71,11 +71,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         {
             StopCoroutine(autoSaveCoroutine);
         }
-        if (SceneManager.GetActiveScene().name != "CharacterCustomization")
-        {
-            autoSaveCoroutine = StartCoroutine(AutoSave());
-        }
-            
+        autoSaveCoroutine = StartCoroutine(AutoSave());
     }
 
     public void ChangeSelectedProfileId(string newProfileId)
@@ -102,13 +98,13 @@ public class NewDataPersistenceManager : MonoBehaviour
         if (overrideSelectedProfileId)
         {
             this.selectedProfileId = testSelectedProfileId;
-            //Debug.LogWarning("Overrode selected profile id with test id: " + testSelectedProfileId);
+            Debug.LogWarning("Overrode selected profile id with test id: " + testSelectedProfileId);
         }
     }
 
     public void NewGame()
     {
-        // Debug.Log("NEW Init Game Data");
+        Debug.Log("NEW Init Game Data");
         this.gameData = new GameData();
 
         /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
@@ -134,7 +130,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         // start a new game if the data is null and we're configured to initialize data for debugging purposes
         if (this.gameData == null && initializeDataIfNull)
         {
-            //Debug.Log("Here");
+            Debug.Log("Here");
             NewGame();
         }
 
@@ -175,7 +171,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
         if (dataPersistenceObjects == null)
         {
-            // Debug.Log("No Data Persistence Objects");
+            Debug.Log("No Data Persistence Objects");
             return;
         }
         // pass the data to other scripts so they can update it

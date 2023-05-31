@@ -55,40 +55,20 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         // OnSceneLoaded() in the DataPersistenceManager
         SceneManager.LoadSceneAsync("SaveTest");*/
         // Debug.Log("StartGame()");
-        RandomizeForeigner();
+        
         NewDataPersistenceManager.instance.SaveGame();
         // SceneManager.LoadSceneAsync("SaveTest");
 
         /*NewDataPersistenceManager.instance.gameData.position.x = -73.00418090820313f;
         NewDataPersistenceManager.instance.gameData.position.y = -18.1600341796875f;*/
         // SceneManager.LoadSceneAsync("City 3");
-        //SceneManager.LoadSceneAsync("SaveTest");
-        SceneManager.LoadSceneAsync("NewIntroScene");
-    }
-
-    public void RandomizeForeigner()
-    {
-        // Randomize foreigner
-
-        List<int> _foreigner_list = new List<int>();
-
-        foreach (OutfitChanger changer in outfitChangers)
-        {
-            _foreigner_list.Add(Random.Range(0, changer.options.Count));
-        }
-
-        NewDataPersistenceManager.instance.gameData.FheadIndex = _foreigner_list[0];
-        NewDataPersistenceManager.instance.gameData.FbodyIndex = _foreigner_list[1];
-        NewDataPersistenceManager.instance.gameData.FarmIndex = _foreigner_list[3];
-        NewDataPersistenceManager.instance.gameData.FlegIndex = _foreigner_list[5];
-
-        int _nameIndex = Random.Range(0, randomNames.Count);
-        NewDataPersistenceManager.instance.gameData.Fname = randomNames[_nameIndex];
+        SceneManager.LoadSceneAsync("SaveTest");
     }
 
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
+        // Debug.Log($"{data.headIndex} {data.bodyIndex} {data.armIndex} {data.legIndex}");
         outfitChangers[0].CurrentOption = data.headIndex;
         outfitChangers[0].bodyPart.sprite = outfitChangers[0].options[data.headIndex];
 
@@ -100,6 +80,7 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
         outfitChangers[4].CurrentOption = data.legIndex;
         outfitChangers[4].bodyPart.sprite = outfitChangers[4].options[data.legIndex];
+
     }
 
     public void SaveData(GameData data)
