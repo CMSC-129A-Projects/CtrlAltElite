@@ -42,7 +42,7 @@ public class Loader : MonoBehaviour
         Debug.Log(NewDataPersistenceManager.instance.gameData.armIndex);
         Debug.Log(NewDataPersistenceManager.instance.gameData.legIndex);*/
 
-        bodySpriteSetter.SetPlayerSprites();
+        // bodySpriteSetter.SetPlayerSprites();
         // call SetSprites() here
     }
 }

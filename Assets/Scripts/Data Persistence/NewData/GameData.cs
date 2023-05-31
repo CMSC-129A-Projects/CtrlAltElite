@@ -11,12 +11,20 @@ public class GameData
     public float staminaMax;
     public Vector2 respawnPoint;
     public Vector2 position;
+    public string name;
     public int headIndex;
     public int bodyIndex;
     public int armIndex;
     public int legIndex;
+
+    public string Fname;
+    public int FheadIndex;
+    public int FbodyIndex;
+    public int FarmIndex;
+    public int FlegIndex;
+
     public int sceneIndex;
-    public string name;
+    
     public float volumePreference;
     public bool newGame;
     public int medalsCollected;
@@ -26,12 +34,20 @@ public class GameData
         
         this.respawnPoint = Vector2.zero;
         this.position = Vector2.zero;
+        this.name = "";
         this.headIndex = 0;
         this.bodyIndex = 0;
         this.armIndex = 0;
         this.legIndex = 0;
+
+        this.Fname = "";
+        this.FheadIndex = 0;
+        this.FbodyIndex = 0;
+        this.FarmIndex = 0;
+        this.FlegIndex = 0;
+
         this.sceneIndex = 0;
-        this.name = "";
+        
         this.volumePreference = 1f;
         this.newGame = true;
         this.medalsCollected = 0;

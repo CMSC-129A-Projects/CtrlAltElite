@@ -7,9 +7,6 @@ public class ItemCollector : MonoBehaviour
 {
     // [SerializeField] public PlayerMovement playerMovement;
     // [SerializeField] public TestMovement2 playerMovement;
-
-    [SerializeField] private AudioSource pickupSFX;
-    [SerializeField] private AudioSource achievementSFX;
     private SugboMovement playerMovement;
     [SerializeField] private GameObject achievementText;
     private string achievement = "";
@@ -25,26 +22,22 @@ public class ItemCollector : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("MoveSpeed"))
         {
-            pickupSFX.Play();
             playerMovement.isMoveSpeed = true;
             RespawnItem(collision);   
         }
         if(collision.gameObject.CompareTag("DoubleJump"))
         {
-            pickupSFX.Play();
             playerMovement.canDoubleJump = true;
             playerMovement.doubleJumpPressed = false;
             RespawnItem(collision);          
         }
         if (collision.gameObject.CompareTag("JumpBoost"))
         {
-            pickupSFX.Play();
             playerMovement.isJumpBoost = true;
             RespawnItem(collision);
         }
         if (collision.gameObject.CompareTag("Dash"))
         {
-            pickupSFX.Play();
             playerMovement.canDash = true;
             playerMovement.dashPressed = false;
             RespawnItem(collision);
@@ -52,7 +45,6 @@ public class ItemCollector : MonoBehaviour
 
         if (collision.gameObject.CompareTag("MedalPiece"))
         {
-            //achievementSFX.Play()
             collision.gameObject.SetActive(false);
             NewDataPersistenceManager.instance.gameData.medalsCollected += 1;
             achievementText.SetActive(true);
