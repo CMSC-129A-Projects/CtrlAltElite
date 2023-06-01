@@ -8,9 +8,7 @@ using System;
 public class OptionsDataManager : MonoBehaviour
 {
     public static OptionsDataManager Instance { get; private set; }
-
     private OptionsMenu optionsMenu;
-    [SerializeField] private AudioSource backgroundAudio;
 
     private void Awake()
     {
@@ -34,8 +32,8 @@ public class OptionsDataManager : MonoBehaviour
             // just to be sure set the audio here
             float volume = SaveSystem.LoadPlayerOptions().volumePreference;
             float originalVolume = Mathf.Pow(10f, volume / 20f);
-            backgroundAudio.outputAudioMixerGroup.audioMixer.SetFloat("Volume", Mathf.Log10(originalVolume) * 20);
-
+            AudioManager.instance.GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer.
+                SetFloat("Volume", Mathf.Log10(originalVolume) * 20);
             optionsMenu.LoadOptions();
         }
         catch (Exception e)
