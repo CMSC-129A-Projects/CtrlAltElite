@@ -26,6 +26,8 @@ public class GameData
     public int sceneIndex;
     
     public float volumePreference;
+    public int qualityIndex;
+    public bool isFullScreen;
     public bool newGame;
     public int medalsCollected;
     public int totalMedals;
@@ -49,6 +51,8 @@ public class GameData
         this.sceneIndex = 0;
         
         this.volumePreference = 1f;
+        this.qualityIndex = 0;
+        this.isFullScreen = false;
         this.newGame = true;
         this.medalsCollected = 0;
         this.totalMedals = 5;
