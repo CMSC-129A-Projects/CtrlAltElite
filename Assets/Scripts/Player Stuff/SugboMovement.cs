@@ -12,6 +12,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public Rigidbody2D rb;
     private Collision coll;
     public PlayerDeath death;
+    public Animator animator;
 
     #region Variables
 
@@ -167,6 +168,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collision>();
         death = GetComponent<PlayerDeath>();
+        animator = GetComponent<Animator>();
         // this.transform.position = NewDataPersistenceManager.instance.gameData.position;
     }
 
@@ -247,14 +249,20 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             #region INPUT HANDLER
             moveInput.x = Input.GetAxisRaw("Horizontal");
+            animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+
             moveInput.y = Input.GetAxisRaw("Vertical");
+            animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
+
             if (Input.GetButtonDown("Jump") || (Input.GetKeyDown(KeyCode.J)))
             {
                 jumpBufferTimeCounter = jumpBufferTime;
+                animator.SetBool("Jumping", true);
             }
             else
             {
                 jumpBufferTimeCounter -= Time.deltaTime;
+                animator.SetBool("Jumping", false);
             }
 
             changingDirection = (rb.velocity.x > 0f && moveInput.x < 0f) || (rb.velocity.x < 0f && moveInput.x > 0f);
@@ -320,6 +328,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 {
                     if (isGrounded || canDoubleJump || coyoteTimeCounter > 0f)
                         Jump(Vector2.up);
+                        if (canDoubleJump)
+                        {
+                            animator.SetBool("Double Jump", true);
+                        }
                 }
             }
         }
@@ -397,10 +409,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 if (CanWallGrab())
                 {
                     WallGrab();
+                    animator.SetBool("Grab", true);
                 }
                 if (CanWallClimb())
                 {
                     WallClimb();
+                    animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
                 }
                 else
                 {
