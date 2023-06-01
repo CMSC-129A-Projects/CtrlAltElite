@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool Paused = false;
+    public bool inOptions = false;
     public GameObject PauseMenuCanvas;
     public OptionsMenu optionsMenu;
 
@@ -18,7 +19,11 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Paused)
+            if (inOptions)
+            {
+                onOptionsBackClicked();
+            }
+            else if (Paused)
             {
                 Play();
             }
@@ -52,12 +57,19 @@ public class PauseMenu : MonoBehaviour
     public void OptionsButton()
     {
         PauseMenuCanvas.SetActive(false);
+        inOptions = true;
         optionsMenu.ActivateMenu();
     }
 
     public void onOptionsBackClicked()
     {
         optionsMenu.DeactivateMenu();
+        inOptions = false;
         PauseMenuCanvas.SetActive(true);
+    }
+
+    public void PlayButtonClicked()
+    {
+        AudioManager.instance.PlayButtonClick();
     }
 }
