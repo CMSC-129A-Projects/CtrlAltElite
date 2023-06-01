@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool Paused = false;
     public GameObject PauseMenuCanvas;
+    public OptionsMenu optionsMenu;
 
     void Start()
     {
@@ -44,11 +45,19 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenuButton()
     {
+        NewDataPersistenceManager.instance.SaveGame();
         SceneManager.LoadScene("TestMenuSave");
     }
 
     public void OptionsButton()
     {
-        SceneManager.LoadScene("Settings menu");
+        PauseMenuCanvas.SetActive(false);
+        optionsMenu.ActivateMenu();
+    }
+
+    public void onOptionsBackClicked()
+    {
+        optionsMenu.DeactivateMenu();
+        PauseMenuCanvas.SetActive(true);
     }
 }
