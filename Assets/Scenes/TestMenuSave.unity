@@ -207,7 +207,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1202893665}
-        m_TargetAssemblyTypeName: NewMainMenu, Main
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
         m_MethodName: OnLoadGameClicked
         m_Mode: 1
         m_Arguments:
@@ -218,9 +218,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 1202893665}
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -802,9 +802,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 1170560162}
+        m_TargetAssemblyTypeName: NewSaveSlotsMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1019,6 +1019,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -1029,7 +1033,7 @@ PrefabInstance:
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -1040,7 +1044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1048,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -1212,13 +1216,41 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1170560162}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSaveSlotClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NewSaveSlotsMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 555228272}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: NewSaveSlot, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 171964174997433339, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1387,7 +1419,7 @@ PrefabInstance:
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1402,7 +1434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1410,7 +1442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -1580,7 +1612,7 @@ PrefabInstance:
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1595,7 +1627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1603,7 +1635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -1833,7 +1865,7 @@ PrefabInstance:
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1848,7 +1880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1856,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -2039,9 +2071,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 1202893665}
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1202893665}
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2121,6 +2165,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -2131,7 +2179,7 @@ PrefabInstance:
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -2142,7 +2190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2150,7 +2198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -2341,9 +2389,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 419704495}
+        m_TargetAssemblyTypeName: ConfirmationPopupMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2809,6 +2857,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -2819,7 +2871,7 @@ PrefabInstance:
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -2830,7 +2882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2838,7 +2890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 171964174997433338, guid: a27d99ea7a968ab43a00a1522249cb64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -3402,9 +3454,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 419704495}
+        m_TargetAssemblyTypeName: ConfirmationPopupMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3883,7 +3935,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1202893665}
-        m_TargetAssemblyTypeName: NewMainMenu, Main
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
         m_MethodName: OnNewGameClicked
         m_Mode: 1
         m_Arguments:
@@ -3894,9 +3946,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 1202893665}
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4027,9 +4079,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 335928950}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 1202893665}
+        m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
+        m_MethodName: OnOptionsClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4041,7 +4093,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1202893665}
         m_TargetAssemblyTypeName: NewMainMenu, Assembly-CSharp
-        m_MethodName: OnOptionsClicked
+        m_MethodName: PlayButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4180,6 +4232,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1578849271}
     m_Modifications:
+    - target: {fileID: 1510613545057333297, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1510613545057333299, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4243,14 +4299,14 @@ PrefabInstance:
     - target: {fileID: 1510613545680652507, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 512595439}
     - target: {fileID: 1510613545680652507, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 1510613545680652507, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: OptionsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1510613545963445738, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_Name
@@ -4472,7 +4528,7 @@ PrefabInstance:
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 335928950}
+      objectReference: {fileID: 1170560162}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4487,7 +4543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: PlayButtonClick
+      value: PlayButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -4495,7 +4551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: AudioManager, Assembly-CSharp
+      value: NewSaveSlotsMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6965854101669438865, guid: 021579a3014321b4c93919aabdccf95d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument

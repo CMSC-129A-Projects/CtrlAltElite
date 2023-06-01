@@ -148,9 +148,13 @@ public class OptionsMenu : MonoBehaviour
     {
         return Screen.fullScreen;
     }
+
+    public void PlayButtonClicked()
+    {
+        AudioManager.instance.PlayButtonClick();
+    }
     #endregion
 
-    
 
     public void ActivateMenu()
     {

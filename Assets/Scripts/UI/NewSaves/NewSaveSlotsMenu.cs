@@ -25,6 +25,11 @@ public class NewSaveSlotsMenu : MonoBehaviour
         saveSlots = this.GetComponentsInChildren<NewSaveSlot>();
     }
 
+    public void PlayButtonClicked()
+    {
+        AudioManager.instance.PlayButtonClick();
+    }
+
     public void OnSaveSlotClicked(NewSaveSlot saveSlot)
     {
         // disable all buttons

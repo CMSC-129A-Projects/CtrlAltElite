@@ -13,6 +13,10 @@ public class ConfirmationPopupMenu : MonoBehaviour
     [SerializeField] private Button cancelButton;
     [SerializeField] private Image displayImage;
 
+    public void PlayButtonClicked()
+    {
+        AudioManager.instance.PlayButtonClick();
+    }
     public void ActivateMenu(string displayText, UnityAction confirmAction, UnityAction cancelAction)
     {
         this.gameObject.SetActive(true);

@@ -66,7 +66,7 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
         /*NewDataPersistenceManager.instance.gameData.position.x = -73.00418090820313f;
         NewDataPersistenceManager.instance.gameData.position.y = -18.1600341796875f;*/
-        SceneManager.LoadSceneAsync("City 3");
+        SceneManager.LoadSceneAsync("City 5");
         //SceneManager.LoadSceneAsync("SaveTest");
         // SceneManager.LoadSceneAsync("NewIntroScene");
     }
