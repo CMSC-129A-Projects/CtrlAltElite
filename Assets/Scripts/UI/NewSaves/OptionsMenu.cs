@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class OptionsMenu : MonoBehaviour, IDataPersistence
+public class OptionsMenu : MonoBehaviour
 {
     [Header("Menu Navigation")]
     [SerializeField] private NewMainMenu mainMenu;
@@ -17,13 +18,30 @@ public class OptionsMenu : MonoBehaviour, IDataPersistence
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;
 
-    [Header("Resolution Dropdown")]
+    [Header("Dropdowns and Sliders")]
     [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown qualityDropdown;
+    [SerializeField] private Slider volumeSlider;
+
+    [SerializeField] private float _volume;
+    [SerializeField] private int _qualityIndex;
+    [SerializeField] private bool _isFullScreen;
 
     Resolution[] resolutions;
     private void Start()
     {
         InitResolution();
+        // LoadOptions();
+        
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J)) 
+        {
+            _SetVolume(_volume);
+        }
     }
 
     private void InitResolution()
@@ -53,43 +71,86 @@ public class OptionsMenu : MonoBehaviour, IDataPersistence
         resolutionDropdown.RefreshShownValue();
 
     }
-    public void SetVolume(float volume)
+
+    #region SAVE STUFF
+    public void SaveOptions()
     {
-        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
+        SaveSystem.SavePlayerOptions(this);
+    }
+
+    public void LoadOptions()
+    {
+        ActivateMenu();
+
+        OptionsData loadedData = SaveSystem.LoadPlayerOptions();
+        _volume = loadedData.volumePreference;
+        _qualityIndex = loadedData.qualiltyIndex;
+        _isFullScreen = loadedData.isFullScreen;
+        
+        StartCoroutine(SetEverything());
+    }
+
+    IEnumerator SetEverything()
+    {
+        yield return null;
+        _SetVolume(_volume);
+        SetFullScreen(_isFullScreen);
+        SetQuality(_qualityIndex);
+        qualityDropdown.value = _qualityIndex;
+
+        DeactivateMenu();
     }
 
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+        _qualityIndex = GetQualityIndex();
+        SaveOptions();
     }
 
     public void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+        _isFullScreen = GetIsFullScreen();
+        SaveOptions();
+    }
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
+        _volume = GetAudioMixerVolume();
+        SaveOptions();
     }
 
-
-    #region SAVE STUFF
-    public void LoadData(GameData data)
+    private void _SetVolume(float volume)
     {
-        if (data == null) return;
-        SetVolume(data.volumePreference);
-        SetQuality(data.qualityIndex);
-        SetFullScreen(data.isFullScreen);
+        float originalVolume = Mathf.Pow(10f, volume / 20f);
+        volumeSlider.value = originalVolume;
+        audioMixer.SetFloat("Volume", Mathf.Log10(originalVolume) * 20);
+        _volume = GetAudioMixerVolume();
     }
 
-    public void SaveData(GameData data)
+    #endregion
+
+    #region HELPERS
+    public float GetAudioMixerVolume()
     {
-        if (data == null) return;
-        audioMixer.GetFloat("Volume", out float volume);
-        data.volumePreference = volume;
-        data.qualityIndex = QualitySettings.GetQualityLevel();
-        data.isFullScreen = Screen.fullScreen;
+        float volume;
+        audioMixer.GetFloat("Volume", out volume);
+        return volume;
+    }
+
+    public int GetQualityIndex()
+    {
+        return QualitySettings.GetQualityLevel();
+    }
+
+    public bool GetIsFullScreen()
+    {
+        return Screen.fullScreen;
     }
     #endregion
 
-
-
+    
 
     public void ActivateMenu()
     {
