@@ -41,7 +41,7 @@ public class PlayerDeath : MonoBehaviour
                 player.SavePlayer();*/
                 // Debug.Log("New Spawnpoint Found: Autosaving");
                 currentRespawn = collision.transform.GetChild(0).gameObject;
-                Debug.Log(currentRespawn.transform.position);
+                // Debug.Log(currentRespawn.transform.position);
                 // DataPersistenceManager.instance.SaveGame();
                 NewDataPersistenceManager.instance.SaveGame();
             }

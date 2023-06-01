@@ -4,11 +4,13 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
+using UnityEngine.SceneManagement;
 
 public class OptionsDataManager : MonoBehaviour
 {
     public static OptionsDataManager Instance { get; private set; }
     private OptionsMenu optionsMenu;
+    private string previousSceneName;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class OptionsDataManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         optionsMenu = FindObjectOfType<OptionsMenu>(true);
+        previousSceneName = SceneManager.GetActiveScene().name;
     }
 
     private void OnEnable()
@@ -43,13 +46,16 @@ public class OptionsDataManager : MonoBehaviour
         
     }
 
-    private void OnDisable()
+    private void Update()
     {
-        Debug.Log("OPTIONS DISABLE");
-        // optionsMenu.SaveOptions();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "CharacterCustomization") return;
+        if (currentSceneName != previousSceneName)
+        {
+            Debug.Log("Scene has changed from " + previousSceneName + " to " + currentSceneName);
+            previousSceneName = currentSceneName;
+            OptionsMenu newOptionsMenu = FindObjectOfType<OptionsMenu>(true);
+            newOptionsMenu.LoadOptions();
+        }
     }
-
-
-
-
 }
