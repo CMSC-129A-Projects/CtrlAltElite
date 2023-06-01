@@ -47,7 +47,10 @@ public class NewMainMenu : MonoBehaviour
         this.DeactivateMenu();
     }
 
-
+    public void PlayButtonClicked()
+    {
+        AudioManager.instance.PlayButtonClick();
+    }
 
     private void DisableMenuButtons()
     {
