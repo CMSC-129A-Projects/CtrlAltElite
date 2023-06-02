@@ -16,15 +16,16 @@ public class NPC : MonoBehaviour
     public GameObject contButton;
     public float wordSpeed;
     public bool playerIsClose;
+    public GameObject popUp;
 
-    public TextMeshProUGUI interactText; 
+    public TextMeshProUGUI interactText;
 
     private Coroutine typingCoroutine;
 
     void Start()
     {
         dialogueText.text = "";
-        interactText.text = ""; 
+        interactText.text = "";
     }
 
     void Update()
@@ -35,7 +36,7 @@ public class NPC : MonoBehaviour
             {
                 dialoguePanel.SetActive(true);
                 typingCoroutine = StartCoroutine(Typing());
-                interactText.text = ""; 
+                interactText.text = "";
             }
             else if (dialogueText.text == dialogue[index])
             {
@@ -61,7 +62,7 @@ public class NPC : MonoBehaviour
         dialogueText.text = "";
         index = lastIndex;
         dialoguePanel.SetActive(false);
-        interactText.text = "Press E"; 
+        interactText.text = "Press E";
     }
 
     IEnumerator Typing()
@@ -93,8 +94,9 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            popUp.SetActive(true);
             playerIsClose = true;
-            interactText.text = "Press E"; 
+
         }
     }
 
@@ -102,13 +104,14 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            popUp.SetActive(false);
             playerIsClose = false;
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
             }
             RemoveText();
-            interactText.text = ""; 
+
         }
     }
 
