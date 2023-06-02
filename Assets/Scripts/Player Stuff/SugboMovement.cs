@@ -466,11 +466,21 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 Debug.Log("Swimming and in ground");
                 animator.SetBool("Swimming", false);
+                animator.SetBool("Climbing", false);
+                animator.SetBool("Grabbing", false);
+                animator.SetBool("Falling", false);
+                animator.SetBool("Jumping", false);
+                animator.SetBool("DoubleJumping", false);
             }
             else
             {
                 Debug.Log("Swimming");
                 animator.SetBool("Swimming", true);
+                animator.SetBool("Climbing", false);
+                animator.SetBool("Grabbing", false);
+                animator.SetBool("Falling", false);
+                animator.SetBool("Jumping", false);
+                animator.SetBool("DoubleJumping", false);
             }
         }
         else
