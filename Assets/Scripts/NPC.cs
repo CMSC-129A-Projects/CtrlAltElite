@@ -16,6 +16,7 @@ public class NPC : MonoBehaviour
     public GameObject contButton;
     public float wordSpeed;
     public bool playerIsClose;
+    public GameObject popUp;
 
     public TextMeshProUGUI interactText; 
 
@@ -93,8 +94,9 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            popUp.SetActive(true);
             playerIsClose = true;
-            interactText.text = "Press E"; 
+             
         }
     }
 
@@ -102,13 +104,14 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            popUp.SetActive(false);
             playerIsClose = false;
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
             }
             RemoveText();
-            interactText.text = ""; 
+             
         }
     }
 
