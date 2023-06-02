@@ -242,27 +242,27 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             bodySpriteSetter.SetPlayerSprites();
         }*/
 
-
+        UpdateAnimation();
 
         // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
         {
             #region INPUT HANDLER
             moveInput.x = Input.GetAxisRaw("Horizontal");
-            animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+            
 
             moveInput.y = Input.GetAxisRaw("Vertical");
-            animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
+            // animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
 
             if (Input.GetButtonDown("Jump") || (Input.GetKeyDown(KeyCode.J)))
             {
                 jumpBufferTimeCounter = jumpBufferTime;
-                animator.SetBool("Jumping", true);
+                // animator.SetBool("Jumping", true);
             }
             else
             {
                 jumpBufferTimeCounter -= Time.deltaTime;
-                animator.SetBool("Jumping", false);
+                // animator.SetBool("Jumping", false);
             }
 
             changingDirection = (rb.velocity.x > 0f && moveInput.x < 0f) || (rb.velocity.x < 0f && moveInput.x > 0f);
@@ -330,7 +330,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                         Jump(Vector2.up);
                         if (canDoubleJump)
                         {
-                            animator.SetBool("Double Jump", true);
+                            // animator.SetBool("Double Jump", true);
                         }
                 }
             }
@@ -409,12 +409,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 if (CanWallGrab())
                 {
                     WallGrab();
-                    animator.SetBool("Grab", true);
+                    // animator.SetBool("Grab", true);
                 }
                 if (CanWallClimb())
                 {
                     WallClimb();
-                    animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
+                    // animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
                 }
                 else
                 {
@@ -453,6 +453,94 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         }
 
         #endregion
+    }
+
+    private void UpdateAnimation()
+    {
+        animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+        animator.SetFloat("Vertical", Mathf.Abs(moveInput.y));
+        // swimming
+        if (inWater)
+        {
+            if (isGrounded)
+            {
+                Debug.Log("Swimming and in ground");
+                animator.SetBool("Swimming", false);
+            }
+            else
+            {
+                Debug.Log("Swimming");
+                animator.SetBool("Swimming", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("Swimming", false);
+        }
+        // grabbing and climbing
+        if (isOnWall && (stamina != staminaMin) && Input.GetKey(KeyCode.LeftShift))
+        {
+            if (Mathf.Abs(moveInput.y) != 0)
+            {
+                animator.SetBool("Climbing", true);
+                animator.SetBool("Grabbing", false);
+                animator.SetBool("Falling", false);
+                animator.SetBool("Jumping", false);
+                animator.SetBool("DoubleJumping", false);
+            } 
+            else
+            {
+                animator.SetBool("Climbing", false);
+                animator.SetBool("Grabbing", true);
+                animator.SetBool("Falling", false);
+                animator.SetBool("Jumping", false);
+                animator.SetBool("DoubleJumping", false);
+            }
+        }
+        else
+        {
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+        }
+
+        // running
+        if (canMove && !isDead && isGrounded && !isOnWall) 
+        {
+            // animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+            animator.SetBool("Falling", false);
+            animator.SetBool("Jumping", false);
+            animator.SetBool("DoubleJumping", false);
+        }
+        // jumping
+        if (isJumping && rb.velocity.y > 0.01f && !isGrounded && !isOnWall)
+        {
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+            animator.SetBool("Jumping", true);
+            animator.SetBool("Falling", false);
+            animator.SetBool("DoubleJumping", false);
+        }
+        // falling
+        if (!isJumping && rb.velocity.y < 0.01f && !isGrounded && !isOnWall)
+        {
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", true);
+            animator.SetBool("DoubleJumping", false);
+        }
+        // double jump
+        if (doubleJumpPressed && !isGrounded && !isOnWall)
+        {
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+            animator.SetBool("DoubleJumping", true);
+        }
+        
     }
 
     // Data Persistence
