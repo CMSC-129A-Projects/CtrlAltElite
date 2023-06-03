@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SugboMovement : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private Slider staminaWheel;
     private BodySpriteSetter bodySpriteSetter;
     public Rigidbody2D rb;
     private Collision coll;
@@ -196,7 +198,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        /*if (Input.GetKeyDown(KeyCode.N))
         {
             NewDataPersistenceManager.instance.gameData.sceneIndex += 1;
             SceneManager.LoadSceneAsync(NewDataPersistenceManager.instance.gameData.sceneIndex);
@@ -207,7 +209,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             // LoadPlayer();
             Debug.Log("Manual Load");
             NewDataPersistenceManager.instance.LoadGame();
-        }
+        }*/
 
         /*if (Input.GetKeyDown(KeyCode.N))
         {
@@ -402,12 +404,18 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         }
 
-        #region STAMINA
-        // regen stamina if grounded ONLY
+        UpdateStamina();
+    }
+
+    private void UpdateStamina()
+    {
+        if (stamina >= staminaMax) staminaWheel.gameObject.SetActive(false);
+        else staminaWheel.gameObject.SetActive(true);
+        // regen stamina if grounded and not in water ONLY
         if (isGrounded && !inWater && stamina >= staminaMin && stamina < staminaMax)
         {
-            //stamina += staminaRegen;
-            stamina = staminaMax;
+            stamina += staminaRegen * Time.deltaTime;
+            // stamina = staminaMax;
         }
         // cap stamina at min and max
         if (stamina >= staminaMax)
@@ -425,7 +433,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             StartCoroutine(death.StartRespawn());
         }
 
-        #endregion
+        staminaWheel.value = stamina / staminaMax;
     }
 
     private void UpdateAnimation()
@@ -460,14 +468,22 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             if (isGrounded)
             {
-                animator.SetBool("Running", true);
-                animator.SetBool("Idling", false);
                 animator.SetBool("Swimming", false);
                 animator.SetBool("Climbing", false);
                 animator.SetBool("Grabbing", false);
                 animator.SetBool("Falling", false);
                 animator.SetBool("Jumping", false);
                 animator.SetBool("DoubleJumping", false);
+                if (moveInput.x != 0)
+                {
+                    animator.SetBool("Running", true);
+                    animator.SetBool("Idling", false);
+                }
+                else
+                {
+                    animator.SetBool("Running", false);
+                    animator.SetBool("Idling", true);
+                }
             }
             else
             {
