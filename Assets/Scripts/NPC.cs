@@ -16,6 +16,7 @@ public class NPC : MonoBehaviour
     public GameObject contButton;
     public float wordSpeed;
     public bool playerIsClose;
+    public bool isTyping;
     public GameObject popUp;
 
     public TextMeshProUGUI interactText;
@@ -25,18 +26,21 @@ public class NPC : MonoBehaviour
     void Start()
     {
         dialogueText.text = "";
-        interactText.text = "";
+        //interactText.text = "";
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
+            isTyping = true;
             if (!dialoguePanel.activeInHierarchy)
             {
+                
                 dialoguePanel.SetActive(true);
                 typingCoroutine = StartCoroutine(Typing());
-                interactText.text = "";
+                // popUp.SetActive(false);
+                //interactText.text = "";
             }
             else if (dialogueText.text == dialogue[index])
             {
@@ -62,7 +66,8 @@ public class NPC : MonoBehaviour
         dialogueText.text = "";
         index = lastIndex;
         dialoguePanel.SetActive(false);
-        interactText.text = "Press E";
+        isTyping = false;
+        //interactText.text = "Press E";
     }
 
     IEnumerator Typing()
@@ -90,20 +95,28 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isTyping)
         {
             popUp.SetActive(true);
             playerIsClose = true;
 
         }
+
+        if (other.CompareTag("Player") && isTyping)
+        {
+            popUp.SetActive(false);
+            playerIsClose = true;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            isTyping = false;
             popUp.SetActive(false);
             playerIsClose = false;
             if (typingCoroutine != null)
