@@ -68,13 +68,13 @@ public class AudioManager : MonoBehaviour
                 Debug.Log(true);
             }
 
-            else if (currentSceneName == "City 1")
+            else if (currentSceneName == "New_City_1")
             {
                 bgm.clip = bgmClips[1];
                 bgm.Play();
             }
 
-            else if (currentSceneName == "City 2")
+            else if (currentSceneName == "New_City_2")
             {
                 bgm.clip = bgmClips[2];
                 bgm.Play();
@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
                 bgm.clip = bgmClips[3];
                 bgm.Play();
             }
-            else if (currentSceneName == "City 4")
+            else if (currentSceneName == "F City 4")
             {
                 bgm.clip = bgmClips[4];
                 bgm.Play();
