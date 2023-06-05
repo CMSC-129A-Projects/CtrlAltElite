@@ -22,7 +22,6 @@ public class PlatformCollider : MonoBehaviour
     {
         breakableTilemapObject = GameObject.FindWithTag("BreakableTileMap");
         playerMovement = FindObjectOfType<SugboMovement>();
-        // breakableTilemapRenderer = GameObject.FindWithTag("BreakableTileMap");
         if (breakableTilemapObject != null)
         {
             breakableTilemapRenderer = breakableTilemapObject.GetComponent<TilemapRenderer>();
@@ -36,7 +35,6 @@ public class PlatformCollider : MonoBehaviour
     {
         if (playerMovement.moveInput.y == -1)
         {
-            //if (LayerMask.LayerToName(currentPlatform.layer) == "TwoWay")
             if (currentPlatform != null)
             {
                 if (LayerMask.LayerToName(currentPlatform.layer) == "TwoWay")
@@ -104,12 +102,9 @@ public class PlatformCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Hidden"))
         {
             inHidden = true;
-            //this.GetComponent<TilemapRenderer>().enabled = false;
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = false;
-            //tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hidden")) // if player leaves hidden tiles, hidden tiles get shown
@@ -129,10 +124,7 @@ public class PlatformCollider : MonoBehaviour
         {
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = true;
         }
-        
     }
-
-
 
     private IEnumerator DisableCollision()
     {
@@ -150,7 +142,6 @@ public class PlatformCollider : MonoBehaviour
         breakableTilemapRenderer.enabled = false;
         StartCoroutine(RespawnPlatform(currentPlatform));
     }
-
 
     private IEnumerator RespawnPlatform(GameObject currentPlatform)
     {

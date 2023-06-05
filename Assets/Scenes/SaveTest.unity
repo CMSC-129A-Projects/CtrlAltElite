@@ -1318,7 +1318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953442524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.54986, y: -37.77679, z: -1.5782232}
+  m_LocalPosition: {x: -48.545944, y: -37.77679, z: -1.5782232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7078,6 +7078,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 828832333651933661, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1386510544366811601, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
       propertyPath: achievementText
       value: 
@@ -7088,6 +7092,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1722417579185628983, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3209017192448035006, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4071725059714407577, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
