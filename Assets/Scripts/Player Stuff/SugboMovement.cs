@@ -32,7 +32,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     [HideInInspector] public bool isOnWall;
     [HideInInspector] public bool onRightWall;
     [HideInInspector] public bool onLeftWall;
-    [HideInInspector] public bool canCornerCorrect;
     [HideInInspector] public bool canLedgeCorrect;
     [HideInInspector] public bool inWater;
 
@@ -45,13 +44,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     [Space]
     [Header("Wall Mechanics")]
-    public float lastOnWallTime;
-    [HideInInspector] public float lastOnWallRightTime;
-    [HideInInspector] public float lastOnWallLeftTime;
+    [HideInInspector] public float lastOnWallTime;
     [HideInInspector] public bool isWallSliding;
     [HideInInspector] public bool isWallJumping;
-    [HideInInspector] public float wallJumpStartTime;
-    [HideInInspector] public int lastWallJumpDir;
     [HideInInspector] public bool isWallClimbing;
     [HideInInspector] public bool isWallGrabbing;
 
@@ -94,15 +89,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public float forcedFallGravityScale;
     public float waterGravityScale;
 
-    [Space]
-    [Header("RayCast")]
-    public float topRayCastLength;
-    public Vector3 edgeRayCastOffset;
-    public Vector3 innerRayCastOffset;
-
     [Header("Run")]
     public float defaultMoveSpeed;
-    public float speed;
     public float runMaxSpeed;
     public float runAcceleration;
     public float groundLinearDrag;
@@ -121,13 +109,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     [Space]
     [Header("Wall Mechanics")]
-    // wall slide
     public float wallSlidingSpeed;
-    // Wall Jump
-    public float wallJumpingDirection;
-    public float wallJumpingTime;
-    public float wallJumpingCounter;
-    public float wallJumpingDuration;
     public Vector2 wallJumpingPower;
     // wall climb
     [Range(0.01f, 10f)] public float wallClimbingSpeedUp;
@@ -146,8 +128,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     // Dash
     public float dashPower;
     public float dashTime;
-    public float dashCooldown;
-
 
     [Space]
     [Header("Assists")]
@@ -171,7 +151,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         isFacingRight = true;
         canMove = true;
         isDead = false;
-        speed = defaultMoveSpeed;
         runMaxSpeed = defaultMoveSpeed;
         jumpPower = defaultJumpPower;
         stamina = staminaMax;
@@ -202,25 +181,19 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         lastOnWallTime += Time.deltaTime;
         #endregion
 
-        // Debug.Log($"{canMove} {isDead}"); 
         if (canMove && !isDead)
         {
             #region INPUT HANDLER
             moveInput.x = Input.GetAxisRaw("Horizontal");
-            
-
             moveInput.y = Input.GetAxisRaw("Vertical");
-            // animator.SetFloat("Climb", Mathf.Abs(moveInput.y));
 
             if (Input.GetButtonDown("Jump") || (Input.GetKeyDown(KeyCode.J)))
             {
                 jumpBufferTimeCounter = jumpBufferTime;
-                // animator.SetBool("Jumping", true);
             }
             else
             {
                 jumpBufferTimeCounter -= Time.deltaTime;
-                // animator.SetBool("Jumping", false);
             }
 
             changingDirection = (rb.velocity.x > 0f && moveInput.x < 0f) || (rb.velocity.x < 0f && moveInput.x > 0f);
@@ -231,10 +204,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
             #endregion
         }
-
         CollisionCheck();
         LedgeCollisionCheck();
         UpdatePowerUps();
+
         if (canLedgeCorrect) LedgeCorrect();
 
         #region AIR STUFF
@@ -289,7 +262,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             if (CanWallJump())
             {
-                // WallJump();
                 if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
                 {
                     NeutralWallJump();
@@ -300,7 +272,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 }
             }
         }
-
     }
 
     private void FixedUpdate()
@@ -316,7 +287,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(moveInput.x * runMaxSpeed, rb.velocity.y)), .5f * Time.deltaTime);
             }
 
-
             if (isGrounded)
             {
                 ApplyGroundLinearDrag();
@@ -331,7 +301,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                     hangTimeCounter -= Time.fixedDeltaTime;
                     if (!isOnWall || rb.velocity.y < 0f) isJumping = false;
                 }
-
             }
 
             if (inWater)
@@ -343,7 +312,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 }
                 if (moveInput.y < 0f)
                 {
-                    //rb.gravityScale = fallGravityScale;
                     SetGravityScale(3);
                 }
             }
@@ -372,7 +340,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                     StickToWall();
                 }
             }
-
         }
 
         UpdateStamina();
@@ -408,7 +375,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         if (inWater && stamina <= staminaMin)
         {
-            Debug.Log("Drowned");
             StartCoroutine(death.StartRespawn());
         }
 
@@ -567,7 +533,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
-        // this.transform.position = data.respawnPoint;
         transform.position = data.position;
         if (bodySpriteSetter != null) bodySpriteSetter.SetPlayerSprites();
     }
@@ -605,7 +570,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         if (canLedgeCorrect)
         {
-            //SetGravityScale(gravityScale);
             canMove = false;
             isWallGrabbing = false;
             isWallSliding = false;
@@ -613,7 +577,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             canLedgeCorrect = false;
             if (moveInput.x == 0)
             {
-                // rb.velocity = new Vector2(rb.velocity.x, wallJumpingPower.y / 1.857f); // DO NOT CHANGE THIS
                 rb.velocity = new Vector2(rb.velocity.x, 16);
                 StartCoroutine(AddRight());
 
@@ -628,29 +591,26 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     IEnumerator AddRight()
     {
         yield return null;
-        // rb.AddForce(Vector2.right * 20f * transform.localScale.x);
         rb.velocity = new Vector2(transform.localScale.x * 20f, rb.velocity.y);
         canMove = true;
     }
     #endregion
 
-
     private void WallClimb()
     {
         stamina -= wallClimbStaminaDrain * Time.deltaTime;
-
         float speedModifier = moveInput.y > 0 ? wallClimbingSpeedUp : wallClimbingSpeedDown;
         rb.velocity = new Vector2(rb.velocity.x, moveInput.y * speedModifier);
         isWallClimbing = true;
-
     }
+    
     private void WallGrab()
     {
         stamina -= wallClimbStaminaDrain * Time.deltaTime;
-
         SetGravityScale(0);
         rb.velocity = Vector2.zero;
     }
+    
     private void WallSlide()
     {
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
@@ -658,16 +618,14 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void NeutralWallJump()
     {
-        Debug.Log("Neutral");
         stamina -= wallJumpStaminaDrain;
         ApplyAirLinearDrag();
-        /*rb.velocity = new Vector2(rb.velocity.x, 0f);
-        rb.AddForce(new Vector2(0, wallJumpingPower.y), ForceMode2D.Impulse);*/
         rb.velocity = new Vector2(0f, wallJumpingPower.y + 2f);
         hangTimeCounter = 0f;
         jumpBufferTimeCounter = 0f;
         isJumping = true;
     }
+
     private void WallJump()
     {
         stamina -= wallJumpStaminaDrain;
@@ -695,8 +653,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         animator.SetBool("Jumping", true);
         animator.SetBool("DoubleJumping", false);
     }
-
-
     private void StickToWall()
     {
         //Push player torwards wall
@@ -708,7 +664,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             rb.velocity = new Vector2(-5f, rb.velocity.y);
         }
-
         //Face correct direction
         if (onRightWall && !isFacingRight)
         {
@@ -881,12 +836,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region MOVE METHODS
-
     private void MoveCharacter()
     {
-        // rb.AddForce(new Vector2(moveInput.x, 0f) * runAcceleration);
-        // rb.velocity.x = new Vector2(moveInput.x * speed, rb.velocity.y);
-        // rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
         rb.AddForce(new Vector2(moveInput.x, 0f) * runAcceleration);
 
         if (Mathf.Abs(rb.velocity.x) > runMaxSpeed)
@@ -914,7 +865,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         if (moveInput.y < 0f)
         {
-            //rb.gravityScale = fallGravityScale;
             SetGravityScale(forcedFallGravityScale);
         }
         else
@@ -922,7 +872,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             if (rb.velocity.y < 0)
             {
                 maxFallTimer += Time.deltaTime;
-                //rb.gravityScale = fallGravityScale;
                 // vary the gravity when falling for x amount of time
                 if (maxFallTimer >= maxFallTimerCap - 1f && maxFallTimer < maxFallTimerCap)
                 {
@@ -936,19 +885,16 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 {
                     SetGravityScale(fallGravityScale);
                 }
-
             }
             // instant fall gravity
             else if (rb.velocity.y > 0 && !(Input.GetButton("Jump") || Input.GetKey(KeyCode.J)))
             {
-                //rb.gravityScale = fallGravityScale;
                 SetGravityScale(fallGravityScale);
                 coyoteTimeCounter = 0;
             }
             // jump gravity
             else
             {
-                //rb.gravityScale = 3f;
                 SetGravityScale(jumpGravityScale);
             }
         }
@@ -1027,8 +973,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void GroundCollisionCheck()
     {
-        //Ground Check
-        //if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer)) //checks if set box overlaps with ground
         if (coll.onGround)
         {
             isGrounded = true;
@@ -1054,8 +998,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void WallCollisionCheck()
     {
-        //if (Physics2D.OverlapCircle(wallCheck.position, 0.25f, groundLayer))
-        if (coll.onWall) //this is bugged
+        if (coll.onWall) 
         {
             isOnWall = true;
             lastOnWallTime = 0f;
@@ -1096,49 +1039,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void CornerCorrectCheck()
-    {
-        if (coll.canCornerCorrect)
-        {
-            canCornerCorrect = true;
-        }
-        else
-        {
-            canCornerCorrect = false;
-        }
-
-        if (canCornerCorrect && !isGrounded && !isOnWall && !isFalling)
-        {
-            CornerCorrect(rb.velocity.y);
-        }
-    }
-
-    private void CornerCorrect(float yVelocity)
-    {
-        // Push player to the right
-        // RaycastHit2D hit = Physics2D.Raycast(transform.position - innerRayCastOffset + Vector3.up * topRayCastLength, Vector3.left, topRayCastLength, groundLayer);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - innerRayCastOffset + Vector3.up * topRayCastLength, Vector3.left, topRayCastLength, wallLayer);
-        if (hit.collider != null)
-        {
-            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * topRayCastLength,
-                transform.position - edgeRayCastOffset + Vector3.up * topRayCastLength);
-            transform.position = new Vector3(transform.position.x + newPos, transform.position.y, transform.position.z);
-            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
-            return;
-        }
-
-        // Push player to the left
-        hit = Physics2D.Raycast(transform.position + innerRayCastOffset + Vector3.up * topRayCastLength, Vector3.right, topRayCastLength, groundLayer);
-        if (hit.collider != null)
-        {
-            float newPos = Vector3.Distance(new Vector3(hit.point.x, transform.position.y, 0f) + Vector3.up * topRayCastLength,
-                transform.position + edgeRayCastOffset + Vector3.up * topRayCastLength);
-            transform.position = new Vector3(transform.position.x - newPos, transform.position.y, transform.position.z);
-            rb.velocity = new Vector2(rb.velocity.x, yVelocity);
-            return;
-        }
-    }
-
     #endregion
 
     #region GENERAL METHODS
@@ -1150,7 +1050,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     void Flip()
     {
         isFacingRight = !isFacingRight;
-        //transform.Rotate(0f, 180f, 0f);
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;

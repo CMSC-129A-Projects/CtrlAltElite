@@ -37,14 +37,14 @@ public class PauseMenu : MonoBehaviour
     void Stop()
     {
         PauseMenuCanvas.SetActive(true);
-            Time.timeScale = 0f;
+        Time.timeScale = 0f;
         Paused = true;
     }
 
     public void Play()
     {
         PauseMenuCanvas.SetActive(false);
-            Time.timeScale = 1f;
+        Time.timeScale = 1f;
         Paused = false;
     }
 
