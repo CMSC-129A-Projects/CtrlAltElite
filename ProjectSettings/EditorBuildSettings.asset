@@ -24,16 +24,16 @@ EditorBuildSettings:
     path: Assets/Scenes/NewIntroScene.unity
     guid: f68dbeb4c4874b44f86ad619e159f4ea
   - enabled: 1
-    path: Assets/Scenes/New_City_1.unity
+    path: Assets/Scenes/City 1.unity
     guid: 577d05987c87cab488994f172856b025
   - enabled: 1
-    path: Assets/Scenes/New_City_2.unity
+    path: Assets/Scenes/City 2.unity
     guid: e10b2ae092928dc47b896d5dd6450d15
   - enabled: 1
-    path: Assets/Scenes/City 1.unity
+    path: Assets/Scenes/Z_old_City 1.unity
     guid: 67e32be241d3c23c8be9a122ea9ebd49
   - enabled: 1
-    path: Assets/Scenes/City 2.unity
+    path: Assets/Scenes/Z_old_City 2.unity
     guid: 9c583a7283fd631448a2b29e9fb39219
   - enabled: 1
     path: Assets/Scenes/City 3.unity
