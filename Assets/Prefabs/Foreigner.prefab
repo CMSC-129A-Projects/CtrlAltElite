@@ -557,8 +557,11 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  staminaWheel: {fileID: 0}
+  usageWheel: {fileID: 0}
   rb: {fileID: 1920596783035851019}
   death: {fileID: 0}
+  animator: {fileID: 0}
   moveInput: {x: 0, y: 0}
   isFacingRight: 0
   isGrounded: 0
@@ -566,24 +569,15 @@ MonoBehaviour:
   isOnWall: 0
   onRightWall: 0
   onLeftWall: 0
-  canCornerCorrect: 0
   canLedgeCorrect: 0
   inWater: 0
-  lastOnAirTime: 0
-  lastOnGroundTime: 0
-  onGroundTime: 0
-  lastPressedJumpTime: 0
   isJumping: 0
   isJumpCut: 0
   inAir: 0
   isFalling: 0
   lastOnWallTime: 0
-  lastOnWallRightTime: 0
-  lastOnWallLeftTime: 0
   isWallSliding: 0
   isWallJumping: 0
-  wallJumpStartTime: 0
-  lastWallJumpDir: 0
   isWallClimbing: 0
   isWallGrabbing: 0
   isMoveSpeed: 0
@@ -610,11 +604,7 @@ MonoBehaviour:
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
-  topRayCastLength: 0.35
-  edgeRayCastOffset: {x: -0.19, y: 0, z: 0}
-  innerRayCastOffset: {x: 0.02, y: 0, z: 0}
   defaultMoveSpeed: 7
-  speed: 0
   runMaxSpeed: 7
   runAcceleration: 50
   groundLinearDrag: 15
@@ -627,10 +617,6 @@ MonoBehaviour:
   airLinearDrag: 6
   fallMultiplier: 0
   wallSlidingSpeed: 2
-  wallJumpingDirection: 1
-  wallJumpingTime: 0.5
-  wallJumpingCounter: 0
-  wallJumpingDuration: 0.2
   wallJumpingPower: {x: 32, y: 24}
   wallClimbingSpeedUp: 6
   wallClimbingSpeedDown: 10
@@ -642,7 +628,6 @@ MonoBehaviour:
   jumpBoostIncrease: 26
   dashPower: 27
   dashTime: 0.2
-  dashCooldown: 0
   coyoteTime: 0.1
   coyoteTimeCounter: 0
   jumpBufferTime: 0.1
@@ -681,7 +666,9 @@ MonoBehaviour:
   head: {fileID: 6879225082068242368}
   body: {fileID: 6879225083142733642}
   arm: {fileID: 6879225081846775610}
+  otherArm: {fileID: 6879225082427131602}
   leg: {fileID: 6879225082974298921}
+  otherLeg: {fileID: 6879225081570952155}
   headOptions:
   - {fileID: -1345330839, guid: 50f16ea4ef9a3c945bd677d6afea7a9f, type: 3}
   - {fileID: -873061188, guid: 50f16ea4ef9a3c945bd677d6afea7a9f, type: 3}

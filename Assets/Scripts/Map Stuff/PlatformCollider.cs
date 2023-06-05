@@ -6,12 +6,8 @@ using UnityEngine.Tilemaps;
 public class PlatformCollider : MonoBehaviour
 {
     public GameObject currentPlatform;
-    // [SerializeField] public PlayerMovement playerMovement;
-    // [SerializeField] public TestMovement2 playerMovement;
     private SugboMovement playerMovement;
     private CapsuleCollider2D playerCollider;
-    //[SerializeField] private TilemapRenderer tilemapRenderer;
-    // public TilemapRenderer breakableTilemapRenderer;
     GameObject breakableTilemapObject;
     public TilemapRenderer breakableTilemapRenderer;
 
@@ -26,7 +22,6 @@ public class PlatformCollider : MonoBehaviour
     {
         breakableTilemapObject = GameObject.FindWithTag("BreakableTileMap");
         playerMovement = FindObjectOfType<SugboMovement>();
-        // breakableTilemapRenderer = GameObject.FindWithTag("BreakableTileMap");
         if (breakableTilemapObject != null)
         {
             breakableTilemapRenderer = breakableTilemapObject.GetComponent<TilemapRenderer>();
@@ -40,7 +35,6 @@ public class PlatformCollider : MonoBehaviour
     {
         if (playerMovement.moveInput.y == -1)
         {
-            //if (LayerMask.LayerToName(currentPlatform.layer) == "TwoWay")
             if (currentPlatform != null)
             {
                 if (LayerMask.LayerToName(currentPlatform.layer) == "TwoWay")
@@ -108,12 +102,9 @@ public class PlatformCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Hidden"))
         {
             inHidden = true;
-            //this.GetComponent<TilemapRenderer>().enabled = false;
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = false;
-            //tilemapRenderer.enabled = false; // set renderer to false to "hide" tiles
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hidden")) // if player leaves hidden tiles, hidden tiles get shown
@@ -129,16 +120,11 @@ public class PlatformCollider : MonoBehaviour
     private IEnumerator EnableTile(Collider2D collision)
     {
         yield return new WaitForSeconds(inHiddenTimer + .1f);
-        //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
         if (!inHidden && (lastInHidden > inHiddenTimer))
         {
-            //tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = true;
         }
-        
     }
-
-
 
     private IEnumerator DisableCollision()
     {
@@ -147,8 +133,6 @@ public class PlatformCollider : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
         yield return new WaitForSeconds(0.5f);
         Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
-
-
     }
 
     private IEnumerator BreakPlatform(GameObject currentPlatform)
@@ -158,7 +142,6 @@ public class PlatformCollider : MonoBehaviour
         breakableTilemapRenderer.enabled = false;
         StartCoroutine(RespawnPlatform(currentPlatform));
     }
-
 
     private IEnumerator RespawnPlatform(GameObject currentPlatform)
     {

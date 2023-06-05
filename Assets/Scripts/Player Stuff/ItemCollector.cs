@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    // [SerializeField] public PlayerMovement playerMovement;
-    // [SerializeField] public TestMovement2 playerMovement;
     private SugboMovement playerMovement;
     [SerializeField] private GameObject achievementText;
-    private string achievement = "";
 
     private void Awake()
     {
@@ -62,7 +59,6 @@ public class ItemCollector : MonoBehaviour
         yield return new WaitForSeconds(3);
         achievementText.SetActive(false);
     }
-
 
     #region RESPAWN ITEM
     public void RespawnItem(Collider2D collision)

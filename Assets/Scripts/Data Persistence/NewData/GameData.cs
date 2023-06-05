@@ -57,22 +57,8 @@ public class GameData
         this.medalsCollected = 0;
         this.totalMedals = 5;
 
-
-        // this.respawnPoint = new Vector2(-115.8605f, -9.98346f);
-
-        // starting position of JaniTest DO NOT CHANGE THIS 
         this.position = new Vector2(-87, -15);
 
-        // starting position of SaveTest DO NOT CHANGE THIS 
-        // this.position = new Vector2(-115.8605f, -9.98346f);
-
-        // test
-        /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
-        if (baseRespawn != null)
-        {
-            this.respawnPoint = baseRespawn.transform.position;
-            this.position = this.respawnPoint;
-        }*/
     }
 
     /*public int GetPercentageComplete()

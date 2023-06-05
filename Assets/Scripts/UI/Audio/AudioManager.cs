@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
         if (currentSceneName == "CharacterCustomization") return;
         if (currentSceneName != previousSceneName)
         {
-            Debug.Log("Scene has changed from " + previousSceneName + " to " + currentSceneName);
+            // Debug.Log("Scene has changed from " + previousSceneName + " to " + currentSceneName);
             previousSceneName = currentSceneName;
             StopPlayingClips();
             if (currentSceneName == "TestMenuSave")
@@ -68,13 +68,13 @@ public class AudioManager : MonoBehaviour
                 Debug.Log(true);
             }
 
-            else if (currentSceneName == "New_City_1")
+            else if (currentSceneName == "City 1")
             {
                 bgm.clip = bgmClips[1];
                 bgm.Play();
             }
 
-            else if (currentSceneName == "New_City_2")
+            else if (currentSceneName == "City 2")
             {
                 bgm.clip = bgmClips[2];
                 bgm.Play();
