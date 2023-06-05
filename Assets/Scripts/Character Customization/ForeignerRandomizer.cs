@@ -45,7 +45,7 @@ public class ForeignerRandomizer : MonoBehaviour, IDataPersistence
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
         otherArmSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
         legSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.FlegIndex];
-        otherLegSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
+        otherLegSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.FlegIndex];
     }
 
     public void LoadData(GameData data)

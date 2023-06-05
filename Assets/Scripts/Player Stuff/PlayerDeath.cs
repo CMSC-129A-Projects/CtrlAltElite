@@ -9,19 +9,7 @@ public class PlayerDeath : MonoBehaviour
     public static GameObject currentRespawn;
     [SerializeField] private float _respawnTimer;
     [SerializeField] private float _animationTimer;
-    public float[] respawnPosition = new float[3];
 
-    private void Awake()
-    {
-        currentRespawn = GameObject.FindGameObjectWithTag("Respawn");
-        if (currentRespawn != null)
-        {
-            respawnPosition[0] = currentRespawn.transform.position.x;
-            respawnPosition[1] = currentRespawn.transform.position.y;
-            respawnPosition[2] = currentRespawn.transform.position.z;
-        }
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Boundary"))

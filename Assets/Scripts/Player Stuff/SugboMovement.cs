@@ -159,13 +159,33 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         moveSpeedTimer = 0;
 
         SetGravityScale(gravityScale);
+        GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
         if (NewDataPersistenceManager.instance.gameData.newGame)
         {
-            NewDataPersistenceManager.instance.SaveGame();
-            NewDataPersistenceManager.instance.LoadGame();
+            Debug.Log("New Game");    
+
+            if (baseRespawn != null)
+            {
+                Debug.Log($"{baseRespawn} || {baseRespawn.transform.position}");
+                NewDataPersistenceManager.instance.gameData.respawnPoint = baseRespawn.transform.position;
+                NewDataPersistenceManager.instance.gameData.position = baseRespawn.transform.position;
+
+                // transform.position = NewDataPersistenceManager.instance.gameData.position;
+            }
         }
+        /*else if (NewDataPersistenceManager.instance.gameData.previousSceneIndex < SceneManager.GetActiveScene().buildIndex)
+        {
+            if (baseRespawn != null)
+            {
+                NewDataPersistenceManager.instance.gameData.respawnPoint = baseRespawn.transform.position;
+                NewDataPersistenceManager.instance.gameData.position = baseRespawn.transform.position;
+
+                // transform.position = NewDataPersistenceManager.instance.gameData.position;
+            }
+        }*/
         else
         {
+            Debug.Log("Not New Game");
             NewDataPersistenceManager.instance.LoadGame();
         }
        
@@ -533,12 +553,14 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
+        Debug.Log($"LOADDATA {data.position}");
         transform.position = data.position;
         if (bodySpriteSetter != null) bodySpriteSetter.SetPlayerSprites();
     }
 
     public void SaveData(GameData data)
     {
+        Debug.Log("SAVE DATA");
         if (PlayerDeath.currentRespawn != null)
         {
             data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
@@ -547,7 +569,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
             // HARD CODED CHANGE THIS IF NECESSARY
             // 5 FOR CITY 1, 6 FOR CITY 2, 7 FOR CITY 3, etc.
-            if (data.sceneIndex >= 5) data.newGame = false;
+            if (data.sceneIndex >= 5)
+            {
+                data.newGame = false;
+            }
         }
             
     }

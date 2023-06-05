@@ -103,7 +103,7 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         data.headIndex = outfitChangers[0].CurrentOption;
         data.bodyIndex = outfitChangers[1].CurrentOption;
         data.armIndex = outfitChangers[3].CurrentOption;
-        data.legIndex = outfitChangers[5].CurrentOption;
+        data.legIndex = outfitChangers[4].CurrentOption;
         data.name = inputField.text;
     }
     #endregion

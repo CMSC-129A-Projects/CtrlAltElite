@@ -24,6 +24,7 @@ public class GameData
     public int FlegIndex;
 
     public int sceneIndex;
+    public int previousSceneIndex;
     
     public float volumePreference;
     public int qualityIndex;
@@ -49,6 +50,7 @@ public class GameData
         this.FlegIndex = 0;
 
         this.sceneIndex = 0;
+        this.previousSceneIndex = 0;
         
         this.volumePreference = 1f;
         this.qualityIndex = 0;
