@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemCollector : MonoBehaviour
 {
@@ -48,16 +49,23 @@ public class ItemCollector : MonoBehaviour
             string text = $"Medal {NewDataPersistenceManager.instance.gameData.medalsCollected}/" +
               $"{NewDataPersistenceManager.instance.gameData.totalMedals} collected.";
             achievementText.GetComponent<TextMeshProUGUI>().text = text;
-
-
+            
             StartCoroutine(DisableAchievementText());
         }
     }
 
     IEnumerator DisableAchievementText()
     {
+        Debug.Log("Switching to next city...");
         yield return new WaitForSeconds(3);
         achievementText.SetActive(false);
+        // NewDataPersistenceManager.instance.SaveGame();
+        // NewDataPersistenceManager.instance.gameData.newGame = true;
+        int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
+        NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
+        NewDataPersistenceManager.instance.IncrementSceneIndex();
+        
+        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
     }
 
     #region RESPAWN ITEM

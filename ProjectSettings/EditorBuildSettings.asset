@@ -30,12 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/City 2.unity
     guid: e10b2ae092928dc47b896d5dd6450d15
   - enabled: 1
-    path: Assets/Scenes/Z_old_City 1.unity
-    guid: 67e32be241d3c23c8be9a122ea9ebd49
-  - enabled: 1
-    path: Assets/Scenes/Z_old_City 2.unity
-    guid: 9c583a7283fd631448a2b29e9fb39219
-  - enabled: 1
     path: Assets/Scenes/City 3.unity
     guid: e8975fa65035e3e42a470bce1c9f969d
   - enabled: 1

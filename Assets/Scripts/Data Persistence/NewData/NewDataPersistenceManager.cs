@@ -145,6 +145,18 @@ public class NewDataPersistenceManager : MonoBehaviour
         
     }
 
+    public void IncrementSceneIndex()
+    {
+        gameData.previousSceneIndex++;
+        gameData.newGame = true;
+
+        // timestamp the data so we know when it was last saved
+        gameData.lastUpdated = System.DateTime.Now.ToBinary();
+
+        // save that data to a file using the data handler
+        dataHandler.Save(gameData, selectedProfileId);
+    }
+
     public void SaveGame()
     {
         // return right away if data persistence is disabled

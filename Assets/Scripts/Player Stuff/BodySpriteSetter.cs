@@ -45,7 +45,7 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
         otherArmSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
         legSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.legIndex];
-        otherLegSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.armIndex];
+        otherLegSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.legIndex];
     }
 
     public void LoadData(GameData data)
