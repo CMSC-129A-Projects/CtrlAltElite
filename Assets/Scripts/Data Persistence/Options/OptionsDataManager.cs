@@ -31,7 +31,6 @@ public class OptionsDataManager : MonoBehaviour
     {
         try
         {
-            Debug.Log("trying");
             // just to be sure set the audio here
             float volume = SaveSystem.LoadPlayerOptions().volumePreference;
             float originalVolume = Mathf.Pow(10f, volume / 20f);
@@ -52,7 +51,6 @@ public class OptionsDataManager : MonoBehaviour
         if (currentSceneName == "CharacterCustomization") return;
         if (currentSceneName != previousSceneName)
         {
-            Debug.Log("Scene has changed from " + previousSceneName + " to " + currentSceneName);
             previousSceneName = currentSceneName;
             OptionsMenu newOptionsMenu = FindObjectOfType<OptionsMenu>(true);
             newOptionsMenu.LoadOptions();

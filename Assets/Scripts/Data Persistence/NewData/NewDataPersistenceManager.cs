@@ -51,13 +51,11 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //Debug.Log("OnEnable");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        //Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -108,16 +106,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
-        // Debug.Log("NEW Init Game Data");
         this.gameData = new GameData();
-
-        /*GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
-        if (baseRespawn != null)
-        {
-            this.gameData.respawnPoint = baseRespawn.transform.position;
-            this.gameData.position = this.gameData.respawnPoint;
-        }*/
-
     }
 
     public void LoadGame()

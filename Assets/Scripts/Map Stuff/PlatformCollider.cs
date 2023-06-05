@@ -6,12 +6,8 @@ using UnityEngine.Tilemaps;
 public class PlatformCollider : MonoBehaviour
 {
     public GameObject currentPlatform;
-    // [SerializeField] public PlayerMovement playerMovement;
-    // [SerializeField] public TestMovement2 playerMovement;
     private SugboMovement playerMovement;
     private CapsuleCollider2D playerCollider;
-    //[SerializeField] private TilemapRenderer tilemapRenderer;
-    // public TilemapRenderer breakableTilemapRenderer;
     GameObject breakableTilemapObject;
     public TilemapRenderer breakableTilemapRenderer;
 
@@ -129,10 +125,8 @@ public class PlatformCollider : MonoBehaviour
     private IEnumerator EnableTile(Collider2D collision)
     {
         yield return new WaitForSeconds(inHiddenTimer + .1f);
-        //TilemapRenderer tilemapRenderer = collision.gameObject.GetComponent<TilemapRenderer>(); // renderer of the tiles
         if (!inHidden && (lastInHidden > inHiddenTimer))
         {
-            //tilemapRenderer.enabled = true; // set renderer to true to "show" tiles
             collision.gameObject.GetComponent<TilemapRenderer>().enabled = true;
         }
         
@@ -147,8 +141,6 @@ public class PlatformCollider : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
         yield return new WaitForSeconds(0.5f);
         Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
-
-
     }
 
     private IEnumerator BreakPlatform(GameObject currentPlatform)

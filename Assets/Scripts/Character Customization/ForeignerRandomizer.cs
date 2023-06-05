@@ -40,12 +40,6 @@ public class ForeignerRandomizer : MonoBehaviour, IDataPersistence
     }
     public void SetPlayerSprites()
     {
-        Debug.Log("FOREIGNER SETTING");
-        // Debug.Log(NewDataPersistenceManager.instance.gameData.respawnPoint);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.FheadIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.FbodyIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.FarmIndex);
-        Debug.Log(NewDataPersistenceManager.instance.gameData.FlegIndex);
         headSpriteRenderer.sprite = headOptions[NewDataPersistenceManager.instance.gameData.FheadIndex];
         bodySpriteRenderer.sprite = bodyOptions[NewDataPersistenceManager.instance.gameData.FbodyIndex];
         armSpriteRenderer.sprite = armOptions[NewDataPersistenceManager.instance.gameData.FarmIndex];
@@ -56,7 +50,6 @@ public class ForeignerRandomizer : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        // Debug.Log("Loading Data in BSS");
         SetPlayerSprites();
     }
 
