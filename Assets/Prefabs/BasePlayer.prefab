@@ -1140,13 +1140,10 @@ MonoBehaviour:
   wallCheck2: {fileID: 5523219283938989490}
   wallCheck3: {fileID: 3515349634649316161}
   ledgeCheck: {fileID: 233365778824576044}
-  player: {fileID: 6879225082526631198}
-  data: {fileID: 11400000, guid: 5f1205a5794a32142bf0e84fcb5236b2, type: 2}
   onGround: 0
   onPlatform: 0
   onWall: 0
   inWater: 0
-  canCornerCorrect: 0
   canLedge: 0
   collisionRadius: 0.05
 --- !u!70 &1606022687311302483
@@ -1225,24 +1222,15 @@ MonoBehaviour:
   isOnWall: 0
   onRightWall: 0
   onLeftWall: 0
-  canCornerCorrect: 0
   canLedgeCorrect: 0
   inWater: 0
-  lastOnAirTime: 0
-  lastOnGroundTime: 0
-  onGroundTime: 0
-  lastPressedJumpTime: 0
   isJumping: 0
   isJumpCut: 0
   inAir: 0
   isFalling: 0
   lastOnWallTime: 0
-  lastOnWallRightTime: 0
-  lastOnWallLeftTime: 0
   isWallSliding: 0
   isWallJumping: 0
-  wallJumpStartTime: 0
-  lastWallJumpDir: 0
   isWallClimbing: 0
   isWallGrabbing: 0
   isMoveSpeed: 0
@@ -1269,11 +1257,7 @@ MonoBehaviour:
   maxFallTimerCap: 3
   forcedFallGravityScale: 24
   waterGravityScale: 1
-  topRayCastLength: 0.35
-  edgeRayCastOffset: {x: -0.19, y: 0, z: 0}
-  innerRayCastOffset: {x: 0.02, y: 0, z: 0}
   defaultMoveSpeed: 7
-  speed: 0
   runMaxSpeed: 7
   runAcceleration: 50
   groundLinearDrag: 15
@@ -1286,10 +1270,6 @@ MonoBehaviour:
   airLinearDrag: 6
   fallMultiplier: 0
   wallSlidingSpeed: 2
-  wallJumpingDirection: 1
-  wallJumpingTime: 0.5
-  wallJumpingCounter: 0
-  wallJumpingDuration: 0.2
   wallJumpingPower: {x: 32, y: 24}
   wallClimbingSpeedUp: 6
   wallClimbingSpeedDown: 10
@@ -1301,7 +1281,6 @@ MonoBehaviour:
   jumpBoostIncrease: 26
   dashPower: 27
   dashTime: 0.2
-  dashCooldown: 0
   coyoteTime: 0.1
   coyoteTimeCounter: 0
   jumpBufferTime: 0.1
@@ -1321,10 +1300,6 @@ MonoBehaviour:
   currentBoundary: 
   _respawnTimer: 2
   _animationTimer: 1
-  respawnPosition:
-  - 0
-  - 0
-  - 0
 --- !u!114 &5823391952333047977
 MonoBehaviour:
   m_ObjectHideFlags: 0
