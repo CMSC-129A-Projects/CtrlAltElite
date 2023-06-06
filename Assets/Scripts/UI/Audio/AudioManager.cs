@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioClip> bgmClips = new List<AudioClip>();
     [SerializeField] private AudioSource bgm;
     [SerializeField] private AudioSource buttonClick;
+    [SerializeField] private List<AudioSource> jumps;
+    [SerializeField] private AudioSource pickup;
 
     [SerializeField] private List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -109,5 +111,16 @@ public class AudioManager : MonoBehaviour
     public void PlayButtonClick()
     {
         buttonClick.Play();
+    }
+
+    public void PlayJump(bool baseJump)
+    {
+        if (baseJump) jumps[0].Play();
+        else jumps[1].Play();
+    }
+
+    public void PlayPickup()
+    {
+        pickup.Play();
     }
 }

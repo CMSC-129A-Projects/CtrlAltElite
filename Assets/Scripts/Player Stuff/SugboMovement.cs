@@ -162,30 +162,14 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
         if (NewDataPersistenceManager.instance.gameData.newGame)
         {
-            Debug.Log("New Game");    
-
             if (baseRespawn != null)
             {
-                Debug.Log($"{baseRespawn} || {baseRespawn.transform.position}");
                 NewDataPersistenceManager.instance.gameData.respawnPoint = baseRespawn.transform.position;
                 NewDataPersistenceManager.instance.gameData.position = baseRespawn.transform.position;
-
-                // transform.position = NewDataPersistenceManager.instance.gameData.position;
             }
         }
-        /*else if (NewDataPersistenceManager.instance.gameData.previousSceneIndex < SceneManager.GetActiveScene().buildIndex)
-        {
-            if (baseRespawn != null)
-            {
-                NewDataPersistenceManager.instance.gameData.respawnPoint = baseRespawn.transform.position;
-                NewDataPersistenceManager.instance.gameData.position = baseRespawn.transform.position;
-
-                // transform.position = NewDataPersistenceManager.instance.gameData.position;
-            }
-        }*/
         else
         {
-            Debug.Log("Not New Game");
             NewDataPersistenceManager.instance.LoadGame();
         }
        
@@ -273,7 +257,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 else
                 {
                     if (isGrounded || canDoubleJump || coyoteTimeCounter > 0f)
-                        Jump(Vector2.up);
+                        Jump(Vector2.up, baseJump: true);
                 }
             }
         }
@@ -328,7 +312,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 if (CanWaterJump())
                 {
                     stamina -= waterStaminaDrain * 2;
-                    Jump(Vector2.up);
+                    Jump(Vector2.up, baseJump: true);
                 }
                 if (moveInput.y < 0f)
                 {
@@ -553,14 +537,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region SAVE STUFF
     public void LoadData(GameData data)
     {
-        Debug.Log($"LOADDATA {data.position}");
         transform.position = data.position;
         if (bodySpriteSetter != null) bodySpriteSetter.SetPlayerSprites();
     }
 
     public void SaveData(GameData data)
     {
-        Debug.Log("SAVE DATA");
         if (PlayerDeath.currentRespawn != null)
         {
             data.respawnPoint = PlayerDeath.currentRespawn.transform.position;
@@ -732,7 +714,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             if (jumpBufferTimeCounter > 0f) // replace with jump buffer
             {
-                Jump(Vector2.up);
+                Jump(Vector2.up, baseJump: false);
                 if (isGrounded)
                     doubleJumpPressed = false;
                 else if (!isGrounded && !isWallJumping)
@@ -928,8 +910,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region JUMP METHODS
-    private void Jump(Vector2 direction)
+    private void Jump(Vector2 direction, bool baseJump)
     {
+        AudioManager.instance.PlayJump(baseJump);
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(direction * jumpPower, ForceMode2D.Impulse);
@@ -937,6 +920,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         jumpBufferTimeCounter = 0f;
         maxFallTimer = 0f;
         isJumping = true;
+        
     }
 
 

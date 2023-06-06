@@ -33,7 +33,6 @@ public class NewFileDataHandler
                 return true;
             }
         }
-        Debug.LogWarning("No Files in " + dataDirPath);
         return false;
     }
 
@@ -167,7 +166,6 @@ public class NewFileDataHandler
             if (File.Exists(fullPath))
             {
                 // delete the profile folder and everything within it
-                Debug.Log("Deleting " + profileId);
                 Directory.Delete(Path.GetDirectoryName(fullPath), true);
             }
             else

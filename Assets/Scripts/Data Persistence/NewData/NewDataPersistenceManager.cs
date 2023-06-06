@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.Profiling;
 
 public class NewDataPersistenceManager : MonoBehaviour
 {
@@ -69,7 +70,8 @@ public class NewDataPersistenceManager : MonoBehaviour
         {
             StopCoroutine(autoSaveCoroutine);
         }
-        if (SceneManager.GetActiveScene().name != "CharacterCustomization")
+        if (SceneManager.GetActiveScene().name != "CharacterCustomization" &&
+            SceneManager.GetActiveScene().name != "TestMenuSave")
         {
             autoSaveCoroutine = StartCoroutine(AutoSave());
         }
@@ -82,6 +84,16 @@ public class NewDataPersistenceManager : MonoBehaviour
         this.selectedProfileId = newProfileId;
         // load the game, which will use that profile, updating our game data accordingly
         LoadGame();
+    }
+
+    public string GetCurrentProfileId()
+    {
+        return this.selectedProfileId;
+    }
+    public void DeleteSelectedProfileId()
+    {
+        dataHandler.Delete(this.selectedProfileId);
+        InitializeSelectedProfileId();
     }
 
     public void DeleteProfileData(string profileId)

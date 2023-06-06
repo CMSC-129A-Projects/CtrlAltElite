@@ -3291,6 +3291,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1722417579185628983, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722417579185628983, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071725059714407577, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071725059714407577, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6879225082526631198, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
       propertyPath: m_Name
       value: BasePlayer
@@ -5523,7 +5539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 253.03, y: 167}
+  m_AnchoredPosition: {x: 225.00012, y: 167}
   m_SizeDelta: {x: 220.0749, y: 36.8921}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569896232
@@ -6269,7 +6285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -6609,7 +6625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 253.02988, y: 41.551926}
+  m_AnchoredPosition: {x: 225, y: 41.551926}
   m_SizeDelta: {x: -664.1288, y: -120.5433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714227384
@@ -7156,7 +7172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 253.03, y: 205}
+  m_AnchoredPosition: {x: 225.00012, y: 205}
   m_SizeDelta: {x: 265.2234, y: 24.5099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1814494350
@@ -9396,7 +9412,7 @@ GameObject:
   - component: {fileID: 2075739271}
   - component: {fileID: 2075739270}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9465,7 +9481,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075739271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1714227386}
+        m_TargetAssemblyTypeName: CharacterCreationMenu, Assembly-CSharp
+        m_MethodName: OnBackClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1714227386}
+        m_TargetAssemblyTypeName: CharacterCreationMenu, Assembly-CSharp
+        m_MethodName: PlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2075739271
 MonoBehaviour:
   m_ObjectHideFlags: 0

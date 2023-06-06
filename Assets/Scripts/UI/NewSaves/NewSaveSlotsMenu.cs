@@ -40,7 +40,6 @@ public class NewSaveSlotsMenu : MonoBehaviour
         {
             Debug.Log("Loaded Save Slot Clicked");
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
-            // SaveGameAndLoadScene();
             SaveGameAndLoadScene_Load();
         }
         // case - new game, but the save slot has data
@@ -67,23 +66,16 @@ public class NewSaveSlotsMenu : MonoBehaviour
         {
             NewDataPersistenceManager.instance.ChangeSelectedProfileId(saveSlot.GetProfileId());
             NewDataPersistenceManager.instance.NewGame();
-            Debug.Log("New Game Created");
             SaveGameAndLoadScene_New();
         }
-
-        
     }
 
     private void SaveGameAndLoadScene_New()
     {
-        Debug.Log("SaveGameAndLoadScene");
         // save the game anytime before loading a new scene
         NewDataPersistenceManager.instance.SaveGame();
         // load the scene
-        // Change these for testing
-        // SceneManager.LoadSceneAsync("JaniTest");
         SceneManager.LoadSceneAsync("CharacterCustomization");
-        // SceneManager.LoadSceneAsync("SaveTest");
     }
 
     private void SaveGameAndLoadScene_Load()
@@ -101,7 +93,6 @@ public class NewSaveSlotsMenu : MonoBehaviour
 
     public void OnClearClicked(NewSaveSlot saveSlot)
     {
-        
         DisableMenuButtons();
 
         confirmationPopupMenu.ActivateMenu(
@@ -158,16 +149,8 @@ public class NewSaveSlotsMenu : MonoBehaviour
             else
             {
                 saveSlot.SetInteractable(true);
-                /*if (firstSelected.Equals(backButton.gameObject))
-                {
-                    firstSelected = saveSlot.gameObject;
-                }*/
             }
         }
-
-        // set the first selected button
-        //Button firstSelectedButton = firstSelected.GetComponent<Button>();
-        // this.SetFirstSelected(firstSelectedButton);
     }
 
     public void DeactivateMenu()

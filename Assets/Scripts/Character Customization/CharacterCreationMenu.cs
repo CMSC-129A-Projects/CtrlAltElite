@@ -62,6 +62,19 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         // SceneManager.LoadSceneAsync("NewIntroScene");
     }
 
+    public void OnBackClicked()
+    {
+        NewDataPersistenceManager.instance.DeleteSelectedProfileId();
+        SceneManager.LoadSceneAsync("TestMenuSave");
+    }
+
+    private IEnumerator DeletePlayer(string profileId)
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        Debug.Log($"Deleted {profileId}");
+    }
+
     public void RandomizeForeigner()
     {
         // Randomize foreigner
