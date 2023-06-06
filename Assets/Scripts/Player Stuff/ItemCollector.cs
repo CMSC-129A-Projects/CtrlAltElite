@@ -71,6 +71,7 @@ public class ItemCollector : MonoBehaviour
     #region RESPAWN ITEM
     public void RespawnItem(Collider2D collision)
     {
+        AudioManager.instance.PlayPickup();
         collision.gameObject.SetActive(false); //deactivates fruit
         StartCoroutine(Respawn(collision, respawnItemTimer));
     }
