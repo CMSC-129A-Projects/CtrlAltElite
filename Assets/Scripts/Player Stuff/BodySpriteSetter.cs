@@ -48,6 +48,27 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
         otherLegSpriteRenderer.sprite = legOptions[NewDataPersistenceManager.instance.gameData.legIndex];
     }
 
+    public void DisablePlayerSprites()
+    {
+        headSpriteRenderer.enabled = false;
+        bodySpriteRenderer.enabled = false;
+        armSpriteRenderer.enabled = false;
+        otherArmSpriteRenderer.enabled = false;
+        legSpriteRenderer.enabled = false;
+        otherLegSpriteRenderer.enabled = false;
+    }
+
+    public void EnablePlayerSprites()
+    {
+        headSpriteRenderer.enabled = true;
+        bodySpriteRenderer.enabled = true;
+        armSpriteRenderer.enabled = true;
+        otherArmSpriteRenderer.enabled = true;
+        legSpriteRenderer.enabled = true;
+        otherLegSpriteRenderer.enabled = true; 
+    }
+
+
     public void LoadData(GameData data)
     {
         SetPlayerSprites();
@@ -56,5 +77,5 @@ public class BodySpriteSetter : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.sceneIndex = SceneManager.GetActiveScene().buildIndex;
-    }
+    }   
 }
