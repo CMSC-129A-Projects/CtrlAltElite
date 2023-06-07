@@ -54,6 +54,7 @@ public class PlayerDeath : MonoBehaviour
     }
     public void HandleDeath()
     {
+        AudioManager.instance.PlayDeath();
         TransitionManager.instance.PlayDeathTransition();
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
