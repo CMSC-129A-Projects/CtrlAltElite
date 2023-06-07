@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TransitionManager : MonoBehaviour
+{
+    public static TransitionManager instance { get; private set; }
+    [SerializeField] private GameObject deathTransition;
+    private Animator deathAnim;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("Found more than one TransitionManager in the scene. Destroying the newest one.");
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Start()
+    {
+        deathAnim = deathTransition.GetComponent<Animator>();
+    }
+
+    public void PlayDeathTransition()
+    {
+        Debug.Log("PlayDeathTransition");
+        deathTransition.GetComponent<DeathTransition>().ActivateDeathTransition();
+        deathAnim.SetTrigger("Died");
+        deathAnim.SetBool("asd", true);
+    }
+
+    public void PlayRespawnTransition()
+    {
+        Debug.Log("PlayRespawnTransition");
+        deathAnim.SetTrigger("Respawn");
+    }
+}
