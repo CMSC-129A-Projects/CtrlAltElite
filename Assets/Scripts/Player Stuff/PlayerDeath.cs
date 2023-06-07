@@ -38,6 +38,7 @@ public class PlayerDeath : MonoBehaviour
 
     public void HandleDeath()
     {
+        TransitionManager.instance.PlayDeathTransition();
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
@@ -54,7 +55,7 @@ public class PlayerDeath : MonoBehaviour
 
     public void HandleRespawn()
     {
-        Debug.Log("Respawning");
+        TransitionManager.instance.PlayRespawnTransition();
         animator.ResetTrigger("Dying");
         animator.SetBool("Death", false);
         animator.SetBool("Idling", true);
