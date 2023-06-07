@@ -28,16 +28,14 @@ public class TransitionManager : MonoBehaviour
     public void PlayDeathTransition()
     {
         Debug.Log("PlayDeathTransition");
-        deathTransition.SetActive(true);
+        deathTransition.GetComponent<DeathTransition>().ActivateDeathTransition();
         deathAnim.SetTrigger("Died");
+        deathAnim.SetBool("asd", true);
     }
 
     public void PlayRespawnTransition()
     {
         Debug.Log("PlayRespawnTransition");
         deathAnim.SetTrigger("Respawn");
-        deathTransition.SetActive(false);
     }
-
-
 }

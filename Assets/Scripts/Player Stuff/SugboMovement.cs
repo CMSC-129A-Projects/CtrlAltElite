@@ -242,11 +242,11 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 {
                     if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
                     {
-                        NeutralWallJump();
+                        NeutralWallJump(baseJump: true);
                     }
                     else
                     {
-                        WallJump();
+                        WallJump(baseJump: true);
                     }
                 }
             }
@@ -270,11 +270,11 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 if ((moveInput.x > 0 && isFacingRight && onRightWall) || (moveInput.x < 0 && !isFacingRight && onLeftWall))
                 {
-                    NeutralWallJump();
+                    NeutralWallJump(baseJump: true);
                 }
                 else
                 {
-                    WallJump();
+                    WallJump(baseJump: true);
                 }
             }
         }
@@ -392,29 +392,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
         animator.SetFloat("Vertical", Mathf.Abs(moveInput.y));
-
-        /*Debug.Log($"{isDead} + {hasDied}");
-        // dying
-        if (isDead && !hasDied)
-        {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("DoubleJumping", false);
-            animator.SetTrigger("Death");
-
-            hasDied = true;
-        }
-        else if (!isDead && hasDied)
-        {
-            // Reset the death trigger when isDead becomes false
-            animator.ResetTrigger("Death");
-            hasDied = false;
-        }*/
-
 
         // jumping while on wall
         if (isJumping && rb.velocity.y > 0.01f && !isGrounded && isOnWall)
@@ -648,8 +625,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
     }
 
-    private void NeutralWallJump()
+    private void NeutralWallJump(bool baseJump)
     {
+        AudioManager.instance.PlayJump(baseJump);
         stamina -= wallJumpStaminaDrain;
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(0f, wallJumpingPower.y + 2f);
@@ -658,8 +636,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         isJumping = true;
     }
 
-    private void WallJump()
+    private void WallJump(bool baseJump)
     {
+        AudioManager.instance.PlayJump(baseJump);
         stamina -= wallJumpStaminaDrain;
         Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
         ApplyAirLinearDrag();

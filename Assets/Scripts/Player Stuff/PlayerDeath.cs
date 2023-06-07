@@ -5,15 +5,14 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     public string currentBoundary;
-    public static BoxCollider2D currentCollider;
     public static GameObject currentRespawn;
-    [SerializeField] private float _respawnTimer;
-    [SerializeField] private float _animationTimer;
     private Animator animator;
+    private BodySpriteSetter bodySpriteSetter;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        bodySpriteSetter = GetComponent<BodySpriteSetter>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,7 +20,6 @@ public class PlayerDeath : MonoBehaviour
         if (collision.gameObject.CompareTag("Boundary"))
         {
             currentBoundary = collision.gameObject.name;
-            currentCollider = collision.gameObject.GetComponent<BoxCollider2D>();
             if (collision.gameObject.transform.childCount > 0)
             {
                 currentRespawn = collision.transform.GetChild(0).gameObject;
@@ -39,6 +37,7 @@ public class PlayerDeath : MonoBehaviour
     public void HandleDeath()
     {
         TransitionManager.instance.PlayDeathTransition();
+        // bodySpriteSetter.DisablePlayerSprites();
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
@@ -55,12 +54,18 @@ public class PlayerDeath : MonoBehaviour
 
     public void HandleRespawn()
     {
+        Debug.Log("Respawning");
         TransitionManager.instance.PlayRespawnTransition();
+        // bodySpriteSetter.EnablePlayerSprites();
         animator.ResetTrigger("Dying");
         animator.SetBool("Death", false);
         animator.SetBool("Idling", true);
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        NewDataPersistenceManager.instance.LoadGame();
+        NewDataPersistenceManager.instance.LoadGame(); 
+    }
+
+    public void AllowMovePlayer()
+    {
         SugboMovement.isDead = false;
         SugboMovement.canMove = true;
     }
