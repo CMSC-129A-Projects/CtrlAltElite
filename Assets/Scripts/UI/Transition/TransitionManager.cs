@@ -30,7 +30,6 @@ public class TransitionManager : MonoBehaviour
         Debug.Log("PlayDeathTransition");
         deathTransition.GetComponent<DeathTransition>().ActivateDeathTransition();
         deathAnim.SetTrigger("Died");
-        deathAnim.SetBool("asd", true);
     }
 
     public void PlayRespawnTransition()

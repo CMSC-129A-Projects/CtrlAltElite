@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource buttonClick;
     [SerializeField] private List<AudioSource> jumps;
     [SerializeField] private AudioSource pickup;
+    [SerializeField] private AudioSource death;
 
     [SerializeField] private List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -122,5 +123,10 @@ public class AudioManager : MonoBehaviour
     public void PlayPickup()
     {
         pickup.Play();
+    }
+
+    public void PlayDeath()
+    {
+        death.Play();
     }
 }

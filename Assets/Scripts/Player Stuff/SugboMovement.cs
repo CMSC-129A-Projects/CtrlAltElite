@@ -568,6 +568,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             Debug.Log("New Boundary");
             NewDataPersistenceManager.instance.SaveGame();
         }
+
+        if (collision.gameObject.CompareTag("TempSave"))
+        {
+            Debug.Log("New TempSave");
+            
+        }
     }
 
     #endregion

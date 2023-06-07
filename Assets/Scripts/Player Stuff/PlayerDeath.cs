@@ -7,12 +7,10 @@ public class PlayerDeath : MonoBehaviour
     public string currentBoundary;
     public static GameObject currentRespawn;
     private Animator animator;
-    private BodySpriteSetter bodySpriteSetter;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        bodySpriteSetter = GetComponent<BodySpriteSetter>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,20 +20,41 @@ public class PlayerDeath : MonoBehaviour
             currentBoundary = collision.gameObject.name;
             if (collision.gameObject.transform.childCount > 0)
             {
+                Debug.Log("Current Boundary");
                 currentRespawn = collision.transform.GetChild(0).gameObject;
                 NewDataPersistenceManager.instance.SaveGame();
             }
         }
 
+        if (collision.gameObject.CompareTag("TempSave"))
+        {
+            currentBoundary = collision.gameObject.name;
+            if (collision.gameObject.transform.childCount > 0)
+            {
+                // Debug.Log("Current TempSave");
+                StartCoroutine(RefreshCurrentRespawn(collision));
+                
+            }
+        }
+
+
+
         if (collision.gameObject.CompareTag("Spikes"))
         {
-            // StartCoroutine(StartRespawn());
             HandleDeath();
         }
     }
 
+    private IEnumerator RefreshCurrentRespawn(Collider2D collision)
+    {
+        yield return null;
+        Debug.Log("Refreshed");
+        currentRespawn = collision.transform.GetChild(0).gameObject;
+        NewDataPersistenceManager.instance.SaveGame();
+    }
     public void HandleDeath()
     {
+        AudioManager.instance.PlayDeath();
         TransitionManager.instance.PlayDeathTransition();
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
@@ -51,7 +70,7 @@ public class PlayerDeath : MonoBehaviour
         animator.SetTrigger("Dying");
     }
 
-    public void HandleRespawn()
+    public void HandleRespawn() // called in FixedDeath animation frame
     {
         Debug.Log("Respawning");
         SugboMovement player = GetComponent<SugboMovement>();
@@ -63,11 +82,5 @@ public class PlayerDeath : MonoBehaviour
         animator.SetBool("Idling", true);
         transform.GetComponent<CapsuleCollider2D>().enabled = true;
         NewDataPersistenceManager.instance.LoadGame(); 
-    }
-
-    public void AllowMovePlayer()
-    {
-        SugboMovement.isDead = false;
-        SugboMovement.canMove = true;
     }
 }
