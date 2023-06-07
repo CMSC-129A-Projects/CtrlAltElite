@@ -288,10 +288,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 MoveCharacter();
             }
-            else if (!canMove && !isDead)
+            /*else if (!canMove && !isDead)
             {
                 rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(moveInput.x * runMaxSpeed, rb.velocity.y)), .5f * Time.deltaTime);
-            }
+            }*/
 
             if (isGrounded)
             {
@@ -341,7 +341,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                     isWallClimbing = false;
                 }
 
-                if (isOnWall && !isGrounded)
+                if (isOnWall && !isGrounded && !isDead)
                 {
                     StickToWall();
                 }
@@ -1065,6 +1065,31 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public void SetStaminaToMax()
     {
         stamina = staminaMax;
+    }
+
+    public void SetSpeedToZero()
+    {
+        runMaxSpeed = 0f;
+        rb.velocity = new Vector2(0f, 0f);
+        moveInput = new Vector2(0f, 0f);
+    }
+
+    public void SetRbToDynamic()
+    {
+        Debug.Log("Dynamic RB");
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+    public void SetRbToStatic()
+    {
+        Debug.Log("Static RB");
+        rb.bodyType = RigidbodyType2D.Static;
+    }
+
+    public void SetSpeedBackToDefault()
+    {
+        runMaxSpeed = defaultMoveSpeed;
+        rb.velocity = new Vector2(0f, 0f);
+        moveInput = new Vector2(0f, 0f);
     }
     public void SetGravityScale(float scale)
     {

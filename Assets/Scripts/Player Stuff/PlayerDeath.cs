@@ -7,10 +7,12 @@ public class PlayerDeath : MonoBehaviour
     public string currentBoundary;
     public static GameObject currentRespawn;
     private Animator animator;
+    private SugboMovement player;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<SugboMovement>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -59,8 +61,10 @@ public class PlayerDeath : MonoBehaviour
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
         transform.GetComponent<CapsuleCollider2D>().enabled = false;
+        player.SetSpeedToZero();
         animator.SetBool("Running", false);
         animator.SetBool("Idling", false);
+        animator.SetBool("Swimming", false);
         animator.SetBool("Climbing", false);
         animator.SetBool("Grabbing", false);
         animator.SetBool("Falling", false);
@@ -72,15 +76,22 @@ public class PlayerDeath : MonoBehaviour
 
     public void HandleRespawn() // called in FixedDeath animation frame
     {
-        Debug.Log("Respawning");
-        SugboMovement player = GetComponent<SugboMovement>();
-        player.SetStaminaToMax();
+        Debug.Log("Respawning");  
+        player.SetStaminaToMax();   
         TransitionManager.instance.PlayRespawnTransition();
         animator.ResetTrigger("Dying");
         animator.SetTrigger("Respawning");
-        animator.SetBool("Death", false);
+        animator.SetBool("Running", false);
         animator.SetBool("Idling", true);
-        transform.GetComponent<CapsuleCollider2D>().enabled = true;
-        NewDataPersistenceManager.instance.LoadGame(); 
+        animator.SetBool("Swimming", false);
+        animator.SetBool("Climbing", false);
+        animator.SetBool("Grabbing", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Jumping", false);
+        animator.SetBool("DoubleJumping", false);
+        animator.SetBool("Death", false);
+        transform.GetComponent<CapsuleCollider2D>().enabled = true; 
+        NewDataPersistenceManager.instance.LoadGame();
+        player.SetSpeedBackToDefault();
     }
 }
