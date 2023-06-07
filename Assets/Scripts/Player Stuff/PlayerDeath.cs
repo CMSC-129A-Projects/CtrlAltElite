@@ -37,10 +37,9 @@ public class PlayerDeath : MonoBehaviour
     public void HandleDeath()
     {
         TransitionManager.instance.PlayDeathTransition();
-        // bodySpriteSetter.DisablePlayerSprites();
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
-        transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        transform.GetComponent<CapsuleCollider2D>().enabled = false;
         animator.SetBool("Running", false);
         animator.SetBool("Idling", false);
         animator.SetBool("Climbing", false);
@@ -55,12 +54,14 @@ public class PlayerDeath : MonoBehaviour
     public void HandleRespawn()
     {
         Debug.Log("Respawning");
+        SugboMovement player = GetComponent<SugboMovement>();
+        player.SetStaminaToMax();
         TransitionManager.instance.PlayRespawnTransition();
-        // bodySpriteSetter.EnablePlayerSprites();
         animator.ResetTrigger("Dying");
+        animator.SetTrigger("Respawning");
         animator.SetBool("Death", false);
         animator.SetBool("Idling", true);
-        transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        transform.GetComponent<CapsuleCollider2D>().enabled = true;
         NewDataPersistenceManager.instance.LoadGame(); 
     }
 
