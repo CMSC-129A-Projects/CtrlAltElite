@@ -512,7 +512,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             animator.SetBool("DoubleJumping", false);
         }
         // falling
-        if (!isJumping && rb.velocity.y < 0.01f && !isGrounded && !isOnWall && !CanWallSlide())
+        if (!isJumping && rb.velocity.y < 0.01f && !isGrounded && !isOnWall && !CanWallSlide() && !isDead)
         {
             animator.SetBool("Running", false);
             animator.SetBool("Idling", false);
@@ -1055,6 +1055,11 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region GENERAL METHODS
+
+    public void SetStaminaToMax()
+    {
+        stamina = staminaMax;
+    }
     public void SetGravityScale(float scale)
     {
         rb.gravityScale = scale;
