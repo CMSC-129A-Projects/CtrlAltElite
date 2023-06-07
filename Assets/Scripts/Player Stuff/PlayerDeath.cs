@@ -9,6 +9,12 @@ public class PlayerDeath : MonoBehaviour
     public static GameObject currentRespawn;
     [SerializeField] private float _respawnTimer;
     [SerializeField] private float _animationTimer;
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,22 +31,35 @@ public class PlayerDeath : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spikes"))
         {
-            StartCoroutine(StartRespawn());
+            // StartCoroutine(StartRespawn());
+            HandleDeath();
         }
     }
 
-    public IEnumerator StartRespawn()
+    public void HandleDeath()
     {
         SugboMovement.isDead = true;
         SugboMovement.canMove = false;
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        animator.SetBool("Running", false);
+        animator.SetBool("Idling", false);
+        animator.SetBool("Climbing", false);
+        animator.SetBool("Grabbing", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Jumping", false);
+        animator.SetBool("DoubleJumping", false);
+        animator.SetBool("Death", true);
+        animator.SetTrigger("Dying");
+    }
 
-        yield return new WaitForSeconds(_respawnTimer);
-
-        NewDataPersistenceManager.instance.LoadGame();
+    public void HandleRespawn()
+    {
+        Debug.Log("Respawning");
+        animator.ResetTrigger("Dying");
+        animator.SetBool("Death", false);
+        animator.SetBool("Idling", true);
         transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-        yield return new WaitForSeconds(_animationTimer);
+        NewDataPersistenceManager.instance.LoadGame();
         SugboMovement.isDead = false;
         SugboMovement.canMove = true;
     }

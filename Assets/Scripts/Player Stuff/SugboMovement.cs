@@ -24,6 +24,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public static bool canMove;
     public static bool isDead;
     private bool changingDirection;
+    private bool hasDied = false;
 
     [Space]
     [Header("Collision")]
@@ -180,6 +181,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
 
         UpdateAnimation();
+        if (isDead) return;
 
         #region TIMERS
         lastOnWallTime += Time.deltaTime;
@@ -379,7 +381,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         if (inWater && stamina <= staminaMin)
         {
-            StartCoroutine(death.StartRespawn());
+            death.HandleDeath();
         }
 
         staminaWheel.value = (stamina / staminaMax);
@@ -390,6 +392,29 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
         animator.SetFloat("Vertical", Mathf.Abs(moveInput.y));
+
+        /*Debug.Log($"{isDead} + {hasDied}");
+        // dying
+        if (isDead && !hasDied)
+        {
+            animator.SetBool("Running", false);
+            animator.SetBool("Idling", false);
+            animator.SetBool("Climbing", false);
+            animator.SetBool("Grabbing", false);
+            animator.SetBool("Falling", false);
+            animator.SetBool("Jumping", false);
+            animator.SetBool("DoubleJumping", false);
+            animator.SetTrigger("Death");
+
+            hasDied = true;
+        }
+        else if (!isDead && hasDied)
+        {
+            // Reset the death trigger when isDead becomes false
+            animator.ResetTrigger("Death");
+            hasDied = false;
+        }*/
+
 
         // jumping while on wall
         if (isJumping && rb.velocity.y > 0.01f && !isGrounded && isOnWall)
@@ -476,7 +501,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             }
         }
         // running
-        if (canMove && !isDead && isGrounded && moveInput.x != 0)
+        if (canMove && !isDead && isGrounded && moveInput.x != 0 && !isJumping)
         {
             // animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
             animator.SetBool("Running", true);
@@ -1056,12 +1081,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         rb.gravityScale = scale;
     }
 
-    void Flip()
+    private void Flip()
     {
         isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
     }
+
     #endregion
 }
