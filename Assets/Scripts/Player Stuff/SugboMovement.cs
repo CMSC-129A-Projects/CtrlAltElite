@@ -24,7 +24,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public static bool canMove;
     public static bool isDead;
     private bool changingDirection;
-    private bool hasDied = false;
+    private enum MovementState { idling, running, jumping, doubleJumping, falling, swimming, grabbing, climbing, dying }
 
     [Space]
     [Header("Collision")]
@@ -379,7 +379,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             stamina = staminaMin;
         }
 
-        if (inWater && stamina <= staminaMin)
+        if (inWater && stamina <= staminaMin && !isDead)
         {
             death.HandleDeath();
         }
@@ -390,149 +390,93 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void UpdateAnimation()
     {
-        animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
-        animator.SetFloat("Vertical", Mathf.Abs(moveInput.y));
+        MovementState state;
 
-        // jumping while on wall
-        if (isJumping && rb.velocity.y > 0.01f && !isGrounded && isOnWall)
+        if (isDead) return;
+
+        if (isGrounded && CanWallGrab() && lastOnWallTime < 0.01f)
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Jumping", true);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.grabbing;
         }
-        // sliding
-        if (CanWallSlide())
+        else if (CanWallClimb() && lastOnWallTime < 0.01f)
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", true);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.climbing;
         }
-        // swimming
-        if (inWater)
+        else if (!isGrounded && CanWallGrab() && lastOnWallTime < 0.01f)
         {
-            if (isGrounded)
-            {
-                animator.SetBool("Swimming", false);
-                animator.SetBool("Climbing", false);
-                animator.SetBool("Grabbing", false);
-                animator.SetBool("Falling", false);
-                animator.SetBool("Jumping", false);
-                animator.SetBool("DoubleJumping", false);
-                if (moveInput.x != 0)
-                {
-                    animator.SetBool("Running", true);
-                    animator.SetBool("Idling", false);
-                }
-                else
-                {
-                    animator.SetBool("Running", false);
-                    animator.SetBool("Idling", true);
-                }
-            }
-            else
-            {
-                animator.SetBool("Running", false);
-                animator.SetBool("Idling", false);
-                animator.SetBool("Swimming", true);
-                animator.SetBool("Climbing", false);
-                animator.SetBool("Grabbing", false);
-                animator.SetBool("Falling", false);
-                animator.SetBool("Jumping", false);
-                animator.SetBool("DoubleJumping", false);
-            }
+            state = MovementState.grabbing;
         }
+        else if (!isGrounded && CanWallSlide() && lastOnWallTime < 0.01f)
+        {
+            state = MovementState.grabbing;
+        }
+        
+        // water running/swimming
+        else if (moveInput.x > 0f && inWater && isGrounded)
+        {
+            state = MovementState.running;
+        }
+        else if (moveInput.x < 0f && inWater && isGrounded)
+        {
+            state = MovementState.running;
+        }
+        else if (moveInput.x > 0f && inWater && !isGrounded)
+        {
+            state = MovementState.swimming;
+        }
+        else if (moveInput.x < 0f && inWater && !isGrounded)
+        {
+            state = MovementState.swimming;
+        }
+        // non water running
+        else if (moveInput.x > 0f && !inWater && isGrounded && !isOnWall)
+        {
+            state = MovementState.running;
+        }
+        else if (moveInput.x < 0f && !inWater && isGrounded && !isOnWall)
+        {
+            state = MovementState.running;
+        }
+        /*else if (moveInput.x > 0f && isGrounded)
+        {
+            state = MovementState.running;
+        }
+        else if (moveInput.x < 0f && !isGrounded)
+        {
+            state = MovementState.running;
+        }*/
         else
         {
-            animator.SetBool("Swimming", false);
+            state = MovementState.idling;
         }
-        // grabbing and climbing
-        if (CanWallGrab() && !CanWallSlide() && !CanJump() && lastOnWallTime < 0.01f)
+
+        if (rb.velocity.y > 0.1f && doubleJumpPressed && !inWater)
         {
-            if (CanWallClimb())
-            {
-                animator.SetBool("Running", false);
-                animator.SetBool("Idling", false);
-                animator.SetBool("Climbing", true);
-                animator.SetBool("Grabbing", false);
-                animator.SetBool("Falling", false);
-                animator.SetBool("Jumping", false);
-                animator.SetBool("DoubleJumping", false);
-            }
-            else
-            {
-                animator.SetBool("Running", false);
-                animator.SetBool("Idling", false);
-                animator.SetBool("Climbing", false);
-                animator.SetBool("Grabbing", true);
-                animator.SetBool("Falling", false);
-                animator.SetBool("Jumping", false);
-                animator.SetBool("DoubleJumping", false);
-            }
+            state = MovementState.doubleJumping;
         }
-        // running
-        if (canMove && !isDead && isGrounded && moveInput.x != 0 && !isJumping)
+        else if (rb.velocity.y > 0.1f && !doubleJumpPressed && !inWater && lastOnWallTime > 0.1f)
         {
-            // animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
-            animator.SetBool("Running", true);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.jumping;
         }
-        // idling 
-        if (moveInput.x == 0 && !CanWallGrab() && !CanWallClimb() && !CanWallSlide() && !isJumping && isGrounded)
+        // jumping while on wall
+        else if (rb.velocity.y > 0.1f && !doubleJumpPressed && !inWater && lastOnWallTime < 0.1f && !CanWallClimb())
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", true);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.jumping;
         }
-        // jumping
-        if (isJumping && rb.velocity.y > 0.01f && !isGrounded && !isOnWall && lastOnWallTime > 0.01f)
+        else if (rb.velocity.y < 0.1f && !inWater && !isGrounded && lastOnWallTime > 0.1f)
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Jumping", true);
-            animator.SetBool("Falling", false);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.falling;
         }
-        // falling
-        if (!isJumping && rb.velocity.y < 0.01f && !isGrounded && !isOnWall && !CanWallSlide() && !isDead)
+        else if (rb.velocity.y < 0.1f && inWater && !isGrounded)
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", true);
-            animator.SetBool("DoubleJumping", false);
+            state = MovementState.swimming;
         }
-        // double jump
-        if (doubleJumpPressed && !isGrounded && !isOnWall)
+        else if (rb.velocity.y > 0.1f && inWater && !isGrounded)
         {
-            animator.SetBool("Running", false);
-            animator.SetBool("Idling", false);
-            animator.SetBool("Climbing", false);
-            animator.SetBool("Grabbing", false);
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("DoubleJumping", true);
+            state = MovementState.swimming;
         }
+
+        animator.SetInteger("movementState", (int)state);
     }
 
     // Data Persistence
@@ -662,13 +606,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         jumpBufferTimeCounter = 0f;
         isJumping = true;
 
-        animator.SetBool("Running", false);
+        /*animator.SetBool("Running", false);
         animator.SetBool("Idling", false);
         animator.SetBool("Climbing", false);
         animator.SetBool("Grabbing", false);
         animator.SetBool("Falling", false);
         animator.SetBool("Jumping", true);
-        animator.SetBool("DoubleJumping", false);
+        animator.SetBool("DoubleJumping", false);*/
     }
     private void StickToWall()
     {
@@ -754,6 +698,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 doubleJumpPressed = false;
             }
+            if (isOnWall)
+            {
+                doubleJumpPressed = false;
+            }
         }
 
         if (isGrounded && !canDoubleJump)
@@ -812,6 +760,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             canDash = false;
             if (isGrounded)
+            {
+                dashPressed = false;
+            }
+            if (isOnWall)
             {
                 dashPressed = false;
             }
@@ -1069,6 +1021,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     public void SetSpeedToZero()
     {
+        animator.SetTrigger("Dying");
         runMaxSpeed = 0f;
         rb.velocity = new Vector2(0f, 0f);
         moveInput = new Vector2(0f, 0f);
@@ -1090,6 +1043,22 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         runMaxSpeed = defaultMoveSpeed;
         rb.velocity = new Vector2(0f, 0f);
         moveInput = new Vector2(0f, 0f);
+    }
+
+    public void SetAnimationToDefault()
+    {
+        Debug.Log("SetAnimationToDefault");
+        animator.SetTrigger("Respawning");
+        isDead = false;
+        /*animator.SetBool("Running", false);
+        animator.SetBool("Idling", true);
+        animator.SetBool("Climbing", false);
+        animator.SetBool("Grabbing", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Jumping", true);
+        animator.SetBool("DoubleJumping", false);
+        animator.SetBool("Death", false);
+        animator.SetBool("Swimming", false);*/
     }
     public void SetGravityScale(float scale)
     {
