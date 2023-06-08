@@ -1080,7 +1080,7 @@ Animator:
   m_GameObject: {fileID: 6879225082526631198}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0ac0bdb428cfe85429c5f322c92ffd4e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 892bfa791e1768f47adbf79d67a273a8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1298,8 +1298,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentBoundary: 
-  _respawnTimer: 2
-  _animationTimer: 1
 --- !u!114 &5823391952333047977
 MonoBehaviour:
   m_ObjectHideFlags: 0
