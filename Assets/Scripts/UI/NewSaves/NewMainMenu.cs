@@ -10,11 +10,13 @@ public class NewMainMenu : MonoBehaviour
     [Header("Menu Navigation")]
     [SerializeField] private NewSaveSlotsMenu saveSlotsMenu;
     [SerializeField] private OptionsMenu optionsMenu;
+    [SerializeField] private MapMenu mapMenu;
 
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button loadGameButton;
     [SerializeField] private Button optionsButton;
+    [SerializeField] private Button mapButton;
 
     private void Start()
     {
@@ -47,6 +49,12 @@ public class NewMainMenu : MonoBehaviour
         this.DeactivateMenu();
     }
 
+    public void OnMapClicked()
+    {
+        mapMenu.ActivateMenu();
+        this.DeactivateMenu();
+
+    }
     public void PlayButtonClicked()
     {
         AudioManager.instance.PlayButtonClick();
