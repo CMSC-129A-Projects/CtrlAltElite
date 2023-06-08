@@ -43,6 +43,7 @@ public class PlayerDeath : MonoBehaviour
             currentBoundary = collision.gameObject.name;
             if (collision.gameObject.transform.childCount > 0)
             {
+                Debug.Log($"Saves {collision.gameObject.name}");
                 currentRespawn = collision.transform.GetChild(0).gameObject;
                 NewDataPersistenceManager.instance.SaveGame();
             }
