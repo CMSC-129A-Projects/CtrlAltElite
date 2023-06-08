@@ -790,7 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmClips:
   - {fileID: 8300000, guid: 0ad591428b0c18c4da51fe3bf98dbc63, type: 3}
-  - {fileID: 8300000, guid: 19a5c8ee62007744a80d54e28fb66293, type: 3}
+  - {fileID: 8300000, guid: 85544dfe79f18a14bbc8ee2d230abd55, type: 3}
   - {fileID: 8300000, guid: e4539162b254a954f9f8bbae41318102, type: 3}
   - {fileID: 8300000, guid: 0ba8247a977d40f46a04de3c45f1aeeb, type: 3}
   - {fileID: 8300000, guid: f14269b47009404478dff262e0778297, type: 3}
