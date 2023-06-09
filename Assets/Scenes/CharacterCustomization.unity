@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0
+      value: jump master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1980512237}
   npcImage: {fileID: 1980512238}
   dialogue:
-  - The Lechon here allows for you to INCREASE your MOVEMENT SPEED.
+  - The Pintos here allows for you to INCREASE your MOVEMENT SPEED.
   - After picking up this power-up, your movement speed will increase for a few seconds.
   - Near the end of the power-up's duration, you will start to slow down and eventually,
     return to your original movement speed.
@@ -1732,7 +1732,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (4)
+      value: lechon master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -2011,7 +2011,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (1)
+      value: death master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -2734,6 +2734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interact Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8328597812275001051, guid: 8c78847d789c07d44a9d718d7fe46d4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c78847d789c07d44a9d718d7fe46d4c, type: 3}
 --- !u!1 &529684688
@@ -3025,7 +3029,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (5)
+      value: pintos master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -4598,7 +4602,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (2)
+      value: wall master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -10702,7 +10706,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (3)
+      value: siomai master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -11490,7 +11494,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6013052793871878984, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_Name
-      value: master_0 (6)
+      value: torta master
       objectReference: {fileID: 0}
     - target: {fileID: 6013052793871878991, guid: 1b1804d9e82992e44a9f5ed0289a1bf9, type: 3}
       propertyPath: m_RootOrder
@@ -13840,6 +13844,7 @@ MonoBehaviour:
     while grabbing on to a wall.
   - Running towards a wall while falling allows for wall sliding, which significantly
     reduces your falling speed.
+  - You can also jump while grabbing or climbing.
   - There is a catch to all of this, however.
   - Grabbing or climbing requires stamina. So if you run out of stamina, you won't
     be able to perform these actions.
