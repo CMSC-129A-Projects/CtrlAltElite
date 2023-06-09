@@ -11,6 +11,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Slider staminaWheel;
     [SerializeField] private Slider usageWheel;
+    [SerializeField] private Slider jumpBoostBuff;
+    [SerializeField] private Slider speedBoostBuff;
+    [SerializeField] private Slider doubleJumpBuff;
+    [SerializeField] private Slider dashBuff;
+
+    [SerializeField] private List<Slider> sliders;
+
     private BodySpriteSetter bodySpriteSetter;
     public Rigidbody2D rb;
     private Collision coll;
@@ -158,6 +165,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         maxFallTimer = 0;
         jumpBoostTimer = 0;
         moveSpeedTimer = 0;
+        DeactivateAllSliders();
 
         SetGravityScale(gravityScale);
         GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
@@ -344,6 +352,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         }
 
         UpdateStamina();
+        UpdatePowerUpBuffSlider();
     }
 
     private void UpdateStamina()
@@ -617,6 +626,61 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region POWERUPS
+
+    public void ActivatePowerUpBuff(int powerUp)
+    {
+        switch (powerUp)
+        {
+            case 0:
+                jumpBoostBuff.gameObject.SetActive(true);
+                break;
+            case 1:
+                speedBoostBuff.gameObject.SetActive(true);
+                break;
+            case 2:
+                doubleJumpBuff.gameObject.SetActive(true);
+                break;
+            case 3:
+                dashBuff.gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    private void DeactivatePowerUpBuff(int powerUp)
+    {
+        switch (powerUp)
+        {
+            case 0:
+                jumpBoostBuff.gameObject.SetActive(false);
+                break;
+            case 1:
+                speedBoostBuff.gameObject.SetActive(false);
+                break;
+            case 2:
+                doubleJumpBuff.gameObject.SetActive(false);
+                break;
+            case 3:
+                dashBuff.gameObject.SetActive(false);
+                break;
+        }
+    }
+    private void UpdatePowerUpBuffSlider()
+    {
+        
+        if (isJumpBoost)
+        {
+            float sliderValue = 1f - (jumpBoostTimer / jumpBoostTimerCap);
+            sliderValue = Mathf.Clamp01(sliderValue); // Ensure the slider value is within 0-1 range
+            jumpBoostBuff.value = sliderValue;
+        }
+
+        if (isMoveSpeed)
+        {
+            float sliderValue = 1f - (moveSpeedTimer / moveSpeedTimerCap);
+            sliderValue = Mathf.Clamp01(sliderValue); // Ensure the slider value is within 0-1 range
+            speedBoostBuff.value = sliderValue;
+        }
+    }
     private void UpdatePowerUps()
     {
         #region MOVESPEED
@@ -638,6 +702,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 moveSpeedTimer = 0f;
                 moveSpeedInit = false;
                 isMoveSpeed = false;
+                DeactivatePowerUpBuff(1);
             }
         }
         #endregion
@@ -670,6 +735,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 canDoubleJump = false;
             }
         }
+        else
+        {
+            DeactivatePowerUpBuff(2);
+        }
         if (doubleJumpPressed && !isGrounded)
         {
             canDoubleJump = false;
@@ -699,6 +768,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 jumpPower = defaultJumpPower;
                 jumpBoostTimer = 0f;
                 isJumpBoost = false;
+                DeactivatePowerUpBuff(0);
             }
         }
         #endregion
@@ -734,6 +804,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 canDash = false;
             }
+        }
+        else
+        {
+            DeactivatePowerUpBuff(3);
         }
         if (dashPressed && !isGrounded)
         {
@@ -994,7 +1068,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region GENERAL METHODS
-
+    private void DeactivateAllSliders()
+    {
+        foreach (Slider slider in sliders)
+        {
+            slider.gameObject.SetActive(false);
+        }
+    }
     public void SetStaminaToMax()
     {
         stamina = staminaMax;

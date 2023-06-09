@@ -1212,6 +1212,17 @@ MonoBehaviour:
     m_Bits: 64
   staminaWheel: {fileID: 7511365521343200011}
   usageWheel: {fileID: 3192498398720783190}
+  jumpBoostBuff: {fileID: 0}
+  speedBoostBuff: {fileID: 0}
+  doubleJumpBuff: {fileID: 0}
+  dashBuff: {fileID: 0}
+  sliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3192498398720783190}
+  - {fileID: 7511365521343200011}
   rb: {fileID: 1920596783035851019}
   death: {fileID: 9083527940525595213}
   animator: {fileID: 6879225082526631196}

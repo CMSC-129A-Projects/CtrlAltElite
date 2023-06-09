@@ -11,31 +11,35 @@ public class ItemCollector : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement = FindObjectOfType<SugboMovement>();
+        playerMovement = GetComponent<SugboMovement>();
     }
 
     private int respawnItemTimer = 4;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            playerMovement.ActivatePowerUpBuff(0);
+            playerMovement.isJumpBoost = true;
+            RespawnItem(collision);
+        }
         if (collision.gameObject.CompareTag("MoveSpeed"))
         {
+            playerMovement.ActivatePowerUpBuff(1);
             playerMovement.isMoveSpeed = true;
             RespawnItem(collision);   
         }
         if(collision.gameObject.CompareTag("DoubleJump"))
         {
+            playerMovement.ActivatePowerUpBuff(2);
             playerMovement.canDoubleJump = true;
             playerMovement.doubleJumpPressed = false;
             RespawnItem(collision);          
-        }
-        if (collision.gameObject.CompareTag("JumpBoost"))
-        {
-            playerMovement.isJumpBoost = true;
-            RespawnItem(collision);
-        }
+        } 
         if (collision.gameObject.CompareTag("Dash"))
         {
+            playerMovement.ActivatePowerUpBuff(3);
             playerMovement.canDash = true;
             playerMovement.dashPressed = false;
             RespawnItem(collision);
