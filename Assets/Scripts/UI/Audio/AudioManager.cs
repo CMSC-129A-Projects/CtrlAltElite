@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioSource> jumps;
     [SerializeField] private AudioSource pickup;
     [SerializeField] private AudioSource death;
+    [SerializeField] private AudioSource dash;
+    [SerializeField] private AudioSource medal;
+    [SerializeField] private AudioSource spring;
 
     [SerializeField] private List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -128,5 +131,20 @@ public class AudioManager : MonoBehaviour
     public void PlayDeath()
     {
         death.Play();
+    }
+
+    public void PlayDash()
+    {
+        dash.Play();
+    }
+
+    public void PlayMedal()
+    {
+        medal.Play();
+    }
+
+    public void PlaySpring()
+    {
+        spring.Play();
     }
 }

@@ -770,6 +770,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void PerformDash()
     {
+        AudioManager.instance.PlayDash();
         dashPressed = true;
         canDash = false;
         isDashing = true;

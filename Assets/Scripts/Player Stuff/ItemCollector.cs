@@ -43,6 +43,7 @@ public class ItemCollector : MonoBehaviour
 
         if (collision.gameObject.CompareTag("MedalPiece"))
         {
+            AudioManager.instance.PlayMedal();
             collision.gameObject.SetActive(false);
             NewDataPersistenceManager.instance.gameData.medalsCollected += 1;
             achievementText.SetActive(true);
@@ -55,7 +56,7 @@ public class ItemCollector : MonoBehaviour
 
         if (collision.gameObject.CompareTag("StartGame"))
         {
-            AudioManager.instance.PlayPickup();
+            AudioManager.instance.PlayMedal();
             CharacterCreationMenu ccMenu = FindObjectOfType<CharacterCreationMenu>(true);
             ccMenu.StartGame();
         }
