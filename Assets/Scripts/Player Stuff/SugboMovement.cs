@@ -179,7 +179,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-
         UpdateAnimation();
         if (isDead) return;
 
