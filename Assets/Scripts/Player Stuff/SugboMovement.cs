@@ -903,19 +903,27 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     {
         return jumpBufferTimeCounter > 0f && inWater;
     }
-    private bool CanWallSlide()
+    /*private bool CanWallSlide()
     {
         return isOnWall && (stamina != staminaMin) && !isGrounded && !Input.GetKeyDown(KeyCode.LeftShift) && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
+    }*/
+
+    private bool CanWallSlide()
+    {
+        return isOnWall && (stamina != staminaMin) && !isGrounded && 
+            !Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift) 
+            && rb.velocity.y < 0f && ((moveInput.x > 0 && isFacingRight) || (moveInput.x < 0 && !isFacingRight));
     }
+
 
     private bool CanWallGrab()
     {
-        return isOnWall && (stamina != staminaMin) && Input.GetKey(KeyCode.LeftShift);
+        return isOnWall && (stamina != staminaMin) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
     }
 
     private bool CanWallClimb()
     {
-        return isOnWall && (stamina != staminaMin) && Input.GetKey(KeyCode.LeftShift) && moveInput.y != 0;
+        return isOnWall && (stamina != staminaMin) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && moveInput.y != 0;
     }
 
     #endregion
