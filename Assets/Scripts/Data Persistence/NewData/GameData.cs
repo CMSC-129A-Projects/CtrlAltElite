@@ -6,9 +6,6 @@ using UnityEngine;
 public class GameData 
 {
     public long lastUpdated;
-    public float defaultMoveSpeed;
-    public float defaultJumpPower;
-    public float staminaMax;
     public Vector2 respawnPoint;
     public Vector2 position;
     public string name;

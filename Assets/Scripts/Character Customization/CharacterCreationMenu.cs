@@ -41,11 +41,17 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
     public void StartGame()
     {
+        Debug.Log("Starting Game");
         RandomizeForeigner();
         NewDataPersistenceManager.instance.SaveGame();
         SceneManager.LoadSceneAsync("City 1");
         //SceneManager.LoadSceneAsync("SaveTest");
         // SceneManager.LoadSceneAsync("NewIntroScene");
+    }
+
+    public void Hello()
+    {
+        Debug.Log("Hello");
     }
 
     public void OnBackClicked()
@@ -67,8 +73,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
 
         NewDataPersistenceManager.instance.gameData.FheadIndex = _foreigner_list[0];
         NewDataPersistenceManager.instance.gameData.FbodyIndex = _foreigner_list[1];
-        NewDataPersistenceManager.instance.gameData.FarmIndex = _foreigner_list[3];
-        NewDataPersistenceManager.instance.gameData.FlegIndex = _foreigner_list[5];
+        NewDataPersistenceManager.instance.gameData.FarmIndex = _foreigner_list[2];
+        NewDataPersistenceManager.instance.gameData.FlegIndex = _foreigner_list[3];
 
         int _nameIndex = Random.Range(0, randomNames.Count);
         NewDataPersistenceManager.instance.gameData.Fname = randomNames[_nameIndex];
@@ -83,19 +89,19 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         outfitChangers[1].CurrentOption = data.bodyIndex;
         outfitChangers[1].bodyPart.sprite = outfitChangers[1].options[data.bodyIndex];
 
-        outfitChangers[3].CurrentOption = data.armIndex;
-        outfitChangers[3].bodyPart.sprite = outfitChangers[3].options[data.armIndex];
+        outfitChangers[2].CurrentOption = data.armIndex;
+        outfitChangers[2].bodyPart.sprite = outfitChangers[2].options[data.armIndex];
 
-        outfitChangers[4].CurrentOption = data.legIndex;
-        outfitChangers[4].bodyPart.sprite = outfitChangers[4].options[data.legIndex];
+        outfitChangers[3].CurrentOption = data.legIndex;
+        outfitChangers[3].bodyPart.sprite = outfitChangers[3].options[data.legIndex];
     }
 
     public void SaveData(GameData data)
     {
         data.headIndex = outfitChangers[0].CurrentOption;
         data.bodyIndex = outfitChangers[1].CurrentOption;
-        data.armIndex = outfitChangers[3].CurrentOption;
-        data.legIndex = outfitChangers[4].CurrentOption;
+        data.armIndex = outfitChangers[2].CurrentOption;
+        data.legIndex = outfitChangers[3].CurrentOption;
         data.name = inputField.text;
     }
     #endregion

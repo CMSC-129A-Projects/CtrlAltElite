@@ -25,6 +25,7 @@ TagManager:
   - LightBoundary
   - Foreigner
   - TempSave
+  - StartGame
   layers:
   - Default
   - TransparentFX
