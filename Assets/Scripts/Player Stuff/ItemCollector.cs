@@ -52,6 +52,24 @@ public class ItemCollector : MonoBehaviour
             
             StartCoroutine(DisableAchievementText());
         }
+
+        if (collision.gameObject.CompareTag("StartGame"))
+        {
+            AudioManager.instance.PlayPickup();
+            CharacterCreationMenu ccMenu = FindObjectOfType<CharacterCreationMenu>(true);
+            ccMenu.StartGame();
+        }
+    }
+
+    IEnumerator SwitchToNextScene(float time)
+    {
+        Debug.Log("Switching to next city...");
+        yield return new WaitForSeconds(time);
+        int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
+        NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
+        NewDataPersistenceManager.instance.IncrementSceneIndex();
+
+        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
     }
 
     IEnumerator DisableAchievementText()
@@ -59,13 +77,7 @@ public class ItemCollector : MonoBehaviour
         Debug.Log("Switching to next city...");
         yield return new WaitForSeconds(3);
         achievementText.SetActive(false);
-        // NewDataPersistenceManager.instance.SaveGame();
-        // NewDataPersistenceManager.instance.gameData.newGame = true;
-        int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
-        NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
-        NewDataPersistenceManager.instance.IncrementSceneIndex();
-        
-        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
+        StartCoroutine(SwitchToNextScene(0));
     }
 
     #region RESPAWN ITEM

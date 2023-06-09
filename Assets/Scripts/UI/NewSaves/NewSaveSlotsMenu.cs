@@ -94,7 +94,7 @@ public class NewSaveSlotsMenu : MonoBehaviour
     public void OnClearClicked(NewSaveSlot saveSlot)
     {
         DisableMenuButtons();
-
+        this.DeactivateMenu();
         confirmationPopupMenu.ActivateMenu(
             "Are you sure you want to delete this saved data?",
             // function to execute if we select 'yes'
