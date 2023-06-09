@@ -96,47 +96,43 @@ public class NPC : MonoBehaviour
             RemoveText();
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Vector2 playerPosition = collision.transform.position;
-            animator.SetTrigger("facePlayer");
-
-            // Compare the position with the NPC's position
-            if (playerPosition.x < transform.position.x)
-            {
-                // Colliding from the left
-                Debug.Log("Colliding from the left");
-                transform.localScale = new Vector3(1, 1, 1);
-                popUp.transform.localScale = new Vector3(1, 1, 1);
-            }
-            else if (playerPosition.x > transform.position.x)
-            {
-                // Colliding from the right
-                Debug.Log("Colliding from the right");
-                transform.localScale = new Vector3(-1, 1, 1);
-                popUp.transform.localScale = new Vector3(-1, 1, 1);
-            }
-        }
-    }
-
+    
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isTyping)
         {
+            // face player while NPC is talking
+            FaceNPC(other);
             popUp.SetActive(true);
             playerIsClose = true;
-
         }
-
-        if (other.CompareTag("Player") && isTyping)
+        else
         {
             popUp.SetActive(false);
             playerIsClose = true;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // initially face the NPC wherever the player is
+            FaceNPC(other);
+            animator.SetTrigger("facePlayer");
+        }
+    }
+
+    private void FaceNPC(Collider2D other)
+    {
+        Vector2 playerPosition = other.transform.position;
+
+        // Compare the position with the NPC's position
+        int npcFlip = (playerPosition.x < transform.position.x) ? 1 : -1;
+        int popUpFlip = (playerPosition.x < popUp.transform.position.x) ? 1 : -1;
+
+        transform.localScale = new Vector3(npcFlip, 1, 1);
+        popUp.transform.localScale = new Vector3(popUpFlip, 1, 1);
     }
 
     private void OnTriggerExit2D(Collider2D other)
