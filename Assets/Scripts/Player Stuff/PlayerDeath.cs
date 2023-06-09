@@ -16,27 +16,6 @@ public class PlayerDeath : MonoBehaviour
         player = GetComponent<SugboMovement>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        /*if (collision.gameObject.CompareTag("Boundary"))
-        {
-            currentBoundary = collision.gameObject.name;
-            if (collision.gameObject.transform.childCount > 0)
-            {
-                currentRespawn = collision.transform.GetChild(0).gameObject;
-                NewDataPersistenceManager.instance.SaveGame();
-            }
-        }
-
-        if (collision.gameObject.CompareTag("TempSave"))
-        {
-            currentBoundary = collision.gameObject.name;
-            if (collision.gameObject.transform.childCount > 0)
-            {
-                StartCoroutine(RefreshCurrentRespawn(collision));
-            }
-        }*/
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Boundary"))
