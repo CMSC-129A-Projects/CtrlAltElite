@@ -20,12 +20,14 @@ public class NPC : MonoBehaviour
     public GameObject popUp;
 
     public TextMeshProUGUI interactText;
-
     private Coroutine typingCoroutine;
+
+    private Animator animator;
 
     void Start()
     {
         dialogueText.text = "";
+        animator = GetComponent<Animator>();
         //interactText.text = "";
     }
 
@@ -95,6 +97,31 @@ public class NPC : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Vector2 playerPosition = collision.transform.position;
+            animator.SetTrigger("facePlayer");
+
+            // Compare the position with the NPC's position
+            if (playerPosition.x < transform.position.x)
+            {
+                // Colliding from the left
+                Debug.Log("Colliding from the left");
+                transform.localScale = new Vector3(1, 1, 1);
+                popUp.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (playerPosition.x > transform.position.x)
+            {
+                // Colliding from the right
+                Debug.Log("Colliding from the right");
+                transform.localScale = new Vector3(-1, 1, 1);
+                popUp.transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isTyping)
@@ -124,7 +151,8 @@ public class NPC : MonoBehaviour
                 StopCoroutine(typingCoroutine);
             }
             RemoveText();
-
+            animator.SetTrigger("idle");
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 

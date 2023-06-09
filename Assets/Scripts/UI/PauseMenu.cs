@@ -54,6 +54,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("TestMenuSave");
     }
 
+    public void MainMenuOnCC()
+    {
+        NewDataPersistenceManager.instance.DeleteSelectedProfileId();
+        SceneManager.LoadScene("TestMenuSave");
+    }
+
     public void OptionsButton()
     {
         PauseMenuCanvas.SetActive(false);

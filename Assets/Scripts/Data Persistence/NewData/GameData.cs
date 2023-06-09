@@ -51,15 +51,13 @@ public class GameData
 
         this.sceneIndex = 0;
         this.previousSceneIndex = 0;
-        
-        this.volumePreference = 1f;
-        this.qualityIndex = 0;
-        this.isFullScreen = false;
+
         this.newGame = true;
         this.medalsCollected = 0;
         this.totalMedals = 5;
 
-        this.position = new Vector2(-87, -15);
+        // this.position = new Vector2(-87, -15);
+        // this.position = new Vector2(-94, -11);
 
     }
 
