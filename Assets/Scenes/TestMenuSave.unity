@@ -411,8 +411,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: -215}
-  m_SizeDelta: {x: 301.282, y: 86.081}
+  m_AnchoredPosition: {x: 0.00011063, y: -210}
+  m_SizeDelta: {x: 188.45, y: 82.837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211580890
 MonoBehaviour:
@@ -919,7 +919,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1597,7 +1597,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2812,11 +2812,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: TuburanFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 1069543215858141465, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'Tuburan lore goes here
+      value: 'Tuburan
+
+
+        In the verdant realm of Sugbo, where nature''s wonders
+        flourish, lies the idyllic municipality of Tuburan. Here, crystal-clear springs
+        weave a tapestry of liquid diamonds, and pristine beaches invite weary souls
+        to find solace upon their sandy shores. Venture deeper into Tuburan''s embrace
+        to discover hidden rivers and mysterious caves, secret realms that stir the
+        imagination and beckon the intrepid traveler. Yet Tuburan''s allure extends
+        beyond nature''s canvas. For within its heart beats the spirit of a revolutionary
+        leader, Arcadio Maxilom, whose heroic tales echo through the annals of history.
+        Join in the jubilant Tubod Festival, honoring the patron saint, Saint Anthony
+        of Padua, as lively festivities enliven the streets. With its blend of captivating
+        landscapes and stories of valor, Tuburan stands as a gateway to adventure
+        and timeless tales.
+
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4254337248433092877, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_Pivot.x
@@ -2902,6 +2957,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 189.502
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 228
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 654.094
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 806.942
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -277.046
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -93.163
+      objectReference: {fileID: 0}
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -219
@@ -2914,6 +2997,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3cb21c7f19bfd624d9858f37dc2b4124, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4295f4b2523cbe469bfc93975e88be2, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
 --- !u!1 &997674484
@@ -3449,11 +3540,59 @@ PrefabInstance:
       propertyPath: m_Name
       value: DalagueteFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 1069543215858141465, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'Dalaguete lore goes here
-
-'
+      value: "Dalaguete\n\nAmidst the rolling landscapes of Sugbo, where the sun's
+        gentle caress kisses the earth, lies the town of Dalaguete, a cherished jewel
+        known as the \"Summer Capital of Cebu.\" Here, weary souls seek refuge from
+        the sweltering heat that blankets the lowlands. Tranquil beaches, graced
+        by gentle waves, beckon adventurers eager to dive into aquatic realms and
+        explore hidden treasures. Towering above, Osme\xF1a Peak, the lofty zenith
+        of Cebu, unveils breathtaking panoramas that inspire dreams and awaken the
+        spirit of wanderlust. Each year, the Utanon Festival paints the streets with
+        vibrant hues, celebrating bountiful harvests and joyous revelry. In this
+        land where natural splendor intertwines with cultural heritage, Dalaguete
+        weaves tales of beauty, adventure, and cherished memories.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4254337248433092877, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_Pivot.x
@@ -3539,6 +3678,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5729264
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 165.839
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 125.659
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 299
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 364
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 636.083
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 807.494
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 284.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 37.77
+      objectReference: {fileID: 0}
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 273
@@ -3551,6 +3726,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: dde8d380ab7d7014d9516dded0a2cf20, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4295f4b2523cbe469bfc93975e88be2, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
 --- !u!1 &1248081149
@@ -3584,7 +3767,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3640,11 +3823,60 @@ PrefabInstance:
       propertyPath: m_Name
       value: CebuCityFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 1069543215858141465, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'Cebu city lore goes here
-
-'
+      value: "CEBU CITY\n\nAs the sun casts its golden rays upon the enchanting realm
+        of Sugbo, a majestic city emerges from the tapestry of time: Cebu City, the
+        proud \"Queen City of the South.\" Steeped in the rich tapestry of Spanish
+        colonial heritage, it stands as a living testament to a bygone era. Within
+        its boundaries, treasures abound, from the revered Magellan's Cross, symbolizing
+        the dawn of Christianity, to the Basilica Minore del Santo Ni\xF1o, cradling
+        the oldest relic in all the land, the Santo Ni\xF1o de Ceb\xFA. Vibrant festivals
+        adorn its streets, none more resplendent than the Sinulog Festival, a grand
+        spectacle of dance and devotion, paying homage to the Santo Ni\xF1o. Explore
+        the pages of history, where Cebu City and its spirited festivals dance hand
+        in hand, inviting travelers to partake in an extraordinary journey through
+        time."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4254337248433092877, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_Pivot.x
@@ -3730,6 +3962,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 183.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 278
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 640.809
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 810.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -319.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -43
+      objectReference: {fileID: 0}
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -199
@@ -3742,6 +4002,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 786e2b775d9f10b468e919d4fb66b0e9, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4295f4b2523cbe469bfc93975e88be2, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
 --- !u!1001 &1280527419
@@ -3991,7 +4259,7 @@ RectTransform:
   m_Children:
   - {fileID: 867230325}
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4134,7 +4402,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1689519264}
-  - {fileID: 1344532398}
   - {fileID: 371914362}
   - {fileID: 1285339303}
   - {fileID: 582030087}
@@ -4163,82 +4430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1202893665}
   backButton: {fileID: 1285339304}
---- !u!1 &1344532397
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1344532398}
-  - component: {fileID: 1344532400}
-  - component: {fileID: 1344532399}
-  m_Layer: 0
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1344532398
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344532397}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1304746280}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.91391, y: 74.148926}
-  m_SizeDelta: {x: 1263.427, y: 349.063}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1344532399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344532397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d99709083bf470c4cab4ac06426f0f4c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1344532400
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344532397}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1351996667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4336,7 +4527,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4537,7 +4728,7 @@ RectTransform:
   - {fileID: 889328105}
   - {fileID: 1181198997}
   m_Father: {fileID: 1304746280}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5126,11 +5317,65 @@ PrefabInstance:
       propertyPath: m_Name
       value: BantayanFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 1069543215858141465, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'Bantayan lore goes here
+      value: 'Bantayan
+
+
+        Far in the northern reaches of Sugbo, where the
+        sea embraces the sky in a celestial embrace, lies the hidden gem of Bantayan
+        Island. Whispers of the past adorn its shores, tales of watchtowers built
+        in days of old to repel fearsome Moro pirates. The island''s very essence
+        exudes tranquility and breathtaking beauty, an oasis for wanderers seeking
+        respite from the chaos of the world. Azure waters caress pristine beaches,
+        inviting visitors to indulge in blissful moments of serenity. Embark on an
+        enchanting voyage, diving into depths unknown, cliff-jumping into the unknown
+        abyss, or traversing emerald isles on a whimsical journey. From the heavens
+        above, brave souls take flight, skydiving to feel the embrace of freedom
+        itself. Bantayan Island, a haven of awe-inspiring landscapes and untold tales,
+        awaits those who dare to embrace its magical embrace.
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4254337248433092877, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_Pivot.x
@@ -5216,6 +5461,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 195.499
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 216.029
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 636.542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 843.378
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 195
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -230
+      objectReference: {fileID: 0}
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 223
@@ -5228,6 +5501,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ce5922bbbb2b8d640b5e4e8b2c97ce20, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4295f4b2523cbe469bfc93975e88be2, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
 --- !u!1 &1953138588
@@ -6330,7 +6611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1510613546625679077, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -7.0230713
+      value: -7.0231323
       objectReference: {fileID: 0}
     - target: {fileID: 1510613546878188579, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_Type
@@ -6634,11 +6915,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: OslobFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 782317082523971408, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069543215858141465, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'Oslob lore goes here
+      value: 'OSLOB
+
+
+        In the southern corner of the enchanted land of Sugbo,
+        nestled along the glistening coastline, lies the humble town of Oslob. Tales
+        of its fame have traveled far and wide, reaching the ears of adventurers
+        yearning for extraordinary encounters. Whispers of gentle giants known as
+        whale sharks, graceful creatures adorned with the names "butanding" and "tuki,"
+        beckon travelers from distant shores. But Oslob''s allure extends beyond
+        the sea''s embrace. Venture deeper into its heart to discover the ethereal
+        Tumalog Falls, where cascading waters create a symphony that echoes through
+        a lush forest. Stand atop the ancient Baluarte, a watchtower born of Spanish
+        ingenuity, and witness panoramic vistas that stir the soul. Oslob, a haven
+        of marine wonders, natural beauty, and cultural heritage, awaits those who
+        seek an unforgettable tale to etch into their hearts.
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4254337248433092877, guid: a9b99bb66cc2e2f4b8f26bac085b5bf0, type: 2}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_Pivot.x
@@ -6724,6 +7063,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 184.165
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 277
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282481692495919404, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 369
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 665.118
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 810.021
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 254
+      objectReference: {fileID: 0}
+    - target: {fileID: 3537030181669805915, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 352
@@ -6731,6 +7098,18 @@ PrefabInstance:
     - target: {fileID: 4750304049289864311, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 187
+      objectReference: {fileID: 0}
+    - target: {fileID: 5555915597263726167, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4295f4b2523cbe469bfc93975e88be2, type: 3}
+    - target: {fileID: 8449223806449765629, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
