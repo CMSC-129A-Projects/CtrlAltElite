@@ -23,9 +23,6 @@ public class GameData
     public int sceneIndex;
     public int previousSceneIndex;
     
-    public float volumePreference;
-    public int qualityIndex;
-    public bool isFullScreen;
     public bool newGame;
     public int medalsCollected;
     public int totalMedals;
