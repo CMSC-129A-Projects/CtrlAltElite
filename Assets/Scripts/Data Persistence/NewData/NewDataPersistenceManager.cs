@@ -22,15 +22,12 @@ public class NewDataPersistenceManager : MonoBehaviour
     [SerializeField] private float autoSaveTimeSeconds = 60f;
     [SerializeField] private float autoSaveTimeAnimationSeconds = 1f;
     [SerializeField] private float autoSaveTimeAnimationFadeSeconds = 1f;
+    [SerializeField] private Canvas saveLoadCanvas;
     private float _timer = 0f;
-    [SerializeField] private GameObject autoSaveCanvasObject;
-    [SerializeField] private Image saveLoadGUI;
-    [SerializeField] private Image saveLoadAnimation;
+    private CanvasGroup canvasGroup;
     private bool fadeOutAnimation = false;
     private bool fadeInAnimation = false;
-    private Color imageColor;
-    
- 
+
     public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private NewFileDataHandler dataHandler;
@@ -58,6 +55,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         }
 
         this.dataHandler = new NewFileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        canvasGroup = saveLoadCanvas.GetComponent<CanvasGroup>();
         InitializeSelectedProfileId();
         InitializeSaveLoadGUI();
     }
@@ -181,7 +179,6 @@ public class NewDataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData, selectedProfileId);
     }
 
-    
     public void SaveGame()
     {
         // return right away if data persistence is disabled
@@ -225,16 +222,12 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void InitializeSaveLoadGUI()
     {
-        imageColor = saveLoadGUI.color;
-        imageColor.a = 0f;
-        saveLoadGUI.color = imageColor;
-        saveLoadAnimation.color = imageColor;
-        autoSaveCanvasObject.SetActive(false);
+        saveLoadCanvas.gameObject.SetActive(false);
     }
     private IEnumerator PlaySaveAnimation()
     {
         yield return null;
-        autoSaveCanvasObject.SetActive(true);
+        saveLoadCanvas.gameObject.SetActive(true);
         fadeInAnimation = true;
         fadeOutAnimation = false;
         yield return new WaitForSeconds(autoSaveTimeAnimationSeconds);
@@ -243,19 +236,14 @@ public class NewDataPersistenceManager : MonoBehaviour
     }
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartSaveAnimation();
-        }*/
+
         if (fadeInAnimation)
         {
             _timer += Time.deltaTime;
             // Calculate the normalized progress of the animation
             float progress = _timer / (autoSaveTimeAnimationSeconds / 2);
-            // Increase the image's color alpha based on the progress
-            imageColor.a = progress;
-            saveLoadGUI.color = imageColor;
-            saveLoadAnimation.color = imageColor;
+            // Increase the canvas group's alpha based on the progress
+            canvasGroup.alpha = progress;
 
             if (_timer >= autoSaveTimeAnimationFadeSeconds)
             {
@@ -271,17 +259,14 @@ public class NewDataPersistenceManager : MonoBehaviour
             // Calculate the normalized progress of the animation
             float progress = _timer / autoSaveTimeAnimationFadeSeconds;
 
-            // Reduce the image's color alpha based on the progress
-            imageColor.a = 1f - progress;
-            saveLoadGUI.color = imageColor;
-            saveLoadAnimation.color = imageColor;
+            // Reduce the canvas group's alpha based on the progress
+            canvasGroup.alpha = 1f - progress;
 
             if (_timer >= autoSaveTimeAnimationFadeSeconds)
             {
                 _timer = 0f;
                 fadeOutAnimation = false;
-
-                autoSaveCanvasObject.SetActive(false);
+                saveLoadCanvas.gameObject.SetActive(false);
             }
         }
     }

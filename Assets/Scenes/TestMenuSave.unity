@@ -3148,10 +3148,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: saveLoadGUI
-      value: 
-      objectReference: {fileID: 1875632242}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: autoSaveAnim
       value: 
       objectReference: {fileID: 1120913463}
@@ -3159,25 +3155,9 @@ PrefabInstance:
       propertyPath: autoSaveObject
       value: 
       objectReference: {fileID: 1739399263}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: saveLoadAnimation
-      value: 
-      objectReference: {fileID: 1120913463}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: autoSaveCanvasObject
-      value: 
-      objectReference: {fileID: 1739399263}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: initializeDataIfNull
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: autoSaveTimeAnimationSeconds
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-      propertyPath: autoSaveTimeAnimationFadeSeconds
-      value: 0.5
+    - target: {fileID: 6164205801257446654, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7265916125340501254, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: m_RootOrder
@@ -5347,17 +5327,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1875632242 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 157004851008196351, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
-  m_PrefabInstance: {fileID: 1108157974}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1900549839
