@@ -4544,6 +4544,10 @@ PrefabInstance:
       propertyPath: cityIndexFromBuild
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5534737402847291847, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
+      propertyPath: cityIndexFromBuild
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5559974343469600264, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7296,6 +7300,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8317693565465008697, guid: 87898964fd65b544b927fd48dd8a48ee, type: 3}
+      propertyPath: bgmClips.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8317693565465008697, guid: 87898964fd65b544b927fd48dd8a48ee, type: 3}
+      propertyPath: bgmClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 19a5c8ee62007744a80d54e28fb66293, type: 3}
     - target: {fileID: 8317693565465008697, guid: 87898964fd65b544b927fd48dd8a48ee, type: 3}
       propertyPath: audioSources.Array.size
       value: 2
