@@ -27,4 +27,9 @@ public class DeathTransition : MonoBehaviour
         SugboMovement.isDead = false;
         SugboMovement.canMove = true;
     }
+
+    public void StartSaveAnim()
+    {
+        NewDataPersistenceManager.instance.StartSaveAnimation();
+    }
 }
