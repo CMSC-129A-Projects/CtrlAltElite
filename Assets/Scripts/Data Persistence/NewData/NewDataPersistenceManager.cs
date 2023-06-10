@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using UnityEngine.Profiling;
+using UnityEngine.UI;
+
 
 public class NewDataPersistenceManager : MonoBehaviour
 {
@@ -19,7 +20,17 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     [Header("Auto Saving Configuration")]
     [SerializeField] private float autoSaveTimeSeconds = 60f;
-
+    [SerializeField] private float autoSaveTimeAnimationSeconds = 1f;
+    [SerializeField] private float autoSaveTimeAnimationFadeSeconds = 1f;
+    private float _timer = 0f;
+    [SerializeField] private GameObject autoSaveCanvasObject;
+    [SerializeField] private Image saveLoadGUI;
+    [SerializeField] private Image saveLoadAnimation;
+    private bool fadeOutAnimation = false;
+    private bool fadeInAnimation = false;
+    private Color imageColor;
+    
+ 
     public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private NewFileDataHandler dataHandler;
@@ -48,6 +59,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
         this.dataHandler = new NewFileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         InitializeSelectedProfileId();
+        InitializeSaveLoadGUI();
     }
 
     private void OnEnable()
@@ -169,6 +181,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData, selectedProfileId);
     }
 
+    
     public void SaveGame()
     {
         // return right away if data persistence is disabled
@@ -202,6 +215,75 @@ public class NewDataPersistenceManager : MonoBehaviour
 
         // save that data to a file using the data handler
         dataHandler.Save(gameData, selectedProfileId);
+        // 
+    }
+
+    public void StartSaveAnimation()
+    {
+        StartCoroutine(PlaySaveAnimation());
+    }
+
+    private void InitializeSaveLoadGUI()
+    {
+        imageColor = saveLoadGUI.color;
+        imageColor.a = 0f;
+        saveLoadGUI.color = imageColor;
+        saveLoadAnimation.color = imageColor;
+        autoSaveCanvasObject.SetActive(false);
+    }
+    private IEnumerator PlaySaveAnimation()
+    {
+        yield return null;
+        autoSaveCanvasObject.SetActive(true);
+        fadeInAnimation = true;
+        fadeOutAnimation = false;
+        yield return new WaitForSeconds(autoSaveTimeAnimationSeconds);
+        fadeInAnimation = false;
+        fadeOutAnimation = true;
+    }
+    private void Update()
+    {
+        /*if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartSaveAnimation();
+        }*/
+        if (fadeInAnimation)
+        {
+            _timer += Time.deltaTime;
+            // Calculate the normalized progress of the animation
+            float progress = _timer / (autoSaveTimeAnimationSeconds / 2);
+            // Increase the image's color alpha based on the progress
+            imageColor.a = progress;
+            saveLoadGUI.color = imageColor;
+            saveLoadAnimation.color = imageColor;
+
+            if (_timer >= autoSaveTimeAnimationFadeSeconds)
+            {
+                _timer = 0f;
+                fadeInAnimation = false;
+            }
+        }
+
+        if (fadeOutAnimation)
+        {
+            _timer += Time.deltaTime;
+
+            // Calculate the normalized progress of the animation
+            float progress = _timer / autoSaveTimeAnimationFadeSeconds;
+
+            // Reduce the image's color alpha based on the progress
+            imageColor.a = 1f - progress;
+            saveLoadGUI.color = imageColor;
+            saveLoadAnimation.color = imageColor;
+
+            if (_timer >= autoSaveTimeAnimationFadeSeconds)
+            {
+                _timer = 0f;
+                fadeOutAnimation = false;
+
+                autoSaveCanvasObject.SetActive(false);
+            }
+        }
     }
 
     private void OnApplicationQuit()
@@ -217,12 +299,6 @@ public class NewDataPersistenceManager : MonoBehaviour
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
-
-    /*public bool HasGameData()
-    {
-        Debug.Log("HasGameData " + gameData);
-        return gameData != null;
-    }*/
 
     public bool HasGameData()
     {
@@ -242,6 +318,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             yield return new WaitForSeconds(autoSaveTimeSeconds);
             SaveGame();
             Debug.Log("Auto Saved Game");
+            StartSaveAnimation();
         }
     }
 }

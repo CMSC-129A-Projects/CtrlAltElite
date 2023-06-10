@@ -60,20 +60,6 @@ public class PlayerDeath : MonoBehaviour
         SugboMovement.canMove = false;
         transform.GetComponent<CapsuleCollider2D>().enabled = false;
         player.SetSpeedToZero();
-        
-        /*MovementState state;
-        state = MovementState.dying;
-        animator.SetInteger("movementState", (int)state);*/
-        /*animator.SetBool("Running", false);
-        animator.SetBool("Idling", false);
-        animator.SetBool("Swimming", false);
-        animator.SetBool("Climbing", false);
-        animator.SetBool("Grabbing", false);
-        animator.SetBool("Falling", false);
-        animator.SetBool("Jumping", false);
-        animator.SetBool("DoubleJumping", false);
-        animator.SetBool("Death", true);
-        animator.SetTrigger("Dying");*/
     }
 
     public void HandleRespawn() // called in FixedDeath animation frame
@@ -83,21 +69,7 @@ public class PlayerDeath : MonoBehaviour
         player.SetSpeedBackToDefault();
         player.SetAnimationToDefault();
         TransitionManager.instance.PlayRespawnTransition();
-
-        /*MovementState state;
-        state = MovementState.idling;
-        animator.SetInteger("movementState", (int)state);*/
-        /*animator.ResetTrigger("Dying");
-        animator.SetTrigger("Respawning");
-        animator.SetBool("Running", false);
-        animator.SetBool("Idling", true);
-        animator.SetBool("Swimming", false);
-        animator.SetBool("Climbing", false);
-        animator.SetBool("Grabbing", false);
-        animator.SetBool("Falling", false);
-        animator.SetBool("Jumping", false);
-        animator.SetBool("DoubleJumping", false);
-        animator.SetBool("Death", false); */
+        // NewDataPersistenceManager.instance.StartSaveAnimation();
         NewDataPersistenceManager.instance.LoadGame();
         transform.GetComponent<CapsuleCollider2D>().enabled = true;
         
