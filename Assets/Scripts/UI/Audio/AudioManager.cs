@@ -57,13 +57,18 @@ public class AudioManager : MonoBehaviour
     private void Update()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "CharacterCustomization") return;
+        // if (currentSceneName == "CharacterCustomization") return;
         if (currentSceneName != previousSceneName)
         {
             // Debug.Log("Scene has changed from " + previousSceneName + " to " + currentSceneName);
             previousSceneName = currentSceneName;
             StopPlayingClips();
-            if (currentSceneName == "TestMenuSave")
+            if (currentSceneName == "CharacterCustomization")
+            {
+                bgm.clip = bgmClips[6];
+                bgm.Play();
+            }
+            else if (currentSceneName == "TestMenuSave")
             {
                 bgm.clip = bgmClips[0];
                 bgm.Play();
