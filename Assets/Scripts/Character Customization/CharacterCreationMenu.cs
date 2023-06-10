@@ -44,7 +44,8 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         Debug.Log("Starting Game");
         RandomizeForeigner();
         NewDataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadSceneAsync("City 1");
+        TransitionManager.instance.NextScene(4);
+        //SceneManager.LoadSceneAsync("City 1");
         //SceneManager.LoadSceneAsync("SaveTest");
         // SceneManager.LoadSceneAsync("NewIntroScene");
     }
