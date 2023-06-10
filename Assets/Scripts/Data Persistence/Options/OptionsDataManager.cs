@@ -48,12 +48,13 @@ public class OptionsDataManager : MonoBehaviour
     private void Update()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "CharacterCustomization") return;
+        // if (currentSceneName == "CharacterCustomization") return;
         if (currentSceneName != previousSceneName)
         {
             previousSceneName = currentSceneName;
             OptionsMenu newOptionsMenu = FindObjectOfType<OptionsMenu>(true);
-            newOptionsMenu.LoadOptions();
+            if (newOptionsMenu != null) newOptionsMenu.LoadOptions();
+
         }
     }
 }
