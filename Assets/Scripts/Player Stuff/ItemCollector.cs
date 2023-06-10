@@ -74,12 +74,13 @@ public class ItemCollector : MonoBehaviour
         NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
         NewDataPersistenceManager.instance.IncrementSceneIndex();
 
-        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
+        // SceneManager.LoadSceneAsync(currentSceneIndex + 1);
+        TransitionManager.instance.NextScene(currentSceneIndex + 1);
     }
 
     IEnumerator DisableAchievementText()
     {
-        Debug.Log("Switching to next city...");
+        Debug.Log("DisableAchievement");
         yield return new WaitForSeconds(3);
         achievementText.SetActive(false);
         StartCoroutine(SwitchToNextScene(0));
