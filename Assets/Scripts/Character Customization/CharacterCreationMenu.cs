@@ -44,14 +44,15 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         Debug.Log("Starting Game");
         RandomizeForeigner();
         NewDataPersistenceManager.instance.SaveGame();
-        SceneManager.LoadSceneAsync("City 1");
+        // 3 = city 1,
+        // 4 = city 2,
+        // 5 = city 3,
+        // 6 = city 4,
+        // 7 = city 8
+        TransitionManager.instance.NextScene(3);
+        //SceneManager.LoadSceneAsync("City 1");
         //SceneManager.LoadSceneAsync("SaveTest");
         // SceneManager.LoadSceneAsync("NewIntroScene");
-    }
-
-    public void Hello()
-    {
-        Debug.Log("Hello");
     }
 
     public void OnBackClicked()

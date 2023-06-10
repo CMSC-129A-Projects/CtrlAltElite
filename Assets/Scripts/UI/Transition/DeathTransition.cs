@@ -7,7 +7,7 @@ public class DeathTransition : MonoBehaviour
 
     private void Start()
     {
-        DeactivateDeathTransition(); 
+        // DeactivateDeathTransition(); 
     }
     public void DeactivateDeathTransition() // called in transitionExit animation frame
     {
