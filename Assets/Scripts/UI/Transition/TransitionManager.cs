@@ -12,9 +12,11 @@ public class TransitionManager : MonoBehaviour
     [SerializeField] private GameObject city1Transition;
     [SerializeField] private GameObject city2Transition;
     [SerializeField] private GameObject city3Transition;
+    [SerializeField] private GameObject city4Transition;
+    [SerializeField] private GameObject city5Transition;
     [SerializeField] private float loadSceneTime;
     [SerializeField] private float loadSceneTimeAfter;
-    private Animator deathAnim, menuAnim, city1Anim, city2Anim, city3Anim;
+    private Animator deathAnim, menuAnim, city1Anim, city2Anim, city3Anim, city4Anim, city5Anim;
 
     private void Awake()
     {
@@ -35,6 +37,8 @@ public class TransitionManager : MonoBehaviour
         city1Anim = city1Transition.GetComponent<Animator>();
         city2Anim = city2Transition.GetComponent<Animator>();
         city3Anim = city3Transition.GetComponent<Animator>();
+        city4Anim = city4Transition.GetComponent<Animator>();
+        city5Anim = city5Transition.GetComponent<Animator>();
     }
 
     public void NextScene(int scene)
@@ -44,12 +48,12 @@ public class TransitionManager : MonoBehaviour
         // 5 = city 3
         // 6 = city 4
         // 7 = city 5
-        if (scene == 3 || scene == 7)
+        if (scene == 3)
         {
             city1Transition.GetComponent<CityTransition>().ActivateTransition();
             city1Anim.SetTrigger("end");
         }
-        else if (scene == 4 || scene == 6)
+        else if (scene == 4)
         {
             city2Transition.GetComponent<CityTransition>().ActivateTransition();
             city2Anim.SetTrigger("end");
@@ -59,6 +63,16 @@ public class TransitionManager : MonoBehaviour
             city3Transition.GetComponent<CityTransition>().ActivateTransition();
             city3Anim.SetTrigger("end");
         }
+        else if (scene == 6)
+        {
+            city4Transition.GetComponent<CityTransition>().ActivateTransition();
+            city4Anim.SetTrigger("end");
+        }
+        else if (scene == 7)
+        {
+            city5Transition.GetComponent<CityTransition>().ActivateTransition();
+            city5Anim.SetTrigger("end");
+        }
 
         // StartCoroutine(SwitchScene(scene));
         
@@ -66,13 +80,13 @@ public class TransitionManager : MonoBehaviour
 
     private void ReverseTransition(int scene)
     {
-        if (scene == 3 || scene == 7)
+        if (scene == 3)
         {
             city1Transition.GetComponent<CityTransition>().AllowMovePlayer();
             city1Anim.SetTrigger("start");
         }
 
-        else if (scene == 4 || scene == 6)
+        else if (scene == 4)
         {
             city2Transition.GetComponent<CityTransition>().AllowMovePlayer();
             city2Anim.SetTrigger("start");
@@ -81,6 +95,16 @@ public class TransitionManager : MonoBehaviour
         {
             city3Transition.GetComponent<CityTransition>().AllowMovePlayer();
             city3Anim.SetTrigger("start");
+        }
+        else if (scene == 6)
+        {
+            city4Transition.GetComponent<CityTransition>().AllowMovePlayer();
+            city4Anim.SetTrigger("start");
+        }
+        else if (scene == 7)
+        {
+            city5Transition.GetComponent<CityTransition>().AllowMovePlayer();
+            city5Anim.SetTrigger("start");
         }
 
 
