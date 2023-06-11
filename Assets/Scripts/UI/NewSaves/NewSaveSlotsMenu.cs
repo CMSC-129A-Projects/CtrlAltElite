@@ -149,6 +149,13 @@ public class NewSaveSlotsMenu : MonoBehaviour
             {
                 saveSlot.DisableSaveSlotInteractable(false);
             }
+            else if (profileData != null && isLoadingGame)
+            {
+                if (profileData.medalsCollected == profileData.totalMedals)
+                {
+                    saveSlot.DisableSaveSlotInteractable(false);
+                }
+            }
             else
             {
                 saveSlot.SetInteractable(true);

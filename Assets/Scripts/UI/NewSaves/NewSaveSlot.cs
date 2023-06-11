@@ -18,6 +18,7 @@ public class NewSaveSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI lastUpdated;
     [SerializeField] private TextMeshProUGUI medalsCollected;
+    [SerializeField] private Image star;
 
     [Header("Clear Data Button")]
     [SerializeField] private Button clearButton;
@@ -44,6 +45,14 @@ public class NewSaveSlot : MonoBehaviour
         // there is data for this profileId
         else
         {
+            if (data.medalsCollected == data.totalMedals)
+            {
+                star.gameObject.SetActive(true);
+            }
+            else
+            {
+                star.gameObject.SetActive(false);
+            }
             hasData = true;
             noDataContent.SetActive(false);
             hasDataContent.SetActive(true);
