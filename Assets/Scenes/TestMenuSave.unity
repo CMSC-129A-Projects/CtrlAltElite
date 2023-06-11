@@ -365,11 +365,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!1 &61054335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8763559526286538922, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &71378223 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8317693565201080672, guid: 87898964fd65b544b927fd48dd8a48ee, type: 3}
@@ -1045,11 +1040,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404605111}
   m_CullTransparentMesh: 1
---- !u!1 &418794334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3047180385644380681, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &419704493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,11 +1099,6 @@ MonoBehaviour:
   confirmButton: {fileID: 997674485}
   cancelButton: {fileID: 1798350563}
   displayImage: {fileID: 0}
---- !u!1 &435899528 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 476909309007597307, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &507571573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1355,11 +1340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba19cd4d0b5783646a4c6717411ddec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &544847482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2700404319310175018, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &555228270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2459,11 +2439,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784924030}
   m_CullTransparentMesh: 1
---- !u!1 &796353977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2271895886477462637, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &839641513 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1443785876291196370, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
@@ -4567,27 +4542,27 @@ PrefabInstance:
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: menuTransition
       value: 
-      objectReference: {fileID: 1837027570}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: city1Transition
       value: 
-      objectReference: {fileID: 418794334}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: city2Transition
       value: 
-      objectReference: {fileID: 435899528}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: city3Transition
       value: 
-      objectReference: {fileID: 796353977}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: city4Transition
       value: 
-      objectReference: {fileID: 61054335}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: city5Transition
       value: 
-      objectReference: {fileID: 544847482}
+      objectReference: {fileID: 0}
     - target: {fileID: 6087565785671690409, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
       propertyPath: loadSceneTimeAfter
       value: 0.5
@@ -5266,11 +5241,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798350561}
   m_CullTransparentMesh: 1
---- !u!1 &1837027570 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5559974343469600264, guid: 0ba4c567499a9ee4783bd1da6f212024, type: 3}
-  m_PrefabInstance: {fileID: 1351996667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1850076837
 GameObject:
   m_ObjectHideFlags: 0
