@@ -26,6 +26,7 @@ TagManager:
   - Foreigner
   - TempSave
   - StartGame
+  - TutorialArea
   layers:
   - Default
   - TransparentFX

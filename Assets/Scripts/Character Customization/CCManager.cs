@@ -8,7 +8,7 @@ public class CCManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Area"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             CCMenu.SetActive(true);
         }
@@ -16,7 +16,7 @@ public class CCManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Area"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             CCMenu.SetActive(false);
         }
