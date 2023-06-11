@@ -34,11 +34,4 @@ public class CityTransition : MonoBehaviour
         Debug.Log("DontAllowMovePlayer");
         SugboMovement.canMove = false;
     }
-
-    public void TransitionManagerSwitchScene()
-    {
-        Debug.Log("Here");
-        DontAllowMovePlayer();
-        StartCoroutine(TransitionManager.instance.SwitchScene(this.cityIndexFromBuild));
-    }
 }
