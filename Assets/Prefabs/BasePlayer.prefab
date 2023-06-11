@@ -31,6 +31,53 @@ Transform:
   m_Father: {fileID: 6879225082526631199}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &451137368804462976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7136276219999502226}
+  - component: {fileID: 642305032038616842}
+  m_Layer: 0
+  m_Name: ParticleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7136276219999502226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451137368804462976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6879225082526631199}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &642305032038616842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451137368804462976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01f24581b2494845b34790d221db95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runParticle: {fileID: 876223258878300224, guid: 87a0ccca6a6478e43abed0e0208cbaf8, type: 3}
+  jumpParticle: {fileID: 668189089818671460, guid: 75b24c2cb107bae44b1fdf3cc8d80605, type: 3}
+  dashParticle: {fileID: 2567780840613851440, guid: 5e40469cb0e923a40b2d667b6e74bdfd, type: 3}
 --- !u!1 &2045008697674378026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1114,7 @@ Transform:
   - {fileID: 3515349634649316161}
   - {fileID: 233365778824576044}
   - {fileID: 3018952437223989588}
+  - {fileID: 7136276219999502226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1216,6 +1264,7 @@ MonoBehaviour:
   speedBoostBuff: {fileID: 0}
   doubleJumpBuff: {fileID: 0}
   dashBuff: {fileID: 0}
+  particleManager: {fileID: 0}
   sliders:
   - {fileID: 0}
   - {fileID: 0}

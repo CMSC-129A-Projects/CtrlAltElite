@@ -16,6 +16,7 @@ public class LightBoundary : MonoBehaviour
     {
         if (followPlayer)
         {
+            
             spotLight.transform.position = player.transform.position;
         }
     }
@@ -24,6 +25,7 @@ public class LightBoundary : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            spotLight.gameObject.SetActive(true);
             followPlayer = true;
             player = collision.gameObject;
             globalLight.intensity = 0;
@@ -35,6 +37,7 @@ public class LightBoundary : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            spotLight.gameObject.SetActive(false);
             followPlayer = false;
             globalLight.intensity = globalLightIntensity;
         }

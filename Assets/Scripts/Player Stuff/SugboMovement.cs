@@ -15,6 +15,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     [SerializeField] private Slider speedBoostBuff;
     [SerializeField] private Slider doubleJumpBuff;
     [SerializeField] private Slider dashBuff;
+    [SerializeField] private ParticleManager particleManager;
 
     [SerializeField] private List<Slider> sliders;
 
@@ -23,6 +24,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private Collision coll;
     public PlayerDeath death;
     public Animator animator;
+    
 
     #region Variables
 
@@ -473,7 +475,22 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             state = MovementState.swimming;
         }
 
+        UpdateParticle(state);
+
         animator.SetInteger("movementState", (int)state);
+    }
+
+    private void UpdateParticle(MovementState state)
+    {
+        switch (state)
+        {
+            case MovementState.running:
+                particleManager.PlayRunParticle();
+                break;
+            case MovementState.jumping:
+                particleManager.PlayJumpParticle();
+                break;
+        }
     }
 
     // Data Persistence
@@ -546,7 +563,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     IEnumerator AddRight()
     {
         yield return null;
-        rb.velocity = new Vector2(transform.localScale.x * 20f, rb.velocity.y);
+        // rb.velocity = new Vector2(transform.localScale.x * 20f, rb.velocity.y);
+        float direction = isFacingRight ? 1f : -1f;
+        rb.velocity = new Vector2(direction * 20f, rb.velocity.y);
         canMove = true;
     }
     #endregion
@@ -605,11 +624,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void StickToWall()
     {
         //Push player torwards wall
-        if (onRightWall && transform.localScale.x >= 0f)
+        float direction = isFacingRight ? 1f : -1f;
+        if (onRightWall && direction >= 0f)
         {
             rb.velocity = new Vector2(5f, rb.velocity.y);
         }
-        else if (onLeftWall && transform.localScale.x <= 0f)
+        else if (onLeftWall && direction <= 0f)
         {
             rb.velocity = new Vector2(-5f, rb.velocity.y);
         }
@@ -845,10 +865,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void PerformDash()
     {
         AudioManager.instance.PlayDash();
+        particleManager.PlayDashPartcile();
         dashPressed = true;
         canDash = false;
         isDashing = true;
-        rb.velocity = new Vector2(transform.localScale.x * dashPower, 0f);
+        float direction = isFacingRight ? 1f : -1f;
+        rb.velocity = new Vector2(direction * dashPower, 0f);
     }
 
     private void StopDash()
@@ -1117,9 +1139,17 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void Flip()
     {
         isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
+        /*Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
-        transform.localScale = localScale;
+        transform.localScale = localScale;*/
+        
+        transform.rotation = Quaternion.Euler(0, isFacingRight ? 0 : 180, 0);
+        // Debug.Log(Mathf.Abs(rb.velocity.x));
+        if (isGrounded && Mathf.Abs(rb.velocity.x) > 4 && !inWater)
+        {
+            
+            particleManager.PlayFlipParticle(isFacingRight);
+        }
     }
 
     #endregion
