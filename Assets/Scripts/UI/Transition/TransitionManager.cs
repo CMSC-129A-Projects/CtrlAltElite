@@ -30,15 +30,26 @@ public class TransitionManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "TestMenuSave" && !playedMenu)
+        if (menuTransition != null)
         {
-            menuTransition.SetActive(true);
-            playedMenu = true;
+            if (scene.name == "TestMenuSave" && !playedMenu)
+            {
+                AudioManager.instance.StopPlayingClips();
+                menuTransition.SetActive(true);
+                playedMenu = true;
+                StartCoroutine(DisableMenu());
+            }
+            else
+            {
+                menuTransition.SetActive(false);
+            }
         }
-        else
-        {
-            menuTransition.SetActive(false);
-        }
+    }
+
+    private IEnumerator DisableMenu()
+    {
+        yield return new WaitForSeconds(1);
+        menuTransition.SetActive(false);
     }
 
     private void Start()

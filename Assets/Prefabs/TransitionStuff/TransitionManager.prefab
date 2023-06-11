@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathTransition: {fileID: 3348664130704787502}
-  menuTransition: {fileID: 0}
+  menuTransition: {fileID: 7365233305234977128}
 --- !u!1 &7365233305234977128
 GameObject:
   m_ObjectHideFlags: 0
