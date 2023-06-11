@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lore: {fileID: 1069543215858141465}
+  fadeInTime: 1
+  fadeOutTime: 1
 --- !u!1 &1069543215858141465
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4750304049289864311}
   - component: {fileID: 7628420929413282760}
+  - component: {fileID: 9071394750668709535}
   m_Layer: 5
   m_Name: Lore
   m_TagString: Untagged
@@ -209,6 +212,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!225 &9071394750668709535
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069543215858141465}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5555915597263726167
 GameObject:
   m_ObjectHideFlags: 0
