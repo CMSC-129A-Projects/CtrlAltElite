@@ -475,23 +475,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             state = MovementState.swimming;
         }
 
-        UpdateParticle(state);
-
         animator.SetInteger("movementState", (int)state);
     }
 
-    private void UpdateParticle(MovementState state)
-    {
-        switch (state)
-        {
-            case MovementState.running:
-                particleManager.PlayRunParticle();
-                break;
-            case MovementState.jumping:
-                particleManager.PlayJumpParticle();
-                break;
-        }
-    }
+    
 
     // Data Persistence
     #region SAVE STUFF
@@ -593,6 +580,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void NeutralWallJump(bool baseJump)
     {
         AudioManager.instance.PlayJump(baseJump);
+        particleManager.PlayJumpParticle();
         stamina -= wallJumpStaminaDrain;
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(0f, wallJumpingPower.y + 2f);
@@ -604,6 +592,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void WallJump(bool baseJump)
     {
         AudioManager.instance.PlayJump(baseJump);
+        particleManager.PlayJumpParticle();
         stamina -= wallJumpStaminaDrain;
         Vector2 jumpDirection = onRightWall ? Vector2.left : Vector2.right;
         ApplyAirLinearDrag();
@@ -950,7 +939,10 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region JUMP METHODS
     private void Jump(Vector2 direction, bool baseJump)
     {
+
         AudioManager.instance.PlayJump(baseJump);
+        if (!inWater) particleManager.PlayJumpParticle();
+
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(direction * jumpPower, ForceMode2D.Impulse);

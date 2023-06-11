@@ -28,7 +28,7 @@ public class ParticleManager : MonoBehaviour
 
     public void PlayJumpParticle()
     {
-        // jumpParticle.Play();
+        jumpParticle.Play();
     }
 
     public void PlayDashPartcile()
