@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Loader : MonoBehaviour
 {
+    [SerializeField] private GameObject transition;
     private void Awake()
     {
         Debug.Log("Loader Awake");
+        transition.SetActive(true);
 
     }
 }
