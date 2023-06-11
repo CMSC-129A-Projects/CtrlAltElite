@@ -111,11 +111,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void StopPlayingClips()
+    public void StopPlayingClips()
     {
         foreach (AudioSource audioSource in audioSources)
         {
-            audioSource.Stop();
+            if (audioSource != null) audioSource.Stop();
         }
     }
     public void PlayButtonClick()

@@ -148,17 +148,25 @@ public class NewSaveSlotsMenu : MonoBehaviour
             else if (profileData != null && !isLoadingGame)
             {
                 saveSlot.DisableSaveSlotInteractable(false);
+                saveSlot.DisableSaveSlotLoading(profileData);
             }
-            else if (profileData != null && isLoadingGame)
+            /*else if (profileData != null && isLoadingGame)
             {
                 if (profileData.medalsCollected == profileData.totalMedals)
                 {
-                    saveSlot.DisableSaveSlotInteractable(false);
+                    Debug.Log($"{profileData.name} has {profileData.medalsCollected}/{profileData.totalMedals} medals");
+                    saveSlot.DisableSaveSlotLoading();
                 }
-            }
+            }*/
+            
             else
             {
                 saveSlot.SetInteractable(true);
+            }
+
+            if (profileData != null && isLoadingGame)
+            {
+                saveSlot.DisableSaveSlotLoading(profileData);
             }
         }
     }

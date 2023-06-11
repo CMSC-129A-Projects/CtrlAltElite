@@ -81,4 +81,13 @@ public class NewSaveSlot : MonoBehaviour
         saveSlotButton.interactable = interactable;
         clearButton.interactable = !interactable;
     }
+
+    public void DisableSaveSlotLoading(GameData data)
+    {
+        if (data.medalsCollected == data.totalMedals)
+        {
+            saveSlotButton.interactable = false;
+            clearButton.interactable = true;
+        }
+    }
 }
