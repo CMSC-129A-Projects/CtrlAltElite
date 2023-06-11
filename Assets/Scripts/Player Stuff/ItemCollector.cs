@@ -74,8 +74,8 @@ public class ItemCollector : MonoBehaviour
         NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
         NewDataPersistenceManager.instance.IncrementSceneIndex();
 
-        // SceneManager.LoadSceneAsync(currentSceneIndex + 1);
-        TransitionManager.instance.NextScene(currentSceneIndex + 1);
+        SceneManager.LoadSceneAsync(currentSceneIndex + 1);
+        // TransitionManager.instance.NextScene(currentSceneIndex + 1);
     }
 
     IEnumerator DisableAchievementText()

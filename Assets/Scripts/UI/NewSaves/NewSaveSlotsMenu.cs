@@ -75,9 +75,9 @@ public class NewSaveSlotsMenu : MonoBehaviour
         // save the game anytime before loading a new scene
         NewDataPersistenceManager.instance.SaveGame();
         // load the scene
-        // SceneManager.LoadSceneAsync("CharacterCustomization");
-        int _sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        TransitionManager.instance.NextScene(_sceneIndex);
+        SceneManager.LoadSceneAsync("CharacterCustomization");
+        /*int _sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        TransitionManager.instance.NextScene(_sceneIndex);*/
     }
 
     private void SaveGameAndLoadScene_Load()
@@ -90,8 +90,8 @@ public class NewSaveSlotsMenu : MonoBehaviour
         int _sceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
 
         // Debug.Log(NewDataPersistenceManager.instance.gameData.name + " " + NewDataPersistenceManager.instance.gameData.newGame);
-        // SceneManager.LoadSceneAsync(_sceneIndex);
-        TransitionManager.instance.NextScene(_sceneIndex);
+        SceneManager.LoadSceneAsync(_sceneIndex);
+        // TransitionManager.instance.NextScene(_sceneIndex);
     }
 
     public void OnClearClicked(NewSaveSlot saveSlot)
