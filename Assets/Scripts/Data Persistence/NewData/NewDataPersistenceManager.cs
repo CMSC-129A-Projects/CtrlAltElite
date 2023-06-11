@@ -24,12 +24,9 @@ public class NewDataPersistenceManager : MonoBehaviour
     [SerializeField] private float autoSaveTimeAnimationFadeSeconds = 1f;
     private float _timer = 0f;
     [SerializeField] private GameObject autoSaveCanvasObject;
-    [SerializeField] private Image saveLoadGUI;
-    [SerializeField] private Image saveLoadAnimation;
+    private CanvasGroup canvasGroup;
     private bool fadeOutAnimation = false;
     private bool fadeInAnimation = false;
-    private Color imageColor;
-    
  
     public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -225,10 +222,7 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void InitializeSaveLoadGUI()
     {
-        imageColor = saveLoadGUI.color;
-        imageColor.a = 0f;
-        saveLoadGUI.color = imageColor;
-        saveLoadAnimation.color = imageColor;
+        canvasGroup = autoSaveCanvasObject.GetComponent<CanvasGroup>();
         autoSaveCanvasObject.SetActive(false);
     }
     private IEnumerator PlaySaveAnimation()
@@ -253,9 +247,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             // Calculate the normalized progress of the animation
             float progress = _timer / (autoSaveTimeAnimationSeconds / 2);
             // Increase the image's color alpha based on the progress
-            imageColor.a = progress;
-            saveLoadGUI.color = imageColor;
-            saveLoadAnimation.color = imageColor;
+            canvasGroup.alpha = progress;
 
             if (_timer >= autoSaveTimeAnimationFadeSeconds)
             {
@@ -272,9 +264,7 @@ public class NewDataPersistenceManager : MonoBehaviour
             float progress = _timer / autoSaveTimeAnimationFadeSeconds;
 
             // Reduce the image's color alpha based on the progress
-            imageColor.a = 1f - progress;
-            saveLoadGUI.color = imageColor;
-            saveLoadAnimation.color = imageColor;
+            canvasGroup.alpha = 1f - progress;
 
             if (_timer >= autoSaveTimeAnimationFadeSeconds)
             {

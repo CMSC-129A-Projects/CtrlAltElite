@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +7,9 @@ public class TransitionManager : MonoBehaviour
 {
     public static TransitionManager instance { get; private set; }
     [SerializeField] private GameObject deathTransition;
+    [SerializeField] private GameObject menuTransition;
     private Animator deathAnim;
+    private bool playedMenu;
 
     private void Awake()
     {
@@ -20,6 +21,24 @@ public class TransitionManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "TestMenuSave" && !playedMenu)
+        {
+            menuTransition.SetActive(true);
+            playedMenu = true;
+        }
+        else
+        {
+            menuTransition.SetActive(false);
+        }
     }
 
     private void Start()
@@ -39,6 +58,11 @@ public class TransitionManager : MonoBehaviour
     {
         Debug.Log("PlayRespawnTransition");
         deathAnim.SetTrigger("Respawn");
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }
