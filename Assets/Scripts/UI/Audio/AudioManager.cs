@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource dash;
     [SerializeField] private AudioSource medal;
     [SerializeField] private AudioSource spring;
+    [SerializeField] private AudioSource fall;
 
     [SerializeField] private List<AudioSource> audioSources = new List<AudioSource>();
 
@@ -151,5 +152,10 @@ public class AudioManager : MonoBehaviour
     public void PlaySpring()
     {
         spring.Play();
+    }
+
+    public void PlayFall()
+    {
+        fall.Play();
     }
 }
