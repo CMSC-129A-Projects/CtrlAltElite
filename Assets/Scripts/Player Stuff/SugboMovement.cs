@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class SugboMovement : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Slider staminaWheel;
     [SerializeField] private Slider usageWheel;
     [SerializeField] private Slider jumpBoostBuff;
@@ -37,7 +35,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     [Space]
     [Header("Collision")]
-    [HideInInspector] public bool isGrounded;
+    public float lastOnGroundTime;
+    public bool isGrounded;
     [HideInInspector] public bool isOnPlatform;
     [HideInInspector] public bool isOnWall;
     [HideInInspector] public bool onRightWall;
@@ -194,6 +193,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         #region TIMERS
         lastOnWallTime += Time.deltaTime;
+        lastOnGroundTime += Time.deltaTime;
         #endregion
 
         if (canMove && !isDead)
@@ -355,6 +355,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         UpdateStamina();
         UpdatePowerUpBuffSlider();
+        
     }
 
     private void UpdateStamina()
@@ -1016,6 +1017,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         if (coll.onGround)
         {
             isGrounded = true;
+            if (lastOnGroundTime > 0.1f) particleManager.PlayFallParticle();
+            lastOnGroundTime = 0f;
         }
         else
         {

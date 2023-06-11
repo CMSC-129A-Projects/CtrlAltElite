@@ -8,6 +8,7 @@ public class ParticleManager : MonoBehaviour
     [SerializeField] private ParticleSystem jumpParticle;
     [SerializeField] private ParticleSystem dashParticle;
     [SerializeField] private ParticleSystem flipParticle;
+    [SerializeField] private ParticleSystem fallParticle;
     private ParticleSystem.VelocityOverLifetimeModule flipVelocityModule;
 
     private void Start()
@@ -48,5 +49,10 @@ public class ParticleManager : MonoBehaviour
         flipParticle.Stop();
         flipParticle.Play();
 
+    }
+
+    public void PlayFallParticle()
+    {
+        fallParticle.Play();
     }
 }
