@@ -118,8 +118,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lore: {fileID: 1069543215858141465}
-  fadeInTime: 1
-  fadeOutTime: 1
+  fadeOutAnimation: 0
+  fadeInAnimation: 0
+  fadeInTime: 0.5
+  fadeOutTime: 0.3
 --- !u!1 &1069543215858141465
 GameObject:
   m_ObjectHideFlags: 0
