@@ -30,6 +30,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public bool isFacingRight;
     public static bool canMove;
     public static bool isDead;
+    public bool inTransition;
     private bool changingDirection;
     private enum MovementState { idling, running, jumping, doubleJumping, falling, swimming, grabbing, climbing, dying }
 
@@ -189,8 +190,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     private void Update()
     {
         UpdateAnimation();
+        if (inTransition) return;
+        if (!canMove) return;
         if (isDead) return;
-
         #region TIMERS
         lastOnWallTime += Time.deltaTime;
         lastOnGroundTime += Time.deltaTime;
