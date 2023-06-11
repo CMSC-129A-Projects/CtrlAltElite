@@ -3896,7 +3896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: "CEBU CITY\n\nAs the sun casts its golden rays upon the enchanting realm
+      value: "Cebu City\n\nAs the sun casts its golden rays upon the enchanting realm
         of Sugbo, a majestic city emerges from the tapestry of time: Cebu City, the
         proud \"Queen City of the South.\" Steeped in the rich tapestry of Spanish
         colonial heritage, it stands as a living testament to a bygone era. Within
@@ -7113,7 +7113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1419777063011614900, guid: cbc42f6570c284a4593c41c4bf505ab5, type: 3}
       propertyPath: m_text
-      value: 'OSLOB
+      value: 'Oslob
 
 
         In the southern corner of the enchanted land of Sugbo,
