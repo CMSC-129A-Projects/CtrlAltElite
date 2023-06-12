@@ -3532,7 +3532,7 @@ MonoBehaviour:
   m_Follow: {fileID: 183119308}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.9
+    OrthographicSize: 5.06
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -17092,11 +17092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835888, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 72.75178
+      value: 318.05542
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835888, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -31.83012
+      value: 80.71574
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835888, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17104,7 +17104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835889, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: orthographic size
-      value: 5.9
+      value: 4.58
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 293a3db0745cac443890d26a821feea6, type: 3}
@@ -18323,7 +18323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937415167}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 202.75, y: 29.999998, z: -1.5782232}
+  m_LocalPosition: {x: 69.87, y: -31.89, z: -1.5782232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18410,7 +18410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &983459103
 Transform:
   m_ObjectHideFlags: 0
@@ -18464,7 +18464,7 @@ MonoBehaviour:
   m_Follow: {fileID: 183119308}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4.64
+    OrthographicSize: 4.58
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -21593,7 +21593,7 @@ MonoBehaviour:
   m_Follow: {fileID: 183119308}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.9
+    OrthographicSize: 5.2
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -29256,7 +29256,7 @@ MonoBehaviour:
   m_Follow: {fileID: 183119308}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4.48
+    OrthographicSize: 4.27
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -30405,7 +30405,7 @@ MonoBehaviour:
   m_Follow: {fileID: 183119308}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.9
+    OrthographicSize: 2.14
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
