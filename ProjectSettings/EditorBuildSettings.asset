@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/NewIntroScene.unity
     guid: f68dbeb4c4874b44f86ad619e159f4ea
   - enabled: 1
-    path: Assets/Scenes/City 1.unity
-    guid: 577d05987c87cab488994f172856b025
+    path: Assets/Scenes/City 5.unity
+    guid: 707f7259163357140a9121240b7f86cd
   - enabled: 1
     path: Assets/Scenes/City 2.unity
     guid: e10b2ae092928dc47b896d5dd6450d15
@@ -30,8 +30,8 @@ EditorBuildSettings:
     path: Assets/Scenes/F City 4.unity
     guid: a0bd787691c7dd141ac9c38d22508307
   - enabled: 1
-    path: Assets/Scenes/City 5.unity
-    guid: 707f7259163357140a9121240b7f86cd
+    path: Assets/Scenes/City 1.unity
+    guid: 577d05987c87cab488994f172856b025
   - enabled: 1
     path: Assets/Scenes/EndingScene.unity
     guid: 786d8ed468f2d4a4abe4a50e2eb6ba4f
