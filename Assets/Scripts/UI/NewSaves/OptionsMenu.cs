@@ -83,7 +83,7 @@ public class OptionsMenu : MonoBehaviour
         OptionsData loadedData = SaveSystem.LoadPlayerOptions();
         _volume = loadedData.volumePreference;
         _qualityIndex = loadedData.qualiltyIndex;
-        _isFullScreen = loadedData.isFullScreen;
+        // _isFullScreen = loadedData.isFullScreen;
         
         StartCoroutine(SetEverything());
     }
@@ -94,7 +94,7 @@ public class OptionsMenu : MonoBehaviour
         OptionsData loadedData = SaveSystem.LoadPlayerOptions();
         _volume = loadedData.volumePreference;
         _qualityIndex = loadedData.qualiltyIndex;
-        _isFullScreen = loadedData.isFullScreen;
+        // _isFullScreen = loadedData.isFullScreen;
         StartCoroutine(InitSetEverything());
     }
 
@@ -102,7 +102,7 @@ public class OptionsMenu : MonoBehaviour
     {
         yield return null;
         _SetVolume(_volume);
-        SetFullScreen(_isFullScreen);
+        // SetFullScreen(_isFullScreen);
         SetQuality(_qualityIndex);
         qualityDropdown.value = _qualityIndex;
 
@@ -113,7 +113,7 @@ public class OptionsMenu : MonoBehaviour
     {
         yield return null;
         _SetVolume(_volume);
-        SetFullScreen(_isFullScreen);
+        // SetFullScreen(_isFullScreen);
         SetQuality(_qualityIndex);
         qualityDropdown.value = _qualityIndex;
 
