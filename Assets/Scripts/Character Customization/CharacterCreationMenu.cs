@@ -50,7 +50,7 @@ public class CharacterCreationMenu : MonoBehaviour, IDataPersistence
         // 5 = city 3,
         // 6 = city 4,
         // 7 = city 8
-        SceneManager.LoadSceneAsync("City 1");
+        SceneManager.LoadSceneAsync("NewIntroScene");
         /*int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
      
         TransitionManager.instance.NextScene(currentSceneIndex + 1);*/

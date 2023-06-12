@@ -58,6 +58,19 @@ public class ItemCollector : MonoBehaviour
             StartCoroutine(DisableAchievementText());
         }
 
+        if (collision.gameObject.CompareTag("FinalTreasure"))
+        {
+            AudioManager.instance.PlayFinal();
+            collision.gameObject.SetActive(false);
+            NewDataPersistenceManager.instance.gameData.medalsCollected += 1;
+            achievementText.SetActive(true);
+            string text = $"Medal {NewDataPersistenceManager.instance.gameData.medalsCollected}/" +
+              $"{NewDataPersistenceManager.instance.gameData.totalMedals} collected.";
+            achievementText.GetComponent<TextMeshProUGUI>().text = text;
+
+            StartCoroutine(DisableAchievementText());
+        }
+
         if (collision.gameObject.CompareTag("StartGame"))
         {
             AudioManager.instance.PlayMedal();

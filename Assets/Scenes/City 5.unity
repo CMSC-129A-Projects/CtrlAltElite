@@ -16778,6 +16778,22 @@ PrefabInstance:
       propertyPath: achievementText
       value: 
       objectReference: {fileID: 500644970}
+    - target: {fileID: 1722417579185628983, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722417579185628983, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071725059714407577, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071725059714407577, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6879225082526631198, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
       propertyPath: m_Name
       value: BasePlayer
@@ -16918,9 +16934,10 @@ GameObject:
   - component: {fileID: 641236281}
   - component: {fileID: 641236280}
   - component: {fileID: 641236279}
+  - component: {fileID: 641236282}
   m_Layer: 0
   m_Name: Treasure
-  m_TagString: Untagged
+  m_TagString: FinalTreasure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17012,6 +17029,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &641236282
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641236278}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.025311291, y: -0.1012473}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.67095435, y: 0.6203226}
+  m_EdgeRadius: 0
 --- !u!1 &671024023
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/City 5.unity
     guid: 707f7259163357140a9121240b7f86cd
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 786d8ed468f2d4a4abe4a50e2eb6ba4f
   m_configObjects: {}
