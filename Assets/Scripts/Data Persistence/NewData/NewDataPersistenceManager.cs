@@ -35,6 +35,8 @@ public class NewDataPersistenceManager : MonoBehaviour
     private string selectedProfileId = "";
 
     private Coroutine autoSaveCoroutine;
+    private bool playedIntro = false;
+    private OptionsMenu optionsMenu;
 
     public static NewDataPersistenceManager instance { get; private set; }
 
@@ -57,6 +59,7 @@ public class NewDataPersistenceManager : MonoBehaviour
         this.dataHandler = new NewFileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         InitializeSelectedProfileId();
         InitializeSaveLoadGUI();
+        StartCoroutine(InitializeOptions());
     }
 
     private void OnEnable()
@@ -225,6 +228,22 @@ public class NewDataPersistenceManager : MonoBehaviour
     {
         canvasGroup = autoSaveCanvasObject.GetComponent<CanvasGroup>();
         autoSaveCanvasObject.SetActive(false);
+    }
+
+    private IEnumerator InitializeOptions()
+    {
+        yield return new WaitForSeconds(0.2f);
+        optionsMenu = FindObjectOfType<OptionsMenu>(true);
+        // just to be sure set the audio here
+        float volume = SaveSystem.LoadPlayerOptions().volumePreference;
+        float originalVolume = Mathf.Pow(10f, volume / 20f);
+        Debug.Log($"{volume} {originalVolume}");
+        yield return null;
+        AudioManager.instance.GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer.
+                SetFloat("Volume", Mathf.Log10(originalVolume) * 20);
+        yield return null;
+        optionsMenu.InitLoadOptions();
+
     }
     private IEnumerator PlaySaveAnimation()
     {

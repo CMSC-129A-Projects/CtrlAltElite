@@ -90,6 +90,16 @@ public class OptionsMenu : MonoBehaviour
         StartCoroutine(SetEverything());
     }
 
+    public void InitLoadOptions() 
+    {
+        InitActivateMenu();
+        OptionsData loadedData = SaveSystem.LoadPlayerOptions();
+        _volume = loadedData.volumePreference;
+        _qualityIndex = loadedData.qualiltyIndex;
+        _isFullScreen = loadedData.isFullScreen;
+        StartCoroutine(InitSetEverything());
+    }
+
     IEnumerator SetEverything()
     {
         yield return null;
@@ -99,6 +109,17 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.value = _qualityIndex;
 
         DeactivateMenu();
+    }
+
+    IEnumerator InitSetEverything()
+    {
+        yield return null;
+        _SetVolume(_volume);
+        SetFullScreen(_isFullScreen);
+        SetQuality(_qualityIndex);
+        qualityDropdown.value = _qualityIndex;
+
+        InitDeactivateMenu();
     }
 
     public void SetQuality(int qualityIndex)
@@ -160,12 +181,26 @@ public class OptionsMenu : MonoBehaviour
     {
         // set this menu to be active
         this.gameObject.SetActive(true);
+        this.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
+    }
+
+    public void InitActivateMenu()
+    {
+        // set this menu to be active
+        this.gameObject.SetActive(true);
+        this.gameObject.GetComponent<CanvasGroup>().alpha = 0f;
     }
 
     public void OnBackClicked()
     {
         mainMenu.ActivateMenu();
         this.DeactivateMenu();
+    }
+
+    public void InitDeactivateMenu()
+    {
+        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<CanvasGroup>().alpha = 1f;
     }
 
     public void DeactivateMenu()
