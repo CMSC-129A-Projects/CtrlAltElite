@@ -20,6 +20,9 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 
 Note: Please ensure that you select the `Create a desktop shortcut` checkbox during the Windows installer installation process to create a shortcut on your desktop.
 
+## Uninstalling
+To uninstall in Windows, open the game's file location and run `unins000.exe`. There is no need to uninstall for portable installs.
+
 ---
 
 Don't mind the spaghetti code if you want to look at it
