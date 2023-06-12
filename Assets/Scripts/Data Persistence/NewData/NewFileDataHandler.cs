@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
-using UnityEngine.Profiling;
-using UnityEditor.Experimental.GraphView;
 using System.Linq;
 
 public class NewFileDataHandler
