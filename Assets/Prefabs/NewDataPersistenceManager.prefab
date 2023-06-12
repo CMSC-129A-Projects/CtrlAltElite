@@ -164,7 +164,7 @@ MonoBehaviour:
   overrideSelectedProfileId: 0
   testSelectedProfileId: test
   fileName: player.data
-  useEncryption: 0
+  useEncryption: 1
   autoSaveTimeSeconds: 60
   autoSaveTimeAnimationSeconds: 1
   autoSaveTimeAnimationFadeSeconds: 1
