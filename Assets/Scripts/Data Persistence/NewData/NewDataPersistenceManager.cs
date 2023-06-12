@@ -227,7 +227,9 @@ public class NewDataPersistenceManager : MonoBehaviour
 
     private void InitializeSaveLoadGUI()
     {
-        canvasGroup = autoSaveCanvasObject.GetComponent<CanvasGroup>();
+        //canvasGroup = autoSaveCanvasObject.GetComponent<CanvasGroup>();
+        canvasGroup = autoSaveCanvasObject.GetComponentInChildren<CanvasGroup>(true);
+
         autoSaveCanvasObject.SetActive(false);
     }
 
