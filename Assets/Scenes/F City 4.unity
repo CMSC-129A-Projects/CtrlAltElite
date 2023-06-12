@@ -20090,10 +20090,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: MedalPiece
       objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3781135
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.7291067
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.02698648
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.36455345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883046153509440942, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440943, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1806759590, guid: 803cc7f9b959e9a45ad21d042901ed73, type: 3}
+      objectReference: {fileID: 21300000, guid: af7b38f2b673271439e694feb654780b, type: 3}
     - target: {fileID: 4883046153509440943, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -20112,23 +20136,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.4929
+      value: 0.558749
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4929
+      value: 0.558749
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.4929
+      value: 0.558749
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 264.32
+      value: 263.86
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 108.44
+      value: 108.14
       objectReference: {fileID: 0}
     - target: {fileID: 4883046153509440944, guid: 8258743c84698ef45bdcdc9ed5fdec9b, type: 3}
       propertyPath: m_LocalPosition.z
