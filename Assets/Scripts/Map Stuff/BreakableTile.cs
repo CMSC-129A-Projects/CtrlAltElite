@@ -46,6 +46,7 @@ public class BreakableTile : MonoBehaviour
 
                 if (tile != null)
                 {
+                    AudioManager.instance.PlayBlockBreak();
                     tilemap.SetTileFlags(cellPosition, TileFlags.None); // set its flags to none so no interactions to the tile
                     tilemap.SetColor(cellPosition, Color.clear); // set its color to clear (dont need this but just to be safe)
                     tilemap.SetTile(cellPosition, null); // remove the tile entirely
@@ -68,6 +69,7 @@ public class BreakableTile : MonoBehaviour
         else
         {
             tilemap.SetTile(cellPosition, tile); // replace tile with tile
+            AudioManager.instance.PlayBlockReplace();
         }     
     }
 }

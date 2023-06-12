@@ -10,14 +10,33 @@ public class LightBoundary : MonoBehaviour
     [SerializeField] private float globalLightIntensity = 1f;
     [SerializeField] private Light2D spotLight;
     [SerializeField] private float spotLightOuterRadius;
+    [SerializeField] private float dimSpeed;
     private GameObject player = null;
 
     private void Update()
     {
-        if (followPlayer)
+        if (followPlayer && globalLight.intensity >= 0)
         {
+            globalLight.intensity -= Time.deltaTime * dimSpeed;
             
+        }
+
+        if (spotLight.intensity >= 1)
+        {
+            spotLight.intensity = 1;
+        }
+
+
+        if (globalLight.intensity <= 0.5f)
+        {
             spotLight.transform.position = player.transform.position;
+            spotLight.intensity += Time.deltaTime * dimSpeed/2;
+        }
+
+        if (globalLight.intensity <= 0 && followPlayer)
+        {
+            globalLight.intensity = 0;
+            
         }
     }
 
@@ -28,7 +47,8 @@ public class LightBoundary : MonoBehaviour
             spotLight.gameObject.SetActive(true);
             followPlayer = true;
             player = collision.gameObject;
-            globalLight.intensity = 0;
+            // globalLight.intensity = 0;
+            spotLight.intensity = 0f;
             spotLight.pointLightOuterRadius = spotLightOuterRadius;
         }
     }

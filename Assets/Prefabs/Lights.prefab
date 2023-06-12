@@ -390,6 +390,7 @@ MonoBehaviour:
   globalLightIntensity: 1
   spotLight: {fileID: 4757313065383556172}
   spotLightOuterRadius: 1.5
+  dimSpeed: 5
 --- !u!1 &4757313066718439417
 GameObject:
   m_ObjectHideFlags: 0

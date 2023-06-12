@@ -1060,6 +1060,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         {
             isOnPlatform = true;
             isGrounded = true;
+            if (lastOnGroundTime > 0.1f)
+            {
+                AudioManager.instance.PlayFall();
+                particleManager.PlayFallParticle();
+            }
+            lastOnGroundTime = 0f;
         }
         else
         {
