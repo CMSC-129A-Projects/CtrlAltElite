@@ -27,6 +27,7 @@ TagManager:
   - TempSave
   - StartGame
   - TutorialArea
+  - FinalTreasure
   layers:
   - Default
   - TransparentFX
