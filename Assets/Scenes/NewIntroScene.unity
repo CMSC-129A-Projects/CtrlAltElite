@@ -220,7 +220,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: But my plane crashed, and I need to go to North Cebu.
+  m_text: But my plane crashed, and I need to go to North Cebu. I have to get the
+    treasure!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c4cc486860f4844499d43b6c3a61f43, type: 2}
   m_sharedMaterial: {fileID: -1062324527747036456, guid: 2c4cc486860f4844499d43b6c3a61f43, type: 2}
