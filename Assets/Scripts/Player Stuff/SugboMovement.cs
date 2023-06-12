@@ -501,7 +501,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
             // HARD CODED CHANGE THIS IF NECESSARY
             // 5 FOR CITY 1, 6 FOR CITY 2, 7 FOR CITY 3, etc.
-            if (data.sceneIndex >= 5)
+            if (data.sceneIndex >= 4 && data.sceneIndex <= 8)
             {
                 data.newGame = false;
             }
