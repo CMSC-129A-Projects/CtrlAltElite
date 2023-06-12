@@ -16539,6 +16539,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8273075762113907272, guid: c681dcd9493b6354e954be297cd9ebd2, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273075762113907272, guid: c681dcd9493b6354e954be297cd9ebd2, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
       objectReference: {fileID: 21300000, guid: cdeaa78d788f12e4db323a630b2c20b1, type: 3}
