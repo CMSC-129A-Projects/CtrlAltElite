@@ -3,9 +3,11 @@
 
 Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump King. Discover the beauty and culture of Cebu province, with stunning landscapes, exciting activities, and rich heritage. Our game showcases the hidden gems of the country, inspiring travelers to experience it for themselves. Join us on an unforgettable adventure!
 
-# Don't Mind the Spaghetti Code
+
 
 ## Installer Guide Here
+
+### Don't mind the spaghetti code if you want to look at it
 
 <!-- # Contributing
 
