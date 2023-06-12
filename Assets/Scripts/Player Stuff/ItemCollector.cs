@@ -94,8 +94,9 @@ public class ItemCollector : MonoBehaviour
     IEnumerator DisableAchievementText()
     {
         Debug.Log("DisableAchievement");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         achievementText.SetActive(false);
+        // int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
         StartCoroutine(SwitchToNextScene(0));
     }
 
