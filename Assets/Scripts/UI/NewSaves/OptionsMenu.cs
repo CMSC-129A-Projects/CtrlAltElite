@@ -30,10 +30,8 @@ public class OptionsMenu : MonoBehaviour
     Resolution[] resolutions;
     private void Start()
     {
-        InitResolution();
+        // InitResolution();
         // LoadOptions();
-        
-
     }
 
     private void Update()

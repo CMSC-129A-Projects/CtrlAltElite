@@ -2018,6 +2018,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1510613545073975614, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510613545073975614, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1510613545963445738, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_Name
       value: OptionsMenu
@@ -2105,6 +2113,22 @@ PrefabInstance:
     - target: {fileID: 1510613545963445741, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510613546882773092, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510613546882773092, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510613546882773092, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510613547080409255, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
+      propertyPath: m_IsOn
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16b79ec66d4cb7f498ac9ec62f439486, type: 3}
