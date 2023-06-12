@@ -189,10 +189,17 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        UpdateAnimation();
+        
+        
         if (inTransition) return;
+        
+        if (isDead)
+        {
+            ResetPowerUp();
+            return;
+        }
         if (!canMove) return;
-        if (isDead) return;
+        UpdateAnimation();
         #region TIMERS
         lastOnWallTime += Time.deltaTime;
         lastOnGroundTime += Time.deltaTime;
@@ -638,7 +645,22 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region POWERUPS
-
+    private void ResetPowerUp()
+    {
+        Debug.Log("ResetPowerUp()");
+        isJumpBoost = false;
+        jumpBoostTimer = 0;
+        isMoveSpeed = false;
+        moveSpeedTimer = 0;
+        canDoubleJump = false;
+        canDash = false;
+        jumpPower = defaultJumpPower;
+        runMaxSpeed = defaultMoveSpeed;
+        jumpBoostBuff.gameObject.SetActive(false);
+        speedBoostBuff.gameObject.SetActive(false);
+        doubleJumpBuff.gameObject.SetActive(false);
+        dashBuff.gameObject.SetActive(false);
+    }
     public void ActivatePowerUpBuff(int powerUp)
     {
         switch (powerUp)
