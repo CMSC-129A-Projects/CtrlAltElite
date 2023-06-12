@@ -84,7 +84,8 @@ public class NewDataPersistenceManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name != "CharacterCustomization" &&
             SceneManager.GetActiveScene().name != "TestMenuSave" &&
-            SceneManager.GetActiveScene().name != "EndingScene")
+            SceneManager.GetActiveScene().name != "EndingScene" &&
+            SceneManager.GetActiveScene().name != "NewIntroScene")
         {
             autoSaveCoroutine = StartCoroutine(AutoSave());
         }

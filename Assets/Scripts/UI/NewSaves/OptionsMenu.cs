@@ -80,7 +80,7 @@ public class OptionsMenu : MonoBehaviour
 
     public void LoadOptions()
     {
-        ActivateMenu();
+        InitActivateMenu();
 
         OptionsData loadedData = SaveSystem.LoadPlayerOptions();
         _volume = loadedData.volumePreference;

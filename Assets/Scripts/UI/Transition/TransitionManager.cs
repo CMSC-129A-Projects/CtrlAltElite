@@ -7,7 +7,6 @@ public class TransitionManager : MonoBehaviour
 {
     public static TransitionManager instance { get; private set; }
     [SerializeField] private GameObject deathTransition;
-    [SerializeField] private GameObject menuTransition;
     private Animator deathAnim;
     private bool playedMenu;
 
@@ -21,35 +20,6 @@ public class TransitionManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (menuTransition != null)
-        {
-            if (scene.name == "TestMenuSave" && !playedMenu)
-            {
-                AudioManager.instance.StopPlayingClips();
-                menuTransition.SetActive(true);
-                playedMenu = true;
-                StartCoroutine(DisableMenu());
-            }
-            else
-            {
-                menuTransition.SetActive(false);
-            }
-        }
-    }
-
-    private IEnumerator DisableMenu()
-    {
-        yield return new WaitForSeconds(1);
-        menuTransition.SetActive(false);
     }
 
     private void Start()
