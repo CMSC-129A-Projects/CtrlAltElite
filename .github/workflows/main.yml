@@ -6,6 +6,13 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
+  update_ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set GITHUB_REF
+        run: echo "GITHUB_REF=refs/heads/${{ github.sha }}" >> $GITHUB_ENV
+
+
   testRunner:
     name: Test in ${{ matrix.testMode }} ✨
     runs-on: ubuntu-latest
