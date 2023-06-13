@@ -1,28 +1,66 @@
-on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+name: Create a Release on Tag
 
-name: Create Release
+on: 
+  workflow_dispatch: {}
+  push: { tags: ['*'] }
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  build:
-    name: Create Release
+  buildAllPlatforms:
+    name: Build for ${{ matrix.targetPlatform }} 🎮
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # As specified in Unity - https://docs.unity3d.com/ScriptReference/BuildTarget.html
+        targetPlatform:
+          - StandaloneWindows64
+          - StandaloneLinux64
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - Game
-          draft: true
-          prerelease: false
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-build-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+          
+      - uses: papeloto/action-zip@v1
+        with:
+          files: build/${{ matrix.targetPlatform }}/
+          dest: ${{ matrix.targetPlatform }}.zip
+          
+      - uses: ncipollo/release-action@v1
+        with:
+          name: Release ${{ github.ref }}
+          artifacts: '*.zip'
+          bodyFile: release.md
+          tag: 2023.614.0
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
