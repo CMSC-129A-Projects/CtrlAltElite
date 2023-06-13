@@ -13,7 +13,7 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 3. Play!
 
 ### Portable Install
-1. Download the portable archive for [Windows](https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/StandaloneWindows64.zip) or [Linux](https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/StandaloneLinux64.zip).
+1. Download the portable archive for [Windows](https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/StandaloneWindows64.zip), [Linux](https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/StandaloneLinux64.zip), or [OS X[(https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/StandaloneOSX64.zip).
 2. Extract the archive with your archive manager.
 3. Open the extracted folder and run `StandaloneWindows64` or `StandaloneLinux64`.
 4. Play!
