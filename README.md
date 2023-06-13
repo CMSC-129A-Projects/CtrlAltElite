@@ -18,7 +18,7 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 3. Open the extracted folder and run `StandaloneWindows64` or `StandaloneLinux64`.
 4. Play!
 
-Note: Please ensure that you select the `Create a desktop shortcut` checkbox during the Windows installer installation process to create a shortcut on your desktop.
+Note: Please ensure that you select the `Create a desktop shortcut` checkbox during the Windows installer installation process to create a shortcut on your desktop. Also, if your computer prompts you saying the file might contain a virus, just ignore it. It's just how [Inno Setup](https://jrsoftware.org/isinfo.php) files are
 
 ## Uninstalling
 To uninstall in Windows, open the game's file location and run `unins000.exe`. There is no need to uninstall for portable installs.
