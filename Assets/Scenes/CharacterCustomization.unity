@@ -1975,7 +1975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &299150603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11097,7 +11097,7 @@ MonoBehaviour:
     your appearance?
   - That way it would be much easier to address you.
   - After introducing yourself, please proceed to the next area for the tutorial.
-  - 'You can also click on the START button if you want to skip the tutorial. '
+  - Good luck!
   contButton: {fileID: 1980512236}
   wordSpeed: 0.02
   playerIsClose: 0
