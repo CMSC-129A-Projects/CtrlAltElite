@@ -74,6 +74,7 @@ public class ItemCollector : MonoBehaviour
         if (collision.gameObject.CompareTag("StartGame"))
         {
             AudioManager.instance.PlayMedal();
+            collision.gameObject.SetActive(false);
             CharacterCreationMenu ccMenu = FindObjectOfType<CharacterCreationMenu>(true);
             ccMenu.StartGame();
         }
@@ -86,6 +87,7 @@ public class ItemCollector : MonoBehaviour
         int currentSceneIndex = NewDataPersistenceManager.instance.gameData.sceneIndex;
         NewDataPersistenceManager.instance.gameData.previousSceneIndex = currentSceneIndex;
         NewDataPersistenceManager.instance.IncrementSceneIndex();
+        
 
         SceneManager.LoadSceneAsync(currentSceneIndex + 1);
         // TransitionManager.instance.NextScene(currentSceneIndex + 1);

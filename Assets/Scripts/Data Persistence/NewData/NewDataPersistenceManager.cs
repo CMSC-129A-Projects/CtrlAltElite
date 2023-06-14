@@ -183,7 +183,16 @@ public class NewDataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData, selectedProfileId);
     }
 
-    
+    public void UpdateSpawnPoint(Vector2 position)
+    {
+        gameData.position = position;
+        gameData.respawnPoint = position;
+
+        // save that data to a file using the data handler
+        dataHandler.Save(gameData, selectedProfileId);
+    }
+
+
     public void SaveGame()
     {
         // return right away if data persistence is disabled

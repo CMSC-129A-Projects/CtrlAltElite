@@ -168,12 +168,12 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
         SetGravityScale(gravityScale);
         GameObject baseRespawn = GameObject.FindGameObjectWithTag("BaseRespawn");
+        Debug.Log($"baseRespawn {baseRespawn.transform.position}, new game {NewDataPersistenceManager.instance.gameData.newGame}");
         if (NewDataPersistenceManager.instance.gameData.newGame)
         {
             if (baseRespawn != null)
             {
-                NewDataPersistenceManager.instance.gameData.respawnPoint = baseRespawn.transform.position;
-                NewDataPersistenceManager.instance.gameData.position = baseRespawn.transform.position;
+                NewDataPersistenceManager.instance.UpdateSpawnPoint(baseRespawn.transform.position);
             }
         }
         else
@@ -650,7 +650,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region POWERUPS
     private void ResetPowerUp()
     {
-        Debug.Log("ResetPowerUp()");
+        // Debug.Log("ResetPowerUp()");
         isJumpBoost = false;
         jumpBoostTimer = 0;
         isMoveSpeed = false;
@@ -1088,6 +1088,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 AudioManager.instance.PlayFall();
                 particleManager.PlayFallParticle();
+                maxFallTimer = 0;
             }
             lastOnGroundTime = 0f;
         }
