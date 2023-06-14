@@ -2589,7 +2589,7 @@ PrefabInstance:
       objectReference: {fileID: 1120913463}
     - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: useEncryption
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5385920352577119867, guid: 9bf602190d489b245af96219ed5220a7, type: 3}
       propertyPath: autoSaveObject
