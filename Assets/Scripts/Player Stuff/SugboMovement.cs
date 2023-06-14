@@ -329,7 +329,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             {
                 if (CanWaterJump())
                 {
-                    stamina -= waterStaminaDrain * 2;
+                    stamina -= waterStaminaDrain;
                     // Jump(Vector2.up, baseJump: true);
                     WaterJump(baseJump: true);
                 }
