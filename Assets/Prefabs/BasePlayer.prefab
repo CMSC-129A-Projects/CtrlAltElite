@@ -15004,8 +15004,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.66, y: 0.92}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.56, y: 0.555}
+  m_SizeDelta: {x: 80.7544, y: 80.7544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5521672768001629807
 Canvas:
@@ -15803,12 +15803,9 @@ MonoBehaviour:
   groundLinearDrag: 15
   defaultJumpPower: 22
   jumpPower: 0
-  jumpCutPower: 0.5
   hangTimeCounter: 0.2
-  jumpHangTimeThreshold: 1
   jumpHangGravityMult: 0.2
   airLinearDrag: 6
-  fallMultiplier: 0
   wallSlidingSpeed: 2
   wallJumpingPower: {x: 32, y: 24}
   wallClimbingSpeedUp: 6
