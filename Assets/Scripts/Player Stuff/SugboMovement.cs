@@ -110,12 +110,9 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     [Header("Jump")]
     public float defaultJumpPower;
     public float jumpPower;
-    public float jumpCutPower;
     public float hangTimeCounter;
-    public float jumpHangTimeThreshold;
     [Range(0f, 1)] public float jumpHangGravityMult;
     public float airLinearDrag;
-    public float fallMultiplier;
 
     [Space]
     [Header("Wall Mechanics")]
@@ -231,6 +228,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         CollisionCheck();
         LedgeCollisionCheck();
         UpdatePowerUps();
+        WaterGravity();
 
         if (canLedgeCorrect) LedgeCorrect();
 
@@ -270,9 +268,13 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             }
             else
             {
-                if (inWater && !isGrounded)
+                if (!isGrounded)
                 {
                     return;
+                }
+                else if (inWater)
+                {
+                    GroundWaterJump(baseJump: true);
                 }
                 else
                 {
@@ -328,7 +330,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
                 if (CanWaterJump())
                 {
                     stamina -= waterStaminaDrain * 2;
-                    Jump(Vector2.up, baseJump: true);
+                    // Jump(Vector2.up, baseJump: true);
+                    WaterJump(baseJump: true);
                 }
                 if (moveInput.y < 0f)
                 {
@@ -922,6 +925,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     private void FallMultiplier()
     {
+        if (inWater) return;
+
         if (moveInput.y < 0f)
         {
             SetGravityScale(forcedFallGravityScale);
@@ -959,18 +964,55 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         }
     }
 
+    private void WaterGravity()
+    {
+        if (inWater)
+        {
+            if (isGrounded || rb.velocity.y > 0f)
+            {
+                SetGravityScale(jumpGravityScale * 2);
+            }
+            else
+            {
+                SetGravityScale(waterGravityScale);
+            }
+            
+        }
+    }
+
     #endregion
 
     #region JUMP METHODS
     private void Jump(Vector2 direction, bool baseJump)
     {
-
         AudioManager.instance.PlayJump(baseJump);
         if (!inWater) particleManager.PlayJumpParticle();
+        ApplyAirLinearDrag();
+        // rb.velocity = new Vector2(rb.velocity.x, 0f);
+        // rb.AddForce(direction * jumpPower, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        hangTimeCounter = 0f;
+        jumpBufferTimeCounter = 0f;
+        maxFallTimer = 0f;
+        isJumping = true;
+    }
 
+    private void GroundWaterJump(bool baseJump)
+    {
+        AudioManager.instance.PlayJump(baseJump);
         ApplyAirLinearDrag();
         rb.velocity = new Vector2(rb.velocity.x, 0f);
-        rb.AddForce(direction * jumpPower, ForceMode2D.Impulse);
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        hangTimeCounter = 0f;
+        jumpBufferTimeCounter = 0f;
+        maxFallTimer = 0f;
+        isJumping = true;
+    }
+    private void WaterJump(bool baseJump)
+    {
+        AudioManager.instance.PlayJump(baseJump);
+        ApplyAirLinearDrag();
+        rb.velocity = new Vector2(rb.velocity.x, jumpPower + 2);
         hangTimeCounter = 0f;
         jumpBufferTimeCounter = 0f;
         maxFallTimer = 0f;
@@ -1033,6 +1075,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         else
         {
             inWater = false;
+            // SetGravityScale(gravityScale);
         }
     }
 

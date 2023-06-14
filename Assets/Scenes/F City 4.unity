@@ -1783,6 +1783,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6817710934238085135, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.148
+      objectReference: {fileID: 0}
     - target: {fileID: 6879225082526631198, guid: 4813ba78e5ce9a643b6d684b533acbbb, type: 3}
       propertyPath: m_Name
       value: BasePlayer
@@ -17092,7 +17096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835888, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 318.05542
+      value: 318.0497
       objectReference: {fileID: 0}
     - target: {fileID: 5711917261493835888, guid: 293a3db0745cac443890d26a821feea6, type: 3}
       propertyPath: m_LocalPosition.y

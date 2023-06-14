@@ -17,6 +17,7 @@ public class Collision : MonoBehaviour
     [SerializeField] private Transform wallCheck2;
     [SerializeField] private Transform wallCheck3;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform waterCheck;
 
     public bool onGround;
     public bool onPlatform;
@@ -40,6 +41,24 @@ public class Collision : MonoBehaviour
 
         canLedge = Physics2D.OverlapCircle(ledgeCheck.position, collisionRadius, groundLayer);
 
-        inWater = Physics2D.OverlapCircle(groundCheck.position, collisionRadius, waterLayer);
+        inWater = Physics2D.OverlapCircle(waterCheck.position, collisionRadius, waterLayer);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.position, collisionRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(wallCheck.position, collisionRadius);
+        Gizmos.DrawWireSphere(wallCheck2.position, collisionRadius);
+        Gizmos.DrawWireSphere(wallCheck3.position, collisionRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(ledgeCheck.position, collisionRadius);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(waterCheck.position, collisionRadius);
+
     }
 }

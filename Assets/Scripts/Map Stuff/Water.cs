@@ -34,7 +34,10 @@ public class Water : MonoBehaviour
             inWater = true;
             player.runMaxSpeed = waterSpeed;
             player.jumpPower = waterJump;
-            player.SetGravityScale(waterGravity);
+
+            /*if (player.isJumping) player.SetGravityScale(player.jumpGravityScale);
+            else player.SetGravityScale(waterGravity);*/
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
