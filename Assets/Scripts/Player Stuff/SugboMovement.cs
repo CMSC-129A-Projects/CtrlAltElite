@@ -32,7 +32,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public static bool isDead;
     public bool inTransition;
     private bool changingDirection;
-    private enum MovementState { idling, running, jumping, doubleJumping, falling, swimming, grabbing, climbing, dying }
+    public enum MovementState { idling, running, jumping, doubleJumping, falling, swimming, grabbing, climbing, dying }
 
     [Space]
     [Header("Collision")]
