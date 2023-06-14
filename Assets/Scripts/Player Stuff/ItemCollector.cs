@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,9 +76,15 @@ public class ItemCollector : MonoBehaviour
         {
             AudioManager.instance.PlayMedal();
             collision.gameObject.SetActive(false);
-            CharacterCreationMenu ccMenu = FindObjectOfType<CharacterCreationMenu>(true);
-            ccMenu.StartGame();
+            StartCoroutine(StartGame());   
         }
+    }
+
+    IEnumerator StartGame()
+    {
+        CharacterCreationMenu ccMenu = FindObjectOfType<CharacterCreationMenu>(true);
+        yield return new WaitForSeconds(2);
+        ccMenu.StartGame();
     }
 
     IEnumerator SwitchToNextScene(float time)

@@ -53,7 +53,6 @@ public class PlayerDeath : MonoBehaviour
     }
     public void HandleDeath()
     {
-        
         Debug.Log("HandleDeath");
         animator.SetInteger("movementState", 0);
         AudioManager.instance.PlayDeath();
