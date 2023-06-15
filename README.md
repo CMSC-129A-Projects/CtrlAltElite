@@ -3,9 +3,26 @@
 
 Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump King. Discover the beauty and culture of Cebu province, with stunning landscapes, exciting activities, and rich heritage. Our game showcases the hidden gems of the country, inspiring travelers to experience it for themselves. Join us on an unforgettable adventure!
 
+Added a game launcher to install and auto update game files. The launcher can be downloaded below or through a direct download link [here](https://drive.google.com/uc?export=download&id=1UlOEIvgiuTMWLwl3b8kaTTfak2oYvBP8).
 
+# Guide on the launcher
+1) Extract all files from zip files to your folder of choice.
+2) Make sure your folder looks like this.
+![image](https://github.com/CMSC-129A-Projects/CtrlAltElite/assets/95230510/69127124-14c3-47ea-b03f-d29082280f2c)
+3) You can now delete the `Launcher` zip folder.
+4) (Optional) Create a desktop shortcut for the `Launcher.exe` and place it anywhere.
+5) Clicking on the `Launcher.exe` will check for updates and downloads them if there are any. If not, it will start installing the game.
+![image](https://github.com/CMSC-129A-Projects/CtrlAltElite/assets/95230510/b5e3110b-7f37-469e-ade3-431e4679d0c8)
+It will take a while before the game is downloaded.
+6) Once the game is downloaded, your folder should now look like this.
+![image](https://github.com/CMSC-129A-Projects/CtrlAltElite/assets/95230510/ac44c5ae-96c3-4cac-ba08-678afd504064)
+7) Play the game either directly from the `Sugbo.exe` or from your created shortcut of the `Launcher.exe`.
+8) Enjoy!
 
+# Uninstalling
+Just delete all the files where you unzipped the `Launcher` zip folder.
 
+<!--
 ## Running the Game
 ### Installing on Windows
 1. Download the [latest](https://github.com/CMSC-129A-Projects/CtrlAltElite/releases/latest/download/install.exe) Windows installer.
@@ -26,6 +43,7 @@ To uninstall in Windows, open the game's file location and run `unins000.exe`. T
 ---
 
 Don't mind the spaghetti code if you want to look at it
+-->
 
 <!-- # Contributing
 
