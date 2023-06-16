@@ -15818,7 +15818,7 @@ MonoBehaviour:
   jumpBoostIncrease: 26
   dashPower: 27
   dashTime: 0.2
-  coyoteTime: 0.1
+  coyoteTime: 1
   coyoteTimeCounter: 0
   jumpBufferTime: 0.1
   jumpBufferTimeCounter: 0

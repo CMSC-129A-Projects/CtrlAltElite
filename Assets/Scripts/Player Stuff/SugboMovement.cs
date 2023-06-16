@@ -79,31 +79,31 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     [Space(10)]
     [Header("Stamina")]
     public float stamina;
-    public float wallGrabStaminaDrain;
-    public float wallJumpStaminaDrain;
-    public float wallClimbStaminaDrain;
-    public float waterStaminaDrain;
-    public float staminaRegen;
-    public float staminaMax;
-    public float staminaMin;
+    [HideInInspector] public float wallGrabStaminaDrain;
+    [HideInInspector] public float wallJumpStaminaDrain;
+    [HideInInspector] public float wallClimbStaminaDrain;
+    [HideInInspector] public float waterStaminaDrain;
+    [HideInInspector] public float staminaRegen;
+    [HideInInspector] public float staminaMax;
+    [HideInInspector] public float staminaMin;
 
 
     [Header("Gravity")]
-    public float gravityScale;
-    public float jumpGravityScale;
-    public float fallGravityScale;
-    public float minFallGravityScale;
-    public float maxFallGravityScale;
-    public float maxFallTimer;
-    [Range(0f, 3)] public float maxFallTimerCap;
-    public float forcedFallGravityScale;
-    public float waterGravityScale;
+    [HideInInspector] public float gravityScale;
+    [HideInInspector] public float jumpGravityScale;
+    [HideInInspector] public float fallGravityScale;
+    [HideInInspector] public float minFallGravityScale;
+    [HideInInspector] public float maxFallGravityScale;
+    [HideInInspector] public float maxFallTimer;
+    [HideInInspector] [Range(0f, 3)] public float maxFallTimerCap;
+    [HideInInspector] public float forcedFallGravityScale;
+    [HideInInspector] public float waterGravityScale;
 
     [Header("Run")]
     public float defaultMoveSpeed;
     public float runMaxSpeed;
     public float runAcceleration;
-    public float groundLinearDrag;
+    [HideInInspector] public float groundLinearDrag;
 
 
     [Space]
@@ -112,15 +112,15 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     public float jumpPower;
     public float hangTimeCounter;
     [Range(0f, 1)] public float jumpHangGravityMult;
-    public float airLinearDrag;
+    [HideInInspector] public float airLinearDrag;
 
     [Space]
     [Header("Wall Mechanics")]
-    public float wallSlidingSpeed;
-    public Vector2 wallJumpingPower;
+    [HideInInspector] public float wallSlidingSpeed;
+    [HideInInspector] public Vector2 wallJumpingPower;
     // wall climb
-    [Range(0.01f, 10f)] public float wallClimbingSpeedUp;
-    [Range(0.01f, 10f)] public float wallClimbingSpeedDown;
+    [HideInInspector] [Range(0.01f, 10f)] public float wallClimbingSpeedUp;
+    [HideInInspector] [Range(0.01f, 10f)] public float wallClimbingSpeedDown;
 
     [Space]
     [Header("Power Ups")]
@@ -138,7 +138,7 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
 
     [Space]
     [Header("Assists")]
-    [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
+    [Range(0.01f, 1f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
     public float coyoteTimeCounter;
     [Range(0.01f, 0.5f)] public float jumpBufferTime; //Grace period after pressing jump where a jump will be automatically performed once the requirements (eg. being grounded) are met.
     public float jumpBufferTimeCounter;
@@ -190,11 +190,6 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
         
         if (inTransition) return;
         
-        if (isDead)
-        {
-            ResetPowerUp();
-            return;
-        }
         if (!canMove) return;
         UpdateAnimation();
         #region TIMERS
@@ -268,11 +263,11 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
             }
             else
             {
-                if (!isGrounded)
+                /*if (!isGrounded)
                 {
                     return;
-                }
-                else if (inWater)
+                }*/
+                if (inWater)
                 {
                     GroundWaterJump(baseJump: true);
                 }
@@ -648,13 +643,15 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #endregion
 
     #region POWERUPS
-    private void ResetPowerUp()
+    public void ResetPowerUp()
     {
         // Debug.Log("ResetPowerUp()");
+        lastOnGroundTime = 0f;
         isJumpBoost = false;
         jumpBoostTimer = 0;
         isMoveSpeed = false;
         moveSpeedTimer = 0;
+        moveSpeedInit = false;
         canDoubleJump = false;
         canDash = false;
         jumpPower = defaultJumpPower;
@@ -1024,7 +1021,8 @@ public class SugboMovement : MonoBehaviour, IDataPersistence
     #region CHECK METHODS
     private bool CanJump()
     {
-        return jumpBufferTimeCounter > 0f && (hangTimeCounter > 0f || isOnWall) && coyoteTimeCounter > 0f;
+        return jumpBufferTimeCounter > 0f && coyoteTimeCounter > 0f;
+        // return jumpBufferTimeCounter > 0f && (hangTimeCounter > 0f || isOnWall) && coyoteTimeCounter > 0f;
     }
 
     private bool CanWallJump()
