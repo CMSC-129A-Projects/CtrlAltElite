@@ -3,7 +3,7 @@
 
 Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump King. Discover the beauty and culture of Cebu province, with stunning landscapes, exciting activities, and rich heritage. Our game showcases the hidden gems of the country, inspiring travelers to experience it for themselves. Join us on an unforgettable adventure!
 
-Added a game launcher to install and auto update game files. The launcher can be downloaded below or through a direct download link [here](https://drive.google.com/uc?export=download&id=1UlOEIvgiuTMWLwl3b8kaTTfak2oYvBP8).
+Added a game launcher to install and auto update game files. The launcher can be downloaded below or through a direct download link [here](https://drive.google.com/uc?export=download&id=1_zrSSbN06kIeC98sNTyK7sch51j_dJRZ).
 
 # Guide on the launcher
 1) Make sure you have [.NET](https://dotnet.microsoft.com/en-us/download) installed
