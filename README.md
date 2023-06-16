@@ -6,7 +6,7 @@ Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump K
 Added a game launcher to install and auto update game files. The launcher can be downloaded below or through a direct download link [here](https://drive.google.com/uc?export=download&id=1UlOEIvgiuTMWLwl3b8kaTTfak2oYvBP8).
 
 # Guide on the launcher
-1) Make sre you have [.net](https://dotnet.microsoft.com/en-us/download) installed
+1) Make sure you have [.NET](https://dotnet.microsoft.com/en-us/download) installed
 2) Extract all files from zip files to your folder of choice.
 3) Make sure your folder looks like this.
 ![image](https://github.com/CMSC-129A-Projects/CtrlAltElite/assets/95230510/69127124-14c3-47ea-b03f-d29082280f2c)
