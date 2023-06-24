@@ -1,4 +1,9 @@
 [![Game Build Status](https://github.com/CMSC-129A-Projects/CtrlAltElite/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/CMSC-129A-Projects/CtrlAltElite/actions/workflows/main.yml)
+# Note
+I am not planning to fix the game anymore. So if you find bugs (such as instant death after respawning loop), then just restart the game.
+gomen o7
+- naix
+
 # Sugbo: A Foreigner's Tale
 
 Explore the Philippines in a tourism-themed game for CMSC129, inspired by Jump King. Discover the beauty and culture of Cebu province, with stunning landscapes, exciting activities, and rich heritage. Our game showcases the hidden gems of the country, inspiring travelers to experience it for themselves. Join us on an unforgettable adventure!
